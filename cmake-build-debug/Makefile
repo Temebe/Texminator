@@ -123,6 +123,60 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
+Scanner.o: Scanner.cpp.o
+
+.PHONY : Scanner.o
+
+# target to build an object file
+Scanner.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Scanner.cpp.o
+.PHONY : Scanner.cpp.o
+
+Scanner.i: Scanner.cpp.i
+
+.PHONY : Scanner.i
+
+# target to preprocess a source file
+Scanner.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Scanner.cpp.i
+.PHONY : Scanner.cpp.i
+
+Scanner.s: Scanner.cpp.s
+
+.PHONY : Scanner.s
+
+# target to generate assembly for a file
+Scanner.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Scanner.cpp.s
+.PHONY : Scanner.cpp.s
+
+Source.o: Source.cpp.o
+
+.PHONY : Source.o
+
+# target to build an object file
+Source.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Source.cpp.o
+.PHONY : Source.cpp.o
+
+Source.i: Source.cpp.i
+
+.PHONY : Source.i
+
+# target to preprocess a source file
+Source.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Source.cpp.i
+.PHONY : Source.cpp.i
+
+Source.s: Source.cpp.s
+
+.PHONY : Source.s
+
+# target to generate assembly for a file
+Source.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Source.cpp.s
+.PHONY : Source.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +213,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... Texminator"
 	@echo "... edit_cache"
+	@echo "... Scanner.o"
+	@echo "... Scanner.i"
+	@echo "... Scanner.s"
+	@echo "... Source.o"
+	@echo "... Source.i"
+	@echo "... Source.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/Texminator.dir/main.cpp.o  -o Texminator 
+/usr/bin/c++  -g   CMakeFiles/Texminator.dir/main.cpp.o CMakeFiles/Texminator.dir/Scanner.cpp.o CMakeFiles/Texminator.dir/Source.cpp.o  -o Texminator 

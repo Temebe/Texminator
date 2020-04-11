@@ -74,12 +74,12 @@ preinstall:
 CMakeFiles/Texminator.dir/all:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/depend
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target Texminator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target Texminator"
 .PHONY : CMakeFiles/Texminator.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Texminator.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Texminator.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Texminator.dir/rule
