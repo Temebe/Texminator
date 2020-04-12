@@ -30,8 +30,8 @@ protected:
     void setLineNumber(unsigned int lineNumber);
 
 private:
-    unsigned int lineNumber;
-    unsigned int charPos;
+    unsigned int lineNumber = 0;
+    unsigned int charPos = 0;
 };
 
 

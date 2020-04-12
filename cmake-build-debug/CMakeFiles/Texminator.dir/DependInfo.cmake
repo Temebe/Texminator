@@ -4,8 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/tromba/Projekty/Texminator/FileSource.cpp" "/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles/Texminator.dir/FileSource.cpp.o"
   "/home/tromba/Projekty/Texminator/Scanner.cpp" "/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles/Texminator.dir/Scanner.cpp.o"
   "/home/tromba/Projekty/Texminator/Source.cpp" "/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles/Texminator.dir/Source.cpp.o"
+  "/home/tromba/Projekty/Texminator/StandardSource.cpp" "/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles/Texminator.dir/StandardSource.cpp.o"
   "/home/tromba/Projekty/Texminator/main.cpp" "/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles/Texminator.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

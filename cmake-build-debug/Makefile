@@ -123,6 +123,33 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
+FileSource.o: FileSource.cpp.o
+
+.PHONY : FileSource.o
+
+# target to build an object file
+FileSource.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/FileSource.cpp.o
+.PHONY : FileSource.cpp.o
+
+FileSource.i: FileSource.cpp.i
+
+.PHONY : FileSource.i
+
+# target to preprocess a source file
+FileSource.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/FileSource.cpp.i
+.PHONY : FileSource.cpp.i
+
+FileSource.s: FileSource.cpp.s
+
+.PHONY : FileSource.s
+
+# target to generate assembly for a file
+FileSource.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/FileSource.cpp.s
+.PHONY : FileSource.cpp.s
+
 Scanner.o: Scanner.cpp.o
 
 .PHONY : Scanner.o
@@ -177,6 +204,33 @@ Source.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Source.cpp.s
 .PHONY : Source.cpp.s
 
+StandardSource.o: StandardSource.cpp.o
+
+.PHONY : StandardSource.o
+
+# target to build an object file
+StandardSource.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/StandardSource.cpp.o
+.PHONY : StandardSource.cpp.o
+
+StandardSource.i: StandardSource.cpp.i
+
+.PHONY : StandardSource.i
+
+# target to preprocess a source file
+StandardSource.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/StandardSource.cpp.i
+.PHONY : StandardSource.cpp.i
+
+StandardSource.s: StandardSource.cpp.s
+
+.PHONY : StandardSource.s
+
+# target to generate assembly for a file
+StandardSource.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/StandardSource.cpp.s
+.PHONY : StandardSource.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -213,12 +267,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... Texminator"
 	@echo "... edit_cache"
+	@echo "... FileSource.o"
+	@echo "... FileSource.i"
+	@echo "... FileSource.s"
 	@echo "... Scanner.o"
 	@echo "... Scanner.i"
 	@echo "... Scanner.s"
 	@echo "... Source.o"
 	@echo "... Source.i"
 	@echo "... Source.s"
+	@echo "... StandardSource.o"
+	@echo "... StandardSource.i"
+	@echo "... StandardSource.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
