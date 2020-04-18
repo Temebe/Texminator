@@ -1,3 +1,0 @@
-/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles/Texminator.dir
-/home/tromba/Projekty/Texminator/cmake-build-debug/CMakeFiles/edit_cache.dir
