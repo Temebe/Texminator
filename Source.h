@@ -20,19 +20,24 @@ public:
      *
      * @return Current character source is at
      */
-    virtual char getChar() = 0;
-    virtual char peek() = 0;
+    char getChar();
+    char peek();
     virtual void next() = 0;
-    unsigned int getLineNumber();
-    unsigned int getCharPos();
+    unsigned int getLineNumber() const;
+    unsigned int getCharPos() const;
 
 protected:
     void setCharPos(unsigned int charPos);
     void setLineNumber(unsigned int lineNumber);
+    void setCurrentChar(char newChar_);
+    void setNextChar(char newChar_);
 
 private:
     unsigned int lineNumber = 0;
     unsigned int charPos = 0;
+    char currentChar = 0;
+    char nextChar = 0;
+
 };
 
 

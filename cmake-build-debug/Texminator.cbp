@@ -108,6 +108,9 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/StandardSource.h">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/Token.cpp">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/Token.h">
 			<Option target="Texminator"/>
 		</Unit>

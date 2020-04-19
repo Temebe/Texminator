@@ -7,7 +7,6 @@
 class StandardSource : public Source {
 public:
     StandardSource();
-    char getChar() override;
     void next() override;
 };
 

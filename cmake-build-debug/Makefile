@@ -231,6 +231,33 @@ StandardSource.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/StandardSource.cpp.s
 .PHONY : StandardSource.cpp.s
 
+Token.o: Token.cpp.o
+
+.PHONY : Token.o
+
+# target to build an object file
+Token.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Token.cpp.o
+.PHONY : Token.cpp.o
+
+Token.i: Token.cpp.i
+
+.PHONY : Token.i
+
+# target to preprocess a source file
+Token.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Token.cpp.i
+.PHONY : Token.cpp.i
+
+Token.s: Token.cpp.s
+
+.PHONY : Token.s
+
+# target to generate assembly for a file
+Token.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Token.cpp.s
+.PHONY : Token.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -279,6 +306,9 @@ help:
 	@echo "... StandardSource.o"
 	@echo "... StandardSource.i"
 	@echo "... StandardSource.s"
+	@echo "... Token.o"
+	@echo "... Token.i"
+	@echo "... Token.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

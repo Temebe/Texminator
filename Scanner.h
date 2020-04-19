@@ -12,7 +12,7 @@ public:
     Token nextToken();
 
 private:
-    bool isKeyword(const std::string &word_);
+    static bool isKeyword(const std::string &word_);
 
     std::unique_ptr<Source> source;
 };

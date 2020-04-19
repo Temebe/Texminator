@@ -16,7 +16,6 @@ struct FileException : public std::exception {
 class FileSource : public Source {
 public:
     explicit FileSource(const std::string& fileName_);
-    char getChar() override;
     void next() override;
 
 private:
