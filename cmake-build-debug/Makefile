@@ -123,167 +123,167 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
-FileSource.o: FileSource.cpp.o
+src/FileSource.o: src/FileSource.cpp.o
 
-.PHONY : FileSource.o
-
-# target to build an object file
-FileSource.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/FileSource.cpp.o
-.PHONY : FileSource.cpp.o
-
-FileSource.i: FileSource.cpp.i
-
-.PHONY : FileSource.i
-
-# target to preprocess a source file
-FileSource.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/FileSource.cpp.i
-.PHONY : FileSource.cpp.i
-
-FileSource.s: FileSource.cpp.s
-
-.PHONY : FileSource.s
-
-# target to generate assembly for a file
-FileSource.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/FileSource.cpp.s
-.PHONY : FileSource.cpp.s
-
-Scanner.o: Scanner.cpp.o
-
-.PHONY : Scanner.o
+.PHONY : src/FileSource.o
 
 # target to build an object file
-Scanner.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Scanner.cpp.o
-.PHONY : Scanner.cpp.o
+src/FileSource.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/FileSource.cpp.o
+.PHONY : src/FileSource.cpp.o
 
-Scanner.i: Scanner.cpp.i
+src/FileSource.i: src/FileSource.cpp.i
 
-.PHONY : Scanner.i
+.PHONY : src/FileSource.i
 
 # target to preprocess a source file
-Scanner.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Scanner.cpp.i
-.PHONY : Scanner.cpp.i
+src/FileSource.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/FileSource.cpp.i
+.PHONY : src/FileSource.cpp.i
 
-Scanner.s: Scanner.cpp.s
+src/FileSource.s: src/FileSource.cpp.s
 
-.PHONY : Scanner.s
+.PHONY : src/FileSource.s
 
 # target to generate assembly for a file
-Scanner.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Scanner.cpp.s
-.PHONY : Scanner.cpp.s
+src/FileSource.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/FileSource.cpp.s
+.PHONY : src/FileSource.cpp.s
 
-Source.o: Source.cpp.o
+src/Scanner.o: src/Scanner.cpp.o
 
-.PHONY : Source.o
+.PHONY : src/Scanner.o
 
 # target to build an object file
-Source.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Source.cpp.o
-.PHONY : Source.cpp.o
+src/Scanner.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scanner.cpp.o
+.PHONY : src/Scanner.cpp.o
 
-Source.i: Source.cpp.i
+src/Scanner.i: src/Scanner.cpp.i
 
-.PHONY : Source.i
+.PHONY : src/Scanner.i
 
 # target to preprocess a source file
-Source.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Source.cpp.i
-.PHONY : Source.cpp.i
+src/Scanner.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scanner.cpp.i
+.PHONY : src/Scanner.cpp.i
 
-Source.s: Source.cpp.s
+src/Scanner.s: src/Scanner.cpp.s
 
-.PHONY : Source.s
+.PHONY : src/Scanner.s
 
 # target to generate assembly for a file
-Source.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Source.cpp.s
-.PHONY : Source.cpp.s
+src/Scanner.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scanner.cpp.s
+.PHONY : src/Scanner.cpp.s
 
-StandardSource.o: StandardSource.cpp.o
+src/Source.o: src/Source.cpp.o
 
-.PHONY : StandardSource.o
+.PHONY : src/Source.o
 
 # target to build an object file
-StandardSource.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/StandardSource.cpp.o
-.PHONY : StandardSource.cpp.o
+src/Source.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Source.cpp.o
+.PHONY : src/Source.cpp.o
 
-StandardSource.i: StandardSource.cpp.i
+src/Source.i: src/Source.cpp.i
 
-.PHONY : StandardSource.i
+.PHONY : src/Source.i
 
 # target to preprocess a source file
-StandardSource.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/StandardSource.cpp.i
-.PHONY : StandardSource.cpp.i
+src/Source.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Source.cpp.i
+.PHONY : src/Source.cpp.i
 
-StandardSource.s: StandardSource.cpp.s
+src/Source.s: src/Source.cpp.s
 
-.PHONY : StandardSource.s
+.PHONY : src/Source.s
 
 # target to generate assembly for a file
-StandardSource.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/StandardSource.cpp.s
-.PHONY : StandardSource.cpp.s
+src/Source.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Source.cpp.s
+.PHONY : src/Source.cpp.s
 
-Token.o: Token.cpp.o
+src/StandardSource.o: src/StandardSource.cpp.o
 
-.PHONY : Token.o
+.PHONY : src/StandardSource.o
 
 # target to build an object file
-Token.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Token.cpp.o
-.PHONY : Token.cpp.o
+src/StandardSource.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/StandardSource.cpp.o
+.PHONY : src/StandardSource.cpp.o
 
-Token.i: Token.cpp.i
+src/StandardSource.i: src/StandardSource.cpp.i
 
-.PHONY : Token.i
+.PHONY : src/StandardSource.i
 
 # target to preprocess a source file
-Token.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Token.cpp.i
-.PHONY : Token.cpp.i
+src/StandardSource.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/StandardSource.cpp.i
+.PHONY : src/StandardSource.cpp.i
 
-Token.s: Token.cpp.s
+src/StandardSource.s: src/StandardSource.cpp.s
 
-.PHONY : Token.s
+.PHONY : src/StandardSource.s
 
 # target to generate assembly for a file
-Token.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Token.cpp.s
-.PHONY : Token.cpp.s
+src/StandardSource.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/StandardSource.cpp.s
+.PHONY : src/StandardSource.cpp.s
 
-main.o: main.cpp.o
+src/Token.o: src/Token.cpp.o
 
-.PHONY : main.o
+.PHONY : src/Token.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/Token.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Token.cpp.o
+.PHONY : src/Token.cpp.o
 
-main.i: main.cpp.i
+src/Token.i: src/Token.cpp.i
 
-.PHONY : main.i
+.PHONY : src/Token.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/Token.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Token.cpp.i
+.PHONY : src/Token.cpp.i
 
-main.s: main.cpp.s
+src/Token.s: src/Token.cpp.s
 
-.PHONY : main.s
+.PHONY : src/Token.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/Token.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Token.cpp.s
+.PHONY : src/Token.cpp.s
+
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -294,24 +294,24 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Texminator"
-	@echo "... FileSource.o"
-	@echo "... FileSource.i"
-	@echo "... FileSource.s"
-	@echo "... Scanner.o"
-	@echo "... Scanner.i"
-	@echo "... Scanner.s"
-	@echo "... Source.o"
-	@echo "... Source.i"
-	@echo "... Source.s"
-	@echo "... StandardSource.o"
-	@echo "... StandardSource.i"
-	@echo "... StandardSource.s"
-	@echo "... Token.o"
-	@echo "... Token.i"
-	@echo "... Token.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... src/FileSource.o"
+	@echo "... src/FileSource.i"
+	@echo "... src/FileSource.s"
+	@echo "... src/Scanner.o"
+	@echo "... src/Scanner.i"
+	@echo "... src/Scanner.s"
+	@echo "... src/Source.o"
+	@echo "... src/Source.i"
+	@echo "... src/Source.s"
+	@echo "... src/StandardSource.o"
+	@echo "... src/StandardSource.i"
+	@echo "... src/StandardSource.s"
+	@echo "... src/Token.o"
+	@echo "... src/Token.i"
+	@echo "... src/Token.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

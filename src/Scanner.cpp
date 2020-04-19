@@ -1,5 +1,5 @@
 #include <unordered_set>
-#include "Scanner.h"
+#include "../include/Scanner.h"
 
 // TODO Maximum length of a token
 

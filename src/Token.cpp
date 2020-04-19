@@ -1,4 +1,4 @@
-#include "Token.h"
+#include "../include/Token.h"
 
 const std::map<TokenType, const char*> Token::typeMap = {
         { identifier, "identifier" },

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "FileSource.h"
+#include "../include/FileSource.h"
 
 // TODO Should file be opened this long?
 FileSource::FileSource(const std::string& fileName_) {

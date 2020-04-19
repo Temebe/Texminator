@@ -84,37 +84,37 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/tromba/Projekty/Texminator/FileSource.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/FileSource.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/FileSource.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/Scanner.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/Scanner.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/Source.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/Scanner.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/StandardSource.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/Source.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/Token.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/Source.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/src/FileSource.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/StandardSource.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/src/Scanner.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/StandardSource.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/src/Source.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/Token.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/src/StandardSource.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/Token.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/src/Token.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/main.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/src/main.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/CMakeLists.txt">
