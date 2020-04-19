@@ -27,7 +27,7 @@ enum TokenType {
     /** Comparison operators */
     eqOperator, /** equal            == */
     neOperator, /** not equal        != */
-    ltOperaotr, /** less             <  */
+    ltOperator, /** less             <  */
     leOperator, /** less or equal    <= */
     gtOperator, /** greater          >  */
     geOperator, /** greater or equal >= */
@@ -71,15 +71,20 @@ enum TokenType {
 // TODO Maybe make Token class, not a struct?
 struct Token {
 
-    TokenType type;
     std::string value;
-    unsigned int line; /** Line in which token is */
-    unsigned int pos;  /** Position in line */
+    TokenType type = unknown;
+    unsigned int line = 0; /** Line in which token is */
+    unsigned int pos = 0;  /** Position in line */
 
     static const std::map<TokenType, const char*> typeMap;
 
-    std::string toString() {};
+    [[nodiscard]] const char* toString() const {
+        return typeMap.at(type);
+    };
 
+    static const char* toString(const TokenType type_) {
+        return typeMap.at(type_);
+    }
 };
 
 const std::map<TokenType, const char*> Token::typeMap = {
@@ -87,26 +92,26 @@ const std::map<TokenType, const char*> Token::typeMap = {
         { keyword, "keyword" },
 
         { numericLiteral, "numeric literal" },
-        { stringLiteral, "string literal" },
+        {stringLiteral,     "string literal" },
 
-        { addOperator, "addition operator" },
-        { subOperator, "subtraction operator" },
-        { mulOperator, "multiplication operator" },
-        { divOperator, "division operator" },
-        { modOperator, "modulus operator " },
+        {addOperator,       "addition operator" },
+        {subOperator,       "subtraction operator" },
+        {mulOperator,       "multiplication operator" },
+        {divOperator,       "division operator" },
+        {modOperator,       "modulus operator " },
 
-        { eqOperator, "comparision (equal) operator" },
-        { neOperator, "comparision (not equal) operator" },
-        { ltOperaotr, "comparision (less than) operator" },
-        { leOperator, "comparision (less or equal than) operator" },
-        { gtOperator, "comparision (greater than) operator" },
-        { geOperator, "comparision (greater or equal than) operator" },
+        {eqOperator,        "comparision (equal) operator" },
+        {neOperator,        "comparision (not equal) operator" },
+        {ltOperator,        "comparision (less than) operator" },
+        {leOperator,        "comparision (less or equal than) operator" },
+        {gtOperator,        "comparision (greater than) operator" },
+        {geOperator,        "comparision (greater or equal than) operator" },
 
-        { assignOperator, "assignment operator" },
-        { addAssignOperator, "addition assignment operator" },
-        { subAssignOperator, "subtraction assignment operator" },
-        { divAssignOperator, "multiplication assignment operator" },
-        { mulAssignOperator, "division assignment operator" },
+        {assignOperator,    "assignment operator" },
+        {addAssignOperator, "addition assignment operator" },
+        {subAssignOperator, "subtraction assignment operator" },
+        {divAssignOperator, "multiplication assignment operator" },
+        {mulAssignOperator, "division assignment operator" },
 
         { andOperator, "logical AND operator" },
         { orOperator, "logical OR operator" },
@@ -127,7 +132,7 @@ const std::map<TokenType, const char*> Token::typeMap = {
         { colon, "colon" },
         { semicolon, "semicolon" },
         { comma, "comma" },
-        
+
         { fileEnd, "end of file" },
         { unknown, "unknown" }
 };

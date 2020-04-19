@@ -21,6 +21,7 @@ public:
      * @return Current character source is at
      */
     virtual char getChar() = 0;
+    virtual char peek() = 0;
     virtual void next() = 0;
     unsigned int getLineNumber();
     unsigned int getCharPos();
