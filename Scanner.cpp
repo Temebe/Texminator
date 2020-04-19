@@ -5,6 +5,17 @@
 
 Scanner::Scanner(std::unique_ptr<Source> source) {
     this->source = std::move(source);
+
+    checkFunctions.emplace_back(&Scanner::checkIfPunctuator);
+    checkFunctions.emplace_back(&Scanner::checkIfArithmeticOperator);
+    checkFunctions.emplace_back(&Scanner::checkIfComparisonOperator);
+    checkFunctions.emplace_back(&Scanner::checkIfAssignmentOperator);
+    checkFunctions.emplace_back(&Scanner::checkIfLogicalOperator);
+    checkFunctions.emplace_back(&Scanner::checkIfFileOperator);
+    checkFunctions.emplace_back(&Scanner::checkIfNumericLiteral);
+    checkFunctions.emplace_back(&Scanner::checkIfStringLiteral);
+    checkFunctions.emplace_back(&Scanner::checkIfIdentifierOrKeyword);
+    checkFunctions.emplace_back(&Scanner::checkIfComment);
 }
 
 Token Scanner::nextToken() {
@@ -26,22 +37,15 @@ Token Scanner::nextToken() {
         return newToken;
     }
 
-    if (checkIfPunctuator(newToken)
-        || checkIfArithmeticOperator(newToken)
-        || checkIfComparisonOperator(newToken)
-        || checkIfAssignmentOperator(newToken)
-        || checkIfLogicalOperator(newToken)
-        || checkIfFileOperator(newToken)
-        || checkIfNumericLiteral(newToken)
-        || checkIfStringLiteral(newToken)
-        || checkIfIdentifierOrKeyword(newToken)
-        || checkIfComment(newToken)) {
-        source->goNext(); // move to character that does not belong to this token
-        return newToken;
+    // Do every check function until one of them succeed
+    for (const auto& function : checkFunctions) {
+        if (function(*this, newToken)) {
+            source->goNext();
+            break;
+        }
     }
 
-
-    return Token();
+    return newToken;
 }
 
 // TODO newline as variable or keyword?
@@ -108,10 +112,6 @@ bool Scanner::checkIfPunctuator(Token &token_) {
 
 bool Scanner::checkIfArithmeticOperator(Token &token_) {
     switch (source->getChar()) {
-//        case '+':
-//            token_.type = addOperator;
-//            return true;
-
         case '-':
             if (source->peek() == '>' || source->peek() == '=') {
                 return false;

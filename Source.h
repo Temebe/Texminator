@@ -5,7 +5,7 @@
  *
  * Source class is responsible for delivering characters from code. Since code could be either from a standard input
  * or a file (at least for now) Source as a class has to deliver some layer of abstraction which it does with
- * getChar() (reading character) and next() (moving to next character) methods. It also provides an
+ * getChar() (reading character), peek() (reading one character ahead) and goNext() (moving to next character) methods.
  */
 
 #ifndef TEXMINATOR_SOURCE_H
@@ -15,11 +15,6 @@
 
 class Source {
 public:
-    /**
-     *
-     *
-     * @return Current character source is at
-     */
     char getChar();
     char peek();
     virtual void goNext() = 0;
