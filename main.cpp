@@ -21,5 +21,20 @@ int main(int argc, char *argv[]) {
     }
 
     Scanner scanner(std::move(source));
+    Token token = scanner.nextToken();
+    unsigned int line = 0;
+
+    while (token.type != unknown && token.type != fileEnd) {
+        while (token.line != line) {
+            std::cout << std::endl;
+            ++line;
+        }
+        std::cout << token.toString() << "(" << token.line << ":" << token.pos << ") ";
+        token = scanner.nextToken();
+    }
+
+    if (token.type == unknown) {
+        std::cout << "Texminator encountered token it does not understand!" << std::endl;
+    }
     return 0;
 }

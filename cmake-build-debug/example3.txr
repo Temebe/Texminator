@@ -1,18 +1,18 @@
-fun calculate_characters(string line) ret unsigned number {
+fun calculate_characters(string line_) ret unsigned number {
 	unsigned number some_variable = 0;
-	for char in line: {
-		some_variable += 1
+	for char _ in line_: {
+		some_variable += 1;
 	}
 	return some_variable;
 }
 
-open to write file.txt // without "as" keyword file.txt will be known just as file.txt
+open to write file.txt; // without "as" keyword file.txt will be known just as file.txt
 
 // Different some_variable than in function above!
 unsigned number some_variable = 0;
 
-for line in file.txt: {
-	stdout -> "line: {}, characters: {}".(some_variable, calculate_characters(line));
+for line line_ in file.txt: {
+	stdout -> "line: {}, characters: {}".(some_variable, calculate_characters(line_));
 	stdout -> newline;
 	some_variable += 1;
 }

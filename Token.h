@@ -14,7 +14,7 @@ enum TokenType {
     stringLiteral,  /** Any string in brackets  */
 
     /** Arithmetic operators */
-    addOperator, /** Addition       + */
+    //addOperator, /** Addition       + */
     subOperator, /** Subtraction    - */
     mulOperator, /** Multiplication * */
     divOperator, /** Division       / */
@@ -46,7 +46,7 @@ enum TokenType {
     readLineRightOperator, /**  ]]  */
     readCharLeftOperator,  /**  ]   */
     readCharRightOperator, /**  ]   */
-    nextCharOperator,      /**  +   */
+    //nextCharOperator,      /**  +   */
     nextLineOperator,      /**  ++  */
 
     /** Punctuators */
@@ -56,9 +56,12 @@ enum TokenType {
     rightRoundBracket, /**  (  */
     colon,             /**  :  */
     semicolon,         /**  ;  */
+    dot,               /**  .  */
     comma,             /**  ,  */
+    plus,              /**  +  */
 
     /** Miscellaneous */
+    comment,    /** Any text after symbol //, tokenized so may be later used for i. e. automatic code generation */
     fileEnd,    /** Not really a token, just an information that file has ended and there is no "next token" */
     unknown     /** Scanner received token which he does not understand */
 

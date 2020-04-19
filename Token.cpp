@@ -5,13 +5,13 @@ const std::map<TokenType, const char*> Token::typeMap = {
         { keyword, "keyword" },
 
         { numericLiteral, "numeric literal" },
-        {stringLiteral,     "string literal" },
+        { stringLiteral,     "string literal" },
 
-        {addOperator,       "addition operator" },
+        //{addOperator,       "addition operator" },
         {subOperator,       "subtraction operator" },
         {mulOperator,       "multiplication operator" },
         {divOperator,       "division operator" },
-        {modOperator,       "modulus operator " },
+        {modOperator,       "modulus operator" },
 
         {eqOperator,        "comparision (equal) operator" },
         {neOperator,        "comparision (not equal) operator" },
@@ -31,21 +31,24 @@ const std::map<TokenType, const char*> Token::typeMap = {
         { notOperator, "logical NOT operator" },
 
         { writeOperator, "write operator (->)" },
-        { readLineLeftOperator, "left \"read line\" operator [[" },
-        { readLineRightOperator, "right \"read line\" operator ]]" },
-        { readCharLeftOperator, "left \"read character\" operator [" },
-        { readCharRightOperator, "right \"read character\" operator ]" },
-        { nextCharOperator, "next character operator +" },
+        { readLineLeftOperator, "left \"read line\" operator" },
+        { readLineRightOperator, "right \"read line\" operator" },
+        { readCharLeftOperator, "left \"read character\" operator" },
+        { readCharRightOperator, "right \"read character\" operator" },
+        //{ nextCharOperator, "next character operator +" },
         { nextLineOperator, "next line operator ++" },
 
-        { leftCurlyBracket, "left curly bracket {" },
-        { rightCurlyBracket, "right curly bracket }" },
-        { leftRoundBracket, "left round bracket (" },
-        { rightRoundBracket, "right round bracket )" },
+        { leftCurlyBracket, "left curly bracket" },
+        { rightCurlyBracket, "right curly bracket" },
+        { leftRoundBracket, "left round bracket" },
+        { rightRoundBracket, "right round bracket" },
         { colon, "colon" },
         { semicolon, "semicolon" },
+        { dot, "dot" },
         { comma, "comma" },
+        { plus, "plus" },
 
+        { comment, "comment" },
         { fileEnd, "end of file" },
         { unknown, "unknown" }
 };

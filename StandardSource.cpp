@@ -4,6 +4,6 @@ StandardSource::StandardSource() {
 
 }
 
-void StandardSource::next() {
+void StandardSource::goNext() {
 
 }

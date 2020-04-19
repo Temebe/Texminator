@@ -22,7 +22,7 @@ public:
      */
     char getChar();
     char peek();
-    virtual void next() = 0;
+    virtual void goNext() = 0;
     unsigned int getLineNumber() const;
     unsigned int getCharPos() const;
 

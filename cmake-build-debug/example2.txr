@@ -1,14 +1,14 @@
-open to read arg(1) as polish_text
+open to read arg(1) as polish_text;
 
 if (arg_count >= 3) {
-	open to write arg(2) as output
+	open to write arg(2) as output;
 } else {
 	use stdout as output;
 }
 
 number polish_count = 0;
-for char in polish_text: {
-	new_char = char;
+for char char_ in polish_text: {
+	new_char = char_;
 
 	// Find out if character is one of polish specific characters
 	match new_char:

@@ -7,7 +7,7 @@
 class StandardSource : public Source {
 public:
     StandardSource();
-    void next() override;
+    void goNext() override;
 };
 
 
