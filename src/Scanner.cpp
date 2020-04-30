@@ -319,6 +319,12 @@ bool Scanner::checkIfStringLiteral(Token &token_) {
 
     // collect characters to string to the final " (but continue if it's escaped \")
     while (source->peek() != '\"' || source->getChar() == '\\') {
+        // if closing character was not found but eof or new line instead, then token is incorrect
+        if (source->peek() == '\n' || source->peek() == std::char_traits<char>::eof()) {
+            token_.type = unknown;
+            return true;
+        }
+
         token_.value += source->peek();
         source->goNext();
     }
