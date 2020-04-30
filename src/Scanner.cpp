@@ -6,20 +6,20 @@
 Scanner::Scanner(std::unique_ptr<Source> source) {
     this->source = std::move(source);
 
-    checkFunctions.emplace_back(&Scanner::checkIfPunctuator);
-    checkFunctions.emplace_back(&Scanner::checkIfArithmeticOperator);
-    checkFunctions.emplace_back(&Scanner::checkIfComparisonOperator);
-    checkFunctions.emplace_back(&Scanner::checkIfAssignmentOperator);
-    checkFunctions.emplace_back(&Scanner::checkIfLogicalOperator);
-    checkFunctions.emplace_back(&Scanner::checkIfFileOperator);
-    checkFunctions.emplace_back(&Scanner::checkIfNumericLiteral);
-    checkFunctions.emplace_back(&Scanner::checkIfStringLiteral);
-    checkFunctions.emplace_back(&Scanner::checkIfIdentifierOrKeyword);
-    checkFunctions.emplace_back(&Scanner::checkIfComment);
+    createTokenFunctions.emplace_back(&Scanner::createPunctuatorToken);
+    createTokenFunctions.emplace_back(&Scanner::createArithmeticOperatorToken);
+    createTokenFunctions.emplace_back(&Scanner::createComparisonOperatorToken);
+    createTokenFunctions.emplace_back(&Scanner::createAssignmentOperatorToken);
+    createTokenFunctions.emplace_back(&Scanner::createLogicalOperatorToken);
+    createTokenFunctions.emplace_back(&Scanner::createFileOperatorToken);
+    createTokenFunctions.emplace_back(&Scanner::createNumericLiteralToken);
+    createTokenFunctions.emplace_back(&Scanner::createStringLiteralToken);
+    createTokenFunctions.emplace_back(&Scanner::createIdentifierOrKeywordToken);
+    createTokenFunctions.emplace_back(&Scanner::createCommentToken);
 }
 
 Token Scanner::nextToken() {
-    Token newToken;
+    std::optional<Token> newToken;
     char currentChar = source->getChar();
 
     // First get rid of white spaces
@@ -28,24 +28,32 @@ Token Scanner::nextToken() {
         currentChar = source->getChar();
     }
 
-    newToken.line = source->getLineNumber();
-    newToken.pos = source->getCharPos();
-    newToken.value = currentChar;
+    unsigned int line = source->getLineNumber();
+    unsigned int pos = source->getCharPos();
+    //newToken.value = currentChar;
 
     if (currentChar == std::char_traits<char>::eof()) { // TODO use goNext or not? Move to function or not?
-        newToken.type = TokenType::fileEnd;
-        return newToken;
+        newToken.emplace();
+        newToken->type = TokenType::fileEnd;
+        return newToken.value();
     }
 
-    // Do every check function until one of them succeed
-    for (const auto& function : checkFunctions) {
-        if (function(*this, newToken)) {
+    // Do every create token function until one of them succeed
+    for (const auto& function : createTokenFunctions) {
+        newToken = function(*this);
+        if (newToken) {
             source->goNext();
             break;
         }
     }
 
-    return newToken;
+    if (!newToken) { // no function could assign a valid token
+        newToken.emplace(); // create default token which is of unknown type
+    }
+    newToken->pos = pos;
+    newToken->line = line;
+
+    return newToken.value();
 }
 
 // TODO newline as variable or keyword?
@@ -64,301 +72,331 @@ bool Scanner::isKeyword(const std::string &word_) {
     return keywordSet.find(word_) != keywordSet.end();
 }
 
-bool Scanner::checkIfPunctuator(Token &token_) {
+std::optional<Token> Scanner::createPunctuatorToken() {
+    Token token;
+    token.value = source->getChar();
+
     switch (source->getChar()) {
         case '{':
-            token_.type = leftCurlyBracket;
-            return true;
+            token.type = leftCurlyBracket;
+            return std::optional<Token>(token);
 
         case '}':
-            token_.type = rightCurlyBracket;
-            return true;
+            token.type = rightCurlyBracket;
+            return std::optional<Token>(token);
 
         case '(':
-            token_.type = leftRoundBracket;
-            return true;
+            token.type = leftRoundBracket;
+            return std::optional<Token>(token);
 
         case ')':
-            token_.type = rightRoundBracket;
-            return true;
+            token.type = rightRoundBracket;
+            return std::optional<Token>(token);
 
         case ':':
-            token_.type = colon;
-            return true;
+            token.type = colon;
+            return std::optional<Token>(token);
 
         case ';':
-            token_.type = semicolon;
-            return true;
+            token.type = semicolon;
+            return std::optional<Token>(token);
 
         case ',':
-            token_.type = comma;
-            return true;
+            token.type = comma;
+            return std::optional<Token>(token);
 
         case '.':
-            token_.type = dot;
-            return true;
+            token.type = dot;
+            return std::optional<Token>(token);
 
         case '+':
             if (source->peek() == '+' || source->peek() == '=') {
-                return false;
+                return std::optional<Token>();
             }
-            token_.type = plus;
-            return true;
+            token.type = plus;
+            return std::optional<Token>(token);
 
         default:
-            return false;
+            return std::optional<Token>();
     }
 }
 
-bool Scanner::checkIfArithmeticOperator(Token &token_) {
+std::optional<Token> Scanner::createArithmeticOperatorToken() {
+    Token token;
+    token.value = source->getChar();
+
     switch (source->getChar()) {
         case '-':
             if (source->peek() == '>' || source->peek() == '=') {
-                return false;
+                return std::optional<Token>();
             }
-            token_.type = subOperator;
-            return true;
+            token.type = subOperator;
+            return std::optional<Token>(token);
 
         case '*':
             if (source->peek() == '=') {
-                return false;
+                return std::optional<Token>();
             }
-            token_.type = mulOperator;
-            return true;
+            token.type = mulOperator;
+            return std::optional<Token>(token);
 
         case '/':
             if (source->peek() == '/' || source->peek() == '=') {
-                return false;
+                return std::optional<Token>();
             }
-            token_.type = divOperator;
-            return true;
+            token.type = divOperator;
+            return std::optional<Token>(token);
 
         case '%':
-            token_.type = modOperator;
-            return true;
+            token.type = modOperator;
+            return std::optional<Token>(token);
 
         default:
-            return false;
+            return std::optional<Token>();
     }
 }
 
-bool Scanner::checkIfComparisonOperator(Token &token_) {
+std::optional<Token> Scanner::createComparisonOperatorToken() {
+    Token token;
+    token.value = source->getChar();
+
     switch (source->getChar()) {
         case '=':
             if (source->peek() == '=') { // ==
-                token_.value += source->peek();
-                token_.type = eqOperator;
+                token.value += source->peek();
+                token.type = eqOperator;
                 source->goNext();
-                return true;
+                return std::optional<Token>(token);
             }
-            return false;
+            return std::optional<Token>();
 
         case '!':
             if (source->peek() == '=') { // !=
-                token_.value += source->peek();
-                token_.type = neOperator;
+                token.value += source->peek();
+                token.type = neOperator;
                 source->goNext();
-                return true;
+                return std::optional<Token>(token);
             }
-            return false;
+            return std::optional<Token>();
 
         case '<':
             if (source->peek() == '=') { // <=
-                token_.value += source->peek();
-                token_.type = leOperator;
+                token.value += source->peek();
+                token.type = leOperator;
                 source->goNext();
             } else {
-                token_.type = ltOperator;
+                token.type = ltOperator;
             }
-            return true;
+            return std::optional<Token>(token);
 
         case '>':
             if (source->peek() == '=') { // >=
-                token_.value += source->peek();
-                token_.type = geOperator;
+                token.value += source->peek();
+                token.type = geOperator;
                 source->goNext();
             } else {
-                token_.type = gtOperator;
+                token.type = gtOperator;
             }
-            return true;
+            return std::optional<Token>(token);
 
         default:
-            return false;
+            return std::optional<Token>();
     }
 }
 
-bool Scanner::checkIfAssignmentOperator(Token &token_) {
+std::optional<Token> Scanner::createAssignmentOperatorToken() {
+    Token token;
+    token.value = source->getChar();
+
     if (source->getChar() == '=' && source->peek() != '=') {
-        token_.type = assignOperator;
-        return true;
+        token.type = assignOperator;
+        return std::optional<Token>(token);
     }
 
     if (source->peek() != '=') {
-        return false;
+        return std::optional<Token>();
     }
 
     switch (source->getChar()) {
         case '+':
-            token_.type = addAssignOperator;
+            token.type = addAssignOperator;
             break;
 
         case '-':
-            token_.type = subAssignOperator;
+            token.type = subAssignOperator;
             break;
 
         case '*':
-            token_.type = mulAssignOperator;
+            token.type = mulAssignOperator;
             break;
 
         case '/':
-            token_.type = divAssignOperator;
+            token.type = divAssignOperator;
             break;
     }
 
-    if (token_.type != TokenType::unknown) {
-        token_.value += source->peek();
+    if (token.type != TokenType::unknown) {
+        token.value += source->peek();
         source->goNext();
-        return true;
+        return std::optional<Token>(token);
     }
-    return false;
+    return std::optional<Token>();
 }
 
 // TODO Get rid of copy paste code
-bool Scanner::checkIfLogicalOperator(Token &token_) {
+std::optional<Token> Scanner::createLogicalOperatorToken() {
+    Token token;
+    token.value = source->getChar();
+
     if (source->getChar() == '&' && source->peek() == '&') { // AND operator
-        token_.type = andOperator;
-        token_.value += source->peek();
+        token.type = andOperator;
+        token.value += source->peek();
         source->goNext();
-        return true;
+        return std::optional<Token>(token);
     }
 
     else if (source->getChar() == '|' && source->peek() == '|') { // OR operator
-        token_.type = orOperator;
-        token_.value += source->peek();
+        token.type = orOperator;
+        token.value += source->peek();
         source->goNext();
-        return true;
+        return std::optional<Token>(token);
     }
 
     else if (source->getChar() == '!' && source->peek() != '=') { // NOT operator
-        token_.type = notOperator;
-        token_.value += source->peek();
+        token.type = notOperator;
+        token.value += source->peek();
         source->goNext();
-        return true;
+        return std::optional<Token>(token);
     }
 
-    return false;
+    return std::optional<Token>();
 }
 
-bool Scanner::checkIfFileOperator(Token &token_) {
+std::optional<Token> Scanner::createFileOperatorToken() {
+    Token token;
+    token.value = source->getChar();
+
     switch (source->getChar()) {
         case '-':
             if (source->peek() == '>') { // ->
-                token_.type = writeOperator;
-                token_.value += source->peek();
+                token.type = writeOperator;
+                token.value += source->peek();
                 source->goNext();
-                return true;
+                return std::optional<Token>(token);
             }
-            return false;
+            return std::optional<Token>();
 
         case '+':
             if (source->peek() == '+') { // ++
-                token_.type = nextLineOperator;
-                token_.value += source->peek();
+                token.type = nextLineOperator;
+                token.value += source->peek();
                 source->goNext();
-                return true;
+                return std::optional<Token>(token);
             }
-            return false;
+            return std::optional<Token>();
 
         case '[':
             if (source->peek() == '[') { // [[
-                token_.type = readLineLeftOperator;
-                token_.value += source->peek();
+                token.type = readLineLeftOperator;
+                token.value += source->peek();
                 source->goNext();
             } else {
-                token_.type = readCharLeftOperator;
+                token.type = readCharLeftOperator;
             }
-            return true;
+            return std::optional<Token>(token);
 
         case ']':
             if (source->peek() == ']') { // ]]
-                token_.value += source->peek();
-                token_.type = readLineRightOperator;
+                token.value += source->peek();
+                token.type = readLineRightOperator;
                 source->goNext();
             } else {
-                token_.type = readLineRightOperator;
+                token.type = readLineRightOperator;
             }
-            return true;
+            return std::optional<Token>(token);
 
         default:
-            return false;
+            return std::optional<Token>();
     }
 }
 
-bool Scanner::checkIfNumericLiteral(Token &token_) {
+std::optional<Token> Scanner::createNumericLiteralToken() {
+    Token token;
+    token.value = source->getChar();
+
     if (!isdigit(source->getChar())) {
-        return false;
+        return std::optional<Token>();
     }
     if (source->getChar() == '0' && isdigit(source->peek()) ) {
-        return false;
+        return std::optional<Token>();
     }
 
-    token_.type = numericLiteral;
+    token.type = numericLiteral;
     while (isdigit(source->peek())) {
-        token_.value += source->peek();
+        token.value += source->peek();
         source->goNext();
     }
 
-    return true;
+    return std::optional<Token>(token);
 }
 
-bool Scanner::checkIfStringLiteral(Token &token_) {
+std::optional<Token> Scanner::createStringLiteralToken() {
+    Token token;
+    token.value = source->getChar();
+
     if (source->getChar() != '\"') {
-        return false;
+        return std::optional<Token>();
     }
-    token_.type = stringLiteral;
+    token.type = stringLiteral;
 
     // collect characters to string to the final " (but continue if it's escaped \")
     while (source->peek() != '\"' || source->getChar() == '\\') {
         // if closing character was not found but eof or new line instead, then token is incorrect
         if (source->peek() == '\n' || source->peek() == std::char_traits<char>::eof()) {
-            token_.type = unknown;
-            return true;
+            token.type = unknown;
+            return std::optional<Token>(token);
         }
 
-        token_.value += source->peek();
+        token.value += source->peek();
         source->goNext();
     }
 
     // Since we stopped right before " character, add this one too before returning
-    token_.value += source->peek();
+    token.value += source->peek();
     source->goNext();
-    return true;
+    return std::optional<Token>(token);
 }
 
-bool Scanner::checkIfIdentifierOrKeyword(Token &token_) {
+std::optional<Token> Scanner::createIdentifierOrKeywordToken() {
+    Token token;
+    token.value = source->getChar();
+
     if (!isalpha(source->getChar()) && source->getChar() != '_') {
-        return false;
+        return std::optional<Token>();
     }
 
     while (isalnum(source->peek()) || source->peek() == '_' || source->peek() == '.') {
-        token_.value += source->peek();
+        token.value += source->peek();
         source->goNext();
     }
 
-    if (isKeyword(token_.value)) {
-        token_.type = keyword;
+    if (isKeyword(token.value)) {
+        token.type = keyword;
     } else {
-        token_.type = identifier;
+        token.type = identifier;
     }
 
-    return true;
+    return std::optional<Token>(token);
 }
 
-bool Scanner::checkIfComment(Token &token_) {
+std::optional<Token> Scanner::createCommentToken() {
+    Token token;
+    token.value = source->getChar();
+
     if (source->getChar() != '/' || source->peek() != '/') {
-        return false;
+        return std::optional<Token>();
     }
-    token_.type = comment;
+    token.type = comment;
 
     // move source to the next line or to end of file
     unsigned int currentLine = source->getLineNumber();
@@ -366,5 +404,5 @@ bool Scanner::checkIfComment(Token &token_) {
         source->goNext();
     } while (source->getLineNumber() == currentLine && source->getChar() != std::char_traits<char>::eof());
 
-    return true;
+    return std::optional<Token>(token);
 }

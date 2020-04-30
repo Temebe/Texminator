@@ -27,27 +27,28 @@ private:
     static bool isKeyword(const std::string &word_);
 
     /**
-     * checkIf functions
+     * create token functions
      *
      * In general these functions work the same: they check source for a token. If there is a token they
-     * modify given token object to reflect source and return true, otherwise they do not modify token nor source.
+     * create it as object and return it, otherwise they do not modify source. However be aware that
+     * it DOES NOT set an position of token.
      *
-     * @return true if token is of given type
+     * @return token if source is on valid token, otherwise empty optional
      */
 
-    bool checkIfPunctuator(Token &token_);
-    bool checkIfArithmeticOperator(Token &token_);
-    bool checkIfComparisonOperator(Token &token_);
-    bool checkIfAssignmentOperator(Token &token_);
-    bool checkIfLogicalOperator(Token &token_);
-    bool checkIfFileOperator(Token &token_);
-    bool checkIfNumericLiteral(Token &token_);
-    bool checkIfStringLiteral(Token &token_);
-    bool checkIfIdentifierOrKeyword(Token &token_);
-    bool checkIfComment(Token &token_);
+    std::optional<Token> createPunctuatorToken();
+    std::optional<Token> createArithmeticOperatorToken();
+    std::optional<Token> createComparisonOperatorToken();
+    std::optional<Token> createAssignmentOperatorToken();
+    std::optional<Token> createLogicalOperatorToken();
+    std::optional<Token> createFileOperatorToken();
+    std::optional<Token> createNumericLiteralToken();
+    std::optional<Token> createStringLiteralToken();
+    std::optional<Token> createIdentifierOrKeywordToken();
+    std::optional<Token> createCommentToken();
 
     std::unique_ptr<Source> source;
-    std::list<std::function<bool(Scanner&, Token&)>> checkFunctions;
+    std::list<std::function<std::optional<Token>(Scanner&)>> createTokenFunctions;
 };
 
 
