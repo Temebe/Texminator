@@ -1,0 +1,10 @@
+#ifndef TEXMINATOR_ENVIRONMENT_H
+#define TEXMINATOR_ENVIRONMENT_H
+
+
+class Environment {
+
+};
+
+
+#endif //TEXMINATOR_ENVIRONMENT_H
