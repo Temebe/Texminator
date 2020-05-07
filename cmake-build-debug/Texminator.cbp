@@ -84,12 +84,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/tromba/Projekty/Texminator/Value.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/Value.h">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/Environment.h">
 			<Option target="Texminator"/>
 		</Unit>
@@ -105,6 +99,9 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/Scanner.h">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/Scope.h">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/Source.h">
 			<Option target="Texminator"/>
 		</Unit>
@@ -115,6 +112,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/Token.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/Value.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/Environment.cpp">
@@ -132,6 +132,9 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/src/Scanner.cpp">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/Scope.cpp">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/Source.cpp">
 			<Option target="Texminator"/>
 		</Unit>
@@ -142,6 +145,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/Token.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/Value.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/main.cpp">

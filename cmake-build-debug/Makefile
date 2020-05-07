@@ -123,33 +123,6 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
-Value.o: Value.cpp.o
-
-.PHONY : Value.o
-
-# target to build an object file
-Value.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Value.cpp.o
-.PHONY : Value.cpp.o
-
-Value.i: Value.cpp.i
-
-.PHONY : Value.i
-
-# target to preprocess a source file
-Value.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Value.cpp.i
-.PHONY : Value.cpp.i
-
-Value.s: Value.cpp.s
-
-.PHONY : Value.s
-
-# target to generate assembly for a file
-Value.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/Value.cpp.s
-.PHONY : Value.cpp.s
-
 src/Environment.o: src/Environment.cpp.o
 
 .PHONY : src/Environment.o
@@ -285,6 +258,33 @@ src/Scanner.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scanner.cpp.s
 .PHONY : src/Scanner.cpp.s
 
+src/Scope.o: src/Scope.cpp.o
+
+.PHONY : src/Scope.o
+
+# target to build an object file
+src/Scope.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scope.cpp.o
+.PHONY : src/Scope.cpp.o
+
+src/Scope.i: src/Scope.cpp.i
+
+.PHONY : src/Scope.i
+
+# target to preprocess a source file
+src/Scope.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scope.cpp.i
+.PHONY : src/Scope.cpp.i
+
+src/Scope.s: src/Scope.cpp.s
+
+.PHONY : src/Scope.s
+
+# target to generate assembly for a file
+src/Scope.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scope.cpp.s
+.PHONY : src/Scope.cpp.s
+
 src/Source.o: src/Source.cpp.o
 
 .PHONY : src/Source.o
@@ -393,6 +393,33 @@ src/Token.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Token.cpp.s
 .PHONY : src/Token.cpp.s
 
+src/Value.o: src/Value.cpp.o
+
+.PHONY : src/Value.o
+
+# target to build an object file
+src/Value.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Value.cpp.o
+.PHONY : src/Value.cpp.o
+
+src/Value.i: src/Value.cpp.i
+
+.PHONY : src/Value.i
+
+# target to preprocess a source file
+src/Value.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Value.cpp.i
+.PHONY : src/Value.cpp.i
+
+src/Value.s: src/Value.cpp.s
+
+.PHONY : src/Value.s
+
+# target to generate assembly for a file
+src/Value.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Value.cpp.s
+.PHONY : src/Value.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -429,9 +456,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Texminator"
-	@echo "... Value.o"
-	@echo "... Value.i"
-	@echo "... Value.s"
 	@echo "... src/Environment.o"
 	@echo "... src/Environment.i"
 	@echo "... src/Environment.s"
@@ -447,6 +471,9 @@ help:
 	@echo "... src/Scanner.o"
 	@echo "... src/Scanner.i"
 	@echo "... src/Scanner.s"
+	@echo "... src/Scope.o"
+	@echo "... src/Scope.i"
+	@echo "... src/Scope.s"
 	@echo "... src/Source.o"
 	@echo "... src/Source.i"
 	@echo "... src/Source.s"
@@ -459,6 +486,9 @@ help:
 	@echo "... src/Token.o"
 	@echo "... src/Token.i"
 	@echo "... src/Token.s"
+	@echo "... src/Value.o"
+	@echo "... src/Value.i"
+	@echo "... src/Value.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
