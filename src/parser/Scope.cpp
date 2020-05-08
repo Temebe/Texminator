@@ -1,4 +1,4 @@
-#include "../include/Scope.h"
+#include "../../include/parser/Scope.h"
 
 ScopeType Scope::getType() {
     return type;

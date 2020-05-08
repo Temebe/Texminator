@@ -1,4 +1,4 @@
-#include "../include/Environment.h"
+#include "../../include/parser/Environment.h"
 
 void Environment::createNewScope(const ScopeType type) {
 
