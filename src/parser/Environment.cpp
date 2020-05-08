@@ -21,3 +21,7 @@ std::optional<Value> Environment::getVariable(const std::string &name_) {
 
     return globalScope.getVariable(name_);
 }
+
+void Environment::destroyCurrentScope() {
+
+}

@@ -3,9 +3,18 @@
 
 #include "Environment.h"
 
+enum ExecStatus {
+    ok, jumped, broke, returned
+};
+
 class Statement {
 public:
     virtual void execute(Environment& environment) = 0;
+    ExecStatus getExecStatus();
+
+private:
+    ExecStatus execStatus = ok;
+
 };
 
 

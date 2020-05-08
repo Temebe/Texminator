@@ -123,59 +123,32 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
-src/Environment.o: src/Environment.cpp.o
+include/parser/Function.o: include/parser/Function.cpp.o
 
-.PHONY : src/Environment.o
-
-# target to build an object file
-src/Environment.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Environment.cpp.o
-.PHONY : src/Environment.cpp.o
-
-src/Environment.i: src/Environment.cpp.i
-
-.PHONY : src/Environment.i
-
-# target to preprocess a source file
-src/Environment.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Environment.cpp.i
-.PHONY : src/Environment.cpp.i
-
-src/Environment.s: src/Environment.cpp.s
-
-.PHONY : src/Environment.s
-
-# target to generate assembly for a file
-src/Environment.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Environment.cpp.s
-.PHONY : src/Environment.cpp.s
-
-src/Expression.o: src/Expression.cpp.o
-
-.PHONY : src/Expression.o
+.PHONY : include/parser/Function.o
 
 # target to build an object file
-src/Expression.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Expression.cpp.o
-.PHONY : src/Expression.cpp.o
+include/parser/Function.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/Function.cpp.o
+.PHONY : include/parser/Function.cpp.o
 
-src/Expression.i: src/Expression.cpp.i
+include/parser/Function.i: include/parser/Function.cpp.i
 
-.PHONY : src/Expression.i
+.PHONY : include/parser/Function.i
 
 # target to preprocess a source file
-src/Expression.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Expression.cpp.i
-.PHONY : src/Expression.cpp.i
+include/parser/Function.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/Function.cpp.i
+.PHONY : include/parser/Function.cpp.i
 
-src/Expression.s: src/Expression.cpp.s
+include/parser/Function.s: include/parser/Function.cpp.s
 
-.PHONY : src/Expression.s
+.PHONY : include/parser/Function.s
 
 # target to generate assembly for a file
-src/Expression.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Expression.cpp.s
-.PHONY : src/Expression.cpp.s
+include/parser/Function.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/Function.cpp.s
+.PHONY : include/parser/Function.cpp.s
 
 src/FileSource.o: src/FileSource.cpp.o
 
@@ -204,33 +177,6 @@ src/FileSource.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/FileSource.cpp.s
 .PHONY : src/FileSource.cpp.s
 
-src/Parser.o: src/Parser.cpp.o
-
-.PHONY : src/Parser.o
-
-# target to build an object file
-src/Parser.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Parser.cpp.o
-.PHONY : src/Parser.cpp.o
-
-src/Parser.i: src/Parser.cpp.i
-
-.PHONY : src/Parser.i
-
-# target to preprocess a source file
-src/Parser.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Parser.cpp.i
-.PHONY : src/Parser.cpp.i
-
-src/Parser.s: src/Parser.cpp.s
-
-.PHONY : src/Parser.s
-
-# target to generate assembly for a file
-src/Parser.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Parser.cpp.s
-.PHONY : src/Parser.cpp.s
-
 src/Scanner.o: src/Scanner.cpp.o
 
 .PHONY : src/Scanner.o
@@ -257,33 +203,6 @@ src/Scanner.s: src/Scanner.cpp.s
 src/Scanner.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scanner.cpp.s
 .PHONY : src/Scanner.cpp.s
-
-src/Scope.o: src/Scope.cpp.o
-
-.PHONY : src/Scope.o
-
-# target to build an object file
-src/Scope.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scope.cpp.o
-.PHONY : src/Scope.cpp.o
-
-src/Scope.i: src/Scope.cpp.i
-
-.PHONY : src/Scope.i
-
-# target to preprocess a source file
-src/Scope.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scope.cpp.i
-.PHONY : src/Scope.cpp.i
-
-src/Scope.s: src/Scope.cpp.s
-
-.PHONY : src/Scope.s
-
-# target to generate assembly for a file
-src/Scope.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Scope.cpp.s
-.PHONY : src/Scope.cpp.s
 
 src/Source.o: src/Source.cpp.o
 
@@ -339,33 +258,6 @@ src/StandardSource.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/StandardSource.cpp.s
 .PHONY : src/StandardSource.cpp.s
 
-src/Statement.o: src/Statement.cpp.o
-
-.PHONY : src/Statement.o
-
-# target to build an object file
-src/Statement.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Statement.cpp.o
-.PHONY : src/Statement.cpp.o
-
-src/Statement.i: src/Statement.cpp.i
-
-.PHONY : src/Statement.i
-
-# target to preprocess a source file
-src/Statement.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Statement.cpp.i
-.PHONY : src/Statement.cpp.i
-
-src/Statement.s: src/Statement.cpp.s
-
-.PHONY : src/Statement.s
-
-# target to generate assembly for a file
-src/Statement.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Statement.cpp.s
-.PHONY : src/Statement.cpp.s
-
 src/Token.o: src/Token.cpp.o
 
 .PHONY : src/Token.o
@@ -392,33 +284,6 @@ src/Token.s: src/Token.cpp.s
 src/Token.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Token.cpp.s
 .PHONY : src/Token.cpp.s
-
-src/Value.o: src/Value.cpp.o
-
-.PHONY : src/Value.o
-
-# target to build an object file
-src/Value.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Value.cpp.o
-.PHONY : src/Value.cpp.o
-
-src/Value.i: src/Value.cpp.i
-
-.PHONY : src/Value.i
-
-# target to preprocess a source file
-src/Value.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Value.cpp.i
-.PHONY : src/Value.cpp.i
-
-src/Value.s: src/Value.cpp.s
-
-.PHONY : src/Value.s
-
-# target to generate assembly for a file
-src/Value.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/Value.cpp.s
-.PHONY : src/Value.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -447,6 +312,303 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/parser/BlockStatement.o: src/parser/BlockStatement.cpp.o
+
+.PHONY : src/parser/BlockStatement.o
+
+# target to build an object file
+src/parser/BlockStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/BlockStatement.cpp.o
+.PHONY : src/parser/BlockStatement.cpp.o
+
+src/parser/BlockStatement.i: src/parser/BlockStatement.cpp.i
+
+.PHONY : src/parser/BlockStatement.i
+
+# target to preprocess a source file
+src/parser/BlockStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/BlockStatement.cpp.i
+.PHONY : src/parser/BlockStatement.cpp.i
+
+src/parser/BlockStatement.s: src/parser/BlockStatement.cpp.s
+
+.PHONY : src/parser/BlockStatement.s
+
+# target to generate assembly for a file
+src/parser/BlockStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/BlockStatement.cpp.s
+.PHONY : src/parser/BlockStatement.cpp.s
+
+src/parser/BreakStatement.o: src/parser/BreakStatement.cpp.o
+
+.PHONY : src/parser/BreakStatement.o
+
+# target to build an object file
+src/parser/BreakStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/BreakStatement.cpp.o
+.PHONY : src/parser/BreakStatement.cpp.o
+
+src/parser/BreakStatement.i: src/parser/BreakStatement.cpp.i
+
+.PHONY : src/parser/BreakStatement.i
+
+# target to preprocess a source file
+src/parser/BreakStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/BreakStatement.cpp.i
+.PHONY : src/parser/BreakStatement.cpp.i
+
+src/parser/BreakStatement.s: src/parser/BreakStatement.cpp.s
+
+.PHONY : src/parser/BreakStatement.s
+
+# target to generate assembly for a file
+src/parser/BreakStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/BreakStatement.cpp.s
+.PHONY : src/parser/BreakStatement.cpp.s
+
+src/parser/ContinueStatement.o: src/parser/ContinueStatement.cpp.o
+
+.PHONY : src/parser/ContinueStatement.o
+
+# target to build an object file
+src/parser/ContinueStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/ContinueStatement.cpp.o
+.PHONY : src/parser/ContinueStatement.cpp.o
+
+src/parser/ContinueStatement.i: src/parser/ContinueStatement.cpp.i
+
+.PHONY : src/parser/ContinueStatement.i
+
+# target to preprocess a source file
+src/parser/ContinueStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/ContinueStatement.cpp.i
+.PHONY : src/parser/ContinueStatement.cpp.i
+
+src/parser/ContinueStatement.s: src/parser/ContinueStatement.cpp.s
+
+.PHONY : src/parser/ContinueStatement.s
+
+# target to generate assembly for a file
+src/parser/ContinueStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/ContinueStatement.cpp.s
+.PHONY : src/parser/ContinueStatement.cpp.s
+
+src/parser/Environment.o: src/parser/Environment.cpp.o
+
+.PHONY : src/parser/Environment.o
+
+# target to build an object file
+src/parser/Environment.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Environment.cpp.o
+.PHONY : src/parser/Environment.cpp.o
+
+src/parser/Environment.i: src/parser/Environment.cpp.i
+
+.PHONY : src/parser/Environment.i
+
+# target to preprocess a source file
+src/parser/Environment.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Environment.cpp.i
+.PHONY : src/parser/Environment.cpp.i
+
+src/parser/Environment.s: src/parser/Environment.cpp.s
+
+.PHONY : src/parser/Environment.s
+
+# target to generate assembly for a file
+src/parser/Environment.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Environment.cpp.s
+.PHONY : src/parser/Environment.cpp.s
+
+src/parser/Expression.o: src/parser/Expression.cpp.o
+
+.PHONY : src/parser/Expression.o
+
+# target to build an object file
+src/parser/Expression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Expression.cpp.o
+.PHONY : src/parser/Expression.cpp.o
+
+src/parser/Expression.i: src/parser/Expression.cpp.i
+
+.PHONY : src/parser/Expression.i
+
+# target to preprocess a source file
+src/parser/Expression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Expression.cpp.i
+.PHONY : src/parser/Expression.cpp.i
+
+src/parser/Expression.s: src/parser/Expression.cpp.s
+
+.PHONY : src/parser/Expression.s
+
+# target to generate assembly for a file
+src/parser/Expression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Expression.cpp.s
+.PHONY : src/parser/Expression.cpp.s
+
+src/parser/IfStatement.o: src/parser/IfStatement.cpp.o
+
+.PHONY : src/parser/IfStatement.o
+
+# target to build an object file
+src/parser/IfStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/IfStatement.cpp.o
+.PHONY : src/parser/IfStatement.cpp.o
+
+src/parser/IfStatement.i: src/parser/IfStatement.cpp.i
+
+.PHONY : src/parser/IfStatement.i
+
+# target to preprocess a source file
+src/parser/IfStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/IfStatement.cpp.i
+.PHONY : src/parser/IfStatement.cpp.i
+
+src/parser/IfStatement.s: src/parser/IfStatement.cpp.s
+
+.PHONY : src/parser/IfStatement.s
+
+# target to generate assembly for a file
+src/parser/IfStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/IfStatement.cpp.s
+.PHONY : src/parser/IfStatement.cpp.s
+
+src/parser/Parser.o: src/parser/Parser.cpp.o
+
+.PHONY : src/parser/Parser.o
+
+# target to build an object file
+src/parser/Parser.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Parser.cpp.o
+.PHONY : src/parser/Parser.cpp.o
+
+src/parser/Parser.i: src/parser/Parser.cpp.i
+
+.PHONY : src/parser/Parser.i
+
+# target to preprocess a source file
+src/parser/Parser.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Parser.cpp.i
+.PHONY : src/parser/Parser.cpp.i
+
+src/parser/Parser.s: src/parser/Parser.cpp.s
+
+.PHONY : src/parser/Parser.s
+
+# target to generate assembly for a file
+src/parser/Parser.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Parser.cpp.s
+.PHONY : src/parser/Parser.cpp.s
+
+src/parser/ReturnStatement.o: src/parser/ReturnStatement.cpp.o
+
+.PHONY : src/parser/ReturnStatement.o
+
+# target to build an object file
+src/parser/ReturnStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/ReturnStatement.cpp.o
+.PHONY : src/parser/ReturnStatement.cpp.o
+
+src/parser/ReturnStatement.i: src/parser/ReturnStatement.cpp.i
+
+.PHONY : src/parser/ReturnStatement.i
+
+# target to preprocess a source file
+src/parser/ReturnStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/ReturnStatement.cpp.i
+.PHONY : src/parser/ReturnStatement.cpp.i
+
+src/parser/ReturnStatement.s: src/parser/ReturnStatement.cpp.s
+
+.PHONY : src/parser/ReturnStatement.s
+
+# target to generate assembly for a file
+src/parser/ReturnStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/ReturnStatement.cpp.s
+.PHONY : src/parser/ReturnStatement.cpp.s
+
+src/parser/Scope.o: src/parser/Scope.cpp.o
+
+.PHONY : src/parser/Scope.o
+
+# target to build an object file
+src/parser/Scope.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Scope.cpp.o
+.PHONY : src/parser/Scope.cpp.o
+
+src/parser/Scope.i: src/parser/Scope.cpp.i
+
+.PHONY : src/parser/Scope.i
+
+# target to preprocess a source file
+src/parser/Scope.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Scope.cpp.i
+.PHONY : src/parser/Scope.cpp.i
+
+src/parser/Scope.s: src/parser/Scope.cpp.s
+
+.PHONY : src/parser/Scope.s
+
+# target to generate assembly for a file
+src/parser/Scope.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Scope.cpp.s
+.PHONY : src/parser/Scope.cpp.s
+
+src/parser/Statement.o: src/parser/Statement.cpp.o
+
+.PHONY : src/parser/Statement.o
+
+# target to build an object file
+src/parser/Statement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Statement.cpp.o
+.PHONY : src/parser/Statement.cpp.o
+
+src/parser/Statement.i: src/parser/Statement.cpp.i
+
+.PHONY : src/parser/Statement.i
+
+# target to preprocess a source file
+src/parser/Statement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Statement.cpp.i
+.PHONY : src/parser/Statement.cpp.i
+
+src/parser/Statement.s: src/parser/Statement.cpp.s
+
+.PHONY : src/parser/Statement.s
+
+# target to generate assembly for a file
+src/parser/Statement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Statement.cpp.s
+.PHONY : src/parser/Statement.cpp.s
+
+src/parser/Value.o: src/parser/Value.cpp.o
+
+.PHONY : src/parser/Value.o
+
+# target to build an object file
+src/parser/Value.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Value.cpp.o
+.PHONY : src/parser/Value.cpp.o
+
+src/parser/Value.i: src/parser/Value.cpp.i
+
+.PHONY : src/parser/Value.i
+
+# target to preprocess a source file
+src/parser/Value.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Value.cpp.i
+.PHONY : src/parser/Value.cpp.i
+
+src/parser/Value.s: src/parser/Value.cpp.s
+
+.PHONY : src/parser/Value.s
+
+# target to generate assembly for a file
+src/parser/Value.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Value.cpp.s
+.PHONY : src/parser/Value.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -456,42 +618,60 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Texminator"
-	@echo "... src/Environment.o"
-	@echo "... src/Environment.i"
-	@echo "... src/Environment.s"
-	@echo "... src/Expression.o"
-	@echo "... src/Expression.i"
-	@echo "... src/Expression.s"
+	@echo "... include/parser/Function.o"
+	@echo "... include/parser/Function.i"
+	@echo "... include/parser/Function.s"
 	@echo "... src/FileSource.o"
 	@echo "... src/FileSource.i"
 	@echo "... src/FileSource.s"
-	@echo "... src/Parser.o"
-	@echo "... src/Parser.i"
-	@echo "... src/Parser.s"
 	@echo "... src/Scanner.o"
 	@echo "... src/Scanner.i"
 	@echo "... src/Scanner.s"
-	@echo "... src/Scope.o"
-	@echo "... src/Scope.i"
-	@echo "... src/Scope.s"
 	@echo "... src/Source.o"
 	@echo "... src/Source.i"
 	@echo "... src/Source.s"
 	@echo "... src/StandardSource.o"
 	@echo "... src/StandardSource.i"
 	@echo "... src/StandardSource.s"
-	@echo "... src/Statement.o"
-	@echo "... src/Statement.i"
-	@echo "... src/Statement.s"
 	@echo "... src/Token.o"
 	@echo "... src/Token.i"
 	@echo "... src/Token.s"
-	@echo "... src/Value.o"
-	@echo "... src/Value.i"
-	@echo "... src/Value.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/parser/BlockStatement.o"
+	@echo "... src/parser/BlockStatement.i"
+	@echo "... src/parser/BlockStatement.s"
+	@echo "... src/parser/BreakStatement.o"
+	@echo "... src/parser/BreakStatement.i"
+	@echo "... src/parser/BreakStatement.s"
+	@echo "... src/parser/ContinueStatement.o"
+	@echo "... src/parser/ContinueStatement.i"
+	@echo "... src/parser/ContinueStatement.s"
+	@echo "... src/parser/Environment.o"
+	@echo "... src/parser/Environment.i"
+	@echo "... src/parser/Environment.s"
+	@echo "... src/parser/Expression.o"
+	@echo "... src/parser/Expression.i"
+	@echo "... src/parser/Expression.s"
+	@echo "... src/parser/IfStatement.o"
+	@echo "... src/parser/IfStatement.i"
+	@echo "... src/parser/IfStatement.s"
+	@echo "... src/parser/Parser.o"
+	@echo "... src/parser/Parser.i"
+	@echo "... src/parser/Parser.s"
+	@echo "... src/parser/ReturnStatement.o"
+	@echo "... src/parser/ReturnStatement.i"
+	@echo "... src/parser/ReturnStatement.s"
+	@echo "... src/parser/Scope.o"
+	@echo "... src/parser/Scope.i"
+	@echo "... src/parser/Scope.s"
+	@echo "... src/parser/Statement.o"
+	@echo "... src/parser/Statement.i"
+	@echo "... src/parser/Statement.s"
+	@echo "... src/parser/Value.o"
+	@echo "... src/parser/Value.i"
+	@echo "... src/parser/Value.s"
 .PHONY : help
 
 
