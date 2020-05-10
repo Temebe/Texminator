@@ -23,6 +23,17 @@ std::optional<Value> Environment::getVariable(const std::string &name_) {
     throw ParserException("Variable " + name_ + " does not exist");
 }
 
+
+void Environment::addVariable(const std::string &name_, const Value &variable_) {
+    auto currentScope = scopes.begin();
+    currentScope->addVariable(name_, variable_);
+}
+
+void Environment::addFunction(const std::string &name_, Function &function_) {
+    auto currentScope = scopes.begin();
+    currentScope->addFunction(name_, function_);
+}
+
 void Environment::destroyCurrentScope() {
     scopes.pop_front();
 }

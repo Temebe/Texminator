@@ -89,6 +89,9 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/FileSource.h">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/HornerHash.h">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/Scanner.h">
 			<Option target="Texminator"/>
 		</Unit>
@@ -99,9 +102,6 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/Token.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/AssignmentStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/AssignmentStatement.h">
@@ -128,25 +128,19 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/FunctionBody.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/FunctionDeclarationStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/FunctionDeclarationStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/IfStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/MatchStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/MatchStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/OpenStatement.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/OpenStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/OpenStatement.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/ParseError.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Parser.h">
@@ -170,9 +164,6 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Value.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/VariableDeclarationStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/VariableDeclarationStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
@@ -194,6 +185,9 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/src/main.cpp">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/AssignmentStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/BlockStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
@@ -212,7 +206,16 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Function.cpp">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/FunctionDeclarationStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/IfStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/MatchStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/OpenStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Parser.cpp">
@@ -228,6 +231,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Value.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/VariableDeclarationStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/CMakeLists.txt">

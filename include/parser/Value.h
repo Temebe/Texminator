@@ -4,6 +4,8 @@
 #include <variant>
 #include <optional>
 
+// TODO Is variant here a good choice? Should I get rid of enum?
+
 using UnsignedNumberType = uint64_t;
 using NumberType = int64_t;
 using CharType = char;

@@ -5,6 +5,7 @@
 #include "Value.h"
 
 class Expression {
+public:
     virtual Value evaluate(Environment &environment) = 0;
 };
 
