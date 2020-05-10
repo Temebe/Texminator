@@ -22,6 +22,7 @@ public:
 private:
     std::unique_ptr<FunctionBody> body;
     std::list<Parameter> parameters;
+    Parameter returnType;
 };
 
 

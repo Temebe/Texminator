@@ -123,6 +123,141 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
+include/parser/AssignmentStatement.o: include/parser/AssignmentStatement.cpp.o
+
+.PHONY : include/parser/AssignmentStatement.o
+
+# target to build an object file
+include/parser/AssignmentStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/AssignmentStatement.cpp.o
+.PHONY : include/parser/AssignmentStatement.cpp.o
+
+include/parser/AssignmentStatement.i: include/parser/AssignmentStatement.cpp.i
+
+.PHONY : include/parser/AssignmentStatement.i
+
+# target to preprocess a source file
+include/parser/AssignmentStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/AssignmentStatement.cpp.i
+.PHONY : include/parser/AssignmentStatement.cpp.i
+
+include/parser/AssignmentStatement.s: include/parser/AssignmentStatement.cpp.s
+
+.PHONY : include/parser/AssignmentStatement.s
+
+# target to generate assembly for a file
+include/parser/AssignmentStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/AssignmentStatement.cpp.s
+.PHONY : include/parser/AssignmentStatement.cpp.s
+
+include/parser/FunctionDeclarationStatement.o: include/parser/FunctionDeclarationStatement.cpp.o
+
+.PHONY : include/parser/FunctionDeclarationStatement.o
+
+# target to build an object file
+include/parser/FunctionDeclarationStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/FunctionDeclarationStatement.cpp.o
+.PHONY : include/parser/FunctionDeclarationStatement.cpp.o
+
+include/parser/FunctionDeclarationStatement.i: include/parser/FunctionDeclarationStatement.cpp.i
+
+.PHONY : include/parser/FunctionDeclarationStatement.i
+
+# target to preprocess a source file
+include/parser/FunctionDeclarationStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/FunctionDeclarationStatement.cpp.i
+.PHONY : include/parser/FunctionDeclarationStatement.cpp.i
+
+include/parser/FunctionDeclarationStatement.s: include/parser/FunctionDeclarationStatement.cpp.s
+
+.PHONY : include/parser/FunctionDeclarationStatement.s
+
+# target to generate assembly for a file
+include/parser/FunctionDeclarationStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/FunctionDeclarationStatement.cpp.s
+.PHONY : include/parser/FunctionDeclarationStatement.cpp.s
+
+include/parser/MatchStatement.o: include/parser/MatchStatement.cpp.o
+
+.PHONY : include/parser/MatchStatement.o
+
+# target to build an object file
+include/parser/MatchStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/MatchStatement.cpp.o
+.PHONY : include/parser/MatchStatement.cpp.o
+
+include/parser/MatchStatement.i: include/parser/MatchStatement.cpp.i
+
+.PHONY : include/parser/MatchStatement.i
+
+# target to preprocess a source file
+include/parser/MatchStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/MatchStatement.cpp.i
+.PHONY : include/parser/MatchStatement.cpp.i
+
+include/parser/MatchStatement.s: include/parser/MatchStatement.cpp.s
+
+.PHONY : include/parser/MatchStatement.s
+
+# target to generate assembly for a file
+include/parser/MatchStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/MatchStatement.cpp.s
+.PHONY : include/parser/MatchStatement.cpp.s
+
+include/parser/OpenStatement.o: include/parser/OpenStatement.cpp.o
+
+.PHONY : include/parser/OpenStatement.o
+
+# target to build an object file
+include/parser/OpenStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/OpenStatement.cpp.o
+.PHONY : include/parser/OpenStatement.cpp.o
+
+include/parser/OpenStatement.i: include/parser/OpenStatement.cpp.i
+
+.PHONY : include/parser/OpenStatement.i
+
+# target to preprocess a source file
+include/parser/OpenStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/OpenStatement.cpp.i
+.PHONY : include/parser/OpenStatement.cpp.i
+
+include/parser/OpenStatement.s: include/parser/OpenStatement.cpp.s
+
+.PHONY : include/parser/OpenStatement.s
+
+# target to generate assembly for a file
+include/parser/OpenStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/OpenStatement.cpp.s
+.PHONY : include/parser/OpenStatement.cpp.s
+
+include/parser/VariableDeclarationStatement.o: include/parser/VariableDeclarationStatement.cpp.o
+
+.PHONY : include/parser/VariableDeclarationStatement.o
+
+# target to build an object file
+include/parser/VariableDeclarationStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/VariableDeclarationStatement.cpp.o
+.PHONY : include/parser/VariableDeclarationStatement.cpp.o
+
+include/parser/VariableDeclarationStatement.i: include/parser/VariableDeclarationStatement.cpp.i
+
+.PHONY : include/parser/VariableDeclarationStatement.i
+
+# target to preprocess a source file
+include/parser/VariableDeclarationStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/VariableDeclarationStatement.cpp.i
+.PHONY : include/parser/VariableDeclarationStatement.cpp.i
+
+include/parser/VariableDeclarationStatement.s: include/parser/VariableDeclarationStatement.cpp.s
+
+.PHONY : include/parser/VariableDeclarationStatement.s
+
+# target to generate assembly for a file
+include/parser/VariableDeclarationStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/VariableDeclarationStatement.cpp.s
+.PHONY : include/parser/VariableDeclarationStatement.cpp.s
+
 src/FileSource.o: src/FileSource.cpp.o
 
 .PHONY : src/FileSource.o
@@ -618,6 +753,21 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Texminator"
+	@echo "... include/parser/AssignmentStatement.o"
+	@echo "... include/parser/AssignmentStatement.i"
+	@echo "... include/parser/AssignmentStatement.s"
+	@echo "... include/parser/FunctionDeclarationStatement.o"
+	@echo "... include/parser/FunctionDeclarationStatement.i"
+	@echo "... include/parser/FunctionDeclarationStatement.s"
+	@echo "... include/parser/MatchStatement.o"
+	@echo "... include/parser/MatchStatement.i"
+	@echo "... include/parser/MatchStatement.s"
+	@echo "... include/parser/OpenStatement.o"
+	@echo "... include/parser/OpenStatement.i"
+	@echo "... include/parser/OpenStatement.s"
+	@echo "... include/parser/VariableDeclarationStatement.o"
+	@echo "... include/parser/VariableDeclarationStatement.i"
+	@echo "... include/parser/VariableDeclarationStatement.s"
 	@echo "... src/FileSource.o"
 	@echo "... src/FileSource.i"
 	@echo "... src/FileSource.s"

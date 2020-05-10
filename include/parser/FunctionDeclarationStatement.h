@@ -1,0 +1,11 @@
+#ifndef TEXMINATOR_FUNCTIONDECLARATIONSTATEMENT_H
+#define TEXMINATOR_FUNCTIONDECLARATIONSTATEMENT_H
+
+#include "Statement.h"
+
+class FunctionDeclarationStatement : public Statement {
+
+};
+
+
+#endif //TEXMINATOR_FUNCTIONDECLARATIONSTATEMENT_H
