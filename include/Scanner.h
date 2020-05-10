@@ -42,7 +42,7 @@ private:
     std::optional<Token> createAssignmentOperatorToken();
     std::optional<Token> createLogicalOperatorToken();
     std::optional<Token> createFileOperatorToken();
-    std::optional<Token> createNumericLiteralToken();
+    std::optional<Token> createNumericOrFloatLiteralToken();
     std::optional<Token> createStringLiteralToken();
     std::optional<Token> createIdentifierOrKeywordToken();
     std::optional<Token> createCommentToken();

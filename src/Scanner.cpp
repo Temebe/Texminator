@@ -12,7 +12,7 @@ Scanner::Scanner(std::unique_ptr<Source> source) {
     createTokenFunctions.emplace_back(&Scanner::createAssignmentOperatorToken);
     createTokenFunctions.emplace_back(&Scanner::createLogicalOperatorToken);
     createTokenFunctions.emplace_back(&Scanner::createFileOperatorToken);
-    createTokenFunctions.emplace_back(&Scanner::createNumericLiteralToken);
+    createTokenFunctions.emplace_back(&Scanner::createNumericOrFloatLiteralToken);
     createTokenFunctions.emplace_back(&Scanner::createStringLiteralToken);
     createTokenFunctions.emplace_back(&Scanner::createIdentifierOrKeywordToken);
     createTokenFunctions.emplace_back(&Scanner::createCommentToken);
@@ -320,19 +320,26 @@ std::optional<Token> Scanner::createFileOperatorToken() {
     }
 }
 
-std::optional<Token> Scanner::createNumericLiteralToken() {
+std::optional<Token> Scanner::createNumericOrFloatLiteralToken() {
     Token token;
     token.value = source->getChar();
 
-    if (!isdigit(source->getChar())) {
+    if (!isdigit(source->getChar()) && source->getChar() != '+' && source->getChar() != '-') {
         return std::optional<Token>();
     }
     if (source->getChar() == '0' && isdigit(source->peek()) ) {
         return std::optional<Token>();
     }
+    if ((source->getChar() == '+' || source->getChar() == '-') && isdigit(source->peek())) {
+        token.value += source->peek();
+        source->goNext();
+    }
 
     token.type = numericLiteral;
-    while (isdigit(source->peek())) {
+    while (isdigit(source->peek()) || source->peek() == '.') {
+        if (source->peek() == '.') {
+            token.type = floatLiteral;
+        }
         token.value += source->peek();
         source->goNext();
     }

@@ -12,6 +12,7 @@ enum TokenType {
     /** Literals */
     numericLiteral, /** Number with sign or not */
     stringLiteral,  /** Any string in brackets  */
+    floatLiteral, /** Number with floating point (signed or not) */
 
     /** Arithmetic operators */
     //addOperator, /** Addition       + */

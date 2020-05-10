@@ -5,9 +5,10 @@ const std::map<TokenType, const char*> Token::typeMap = {
         { keyword, "keyword" },
 
         { numericLiteral, "numeric literal" },
-        { stringLiteral,     "string literal" },
+        { stringLiteral,  "string literal" },
+        { floatLiteral,   "float literal" },
 
-        //{addOperator,       "addition operator" },
+        //{addOperator,      "addition operator" },
         {subOperator,       "subtraction operator" },
         {mulOperator,       "multiplication operator" },
         {divOperator,       "division operator" },
@@ -27,7 +28,7 @@ const std::map<TokenType, const char*> Token::typeMap = {
         {mulAssignOperator, "division assignment operator" },
 
         { andOperator, "logical AND operator" },
-        { orOperator, "logical OR operator" },
+        { orOperator,  "logical OR operator" },
         { notOperator, "logical NOT operator" },
 
         { writeOperator, "write operator (->)" },
