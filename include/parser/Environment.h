@@ -8,13 +8,13 @@
 
 class Environment {
 public:
-    void createNewScope(const ScopeType type);
+    void createNewScope(ScopeType type);
     void destroyCurrentScope();
     std::optional<Value> getVariable(const std::string &name_);
+    const Function& getFunction(const std::string &name_, const std::list<Parameter> &parameters_);
 
 private:
     std::deque<Scope> scopes;
-    Scope globalScope;
 
 };
 

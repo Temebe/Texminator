@@ -4,8 +4,10 @@
 #include <list>
 
 #include "Statement.h"
+#include "Environment.h"
+#include "FunctionBody.h"
 
-class BlockStatement : public Statement {
+class BlockStatement : public Statement, public FunctionBody {
 public:
     void execute(Environment &environment) override;
 

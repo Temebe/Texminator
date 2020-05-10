@@ -12,7 +12,7 @@ public:
     virtual void execute(Environment& environment) = 0;
     ExecStatus getExecStatus();
 
-private:
+protected:
     ExecStatus execStatus = ok;
 
 };

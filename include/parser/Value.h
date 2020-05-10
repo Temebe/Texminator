@@ -10,21 +10,40 @@ using CharType = char;
 using StringType = std::string;
 using FloatType = double;
 using BoolType = bool;
+struct VoidType {};
 using ValueType = std::variant<UnsignedNumberType, NumberType,
                                CharType,           StringType,
-                               FloatType,          BoolType>;
+                               FloatType,          BoolType,
+                               VoidType>;
+
+enum ValueEnum {
+    UNSIGNED_NUMBER, NUMBER,
+    CHAR,            STRING,
+    FLOAT,           BOOL,
+    VOID
+};
+
+static_assert(std::is_same_v<UnsignedNumberType, std::variant_alternative_t<UNSIGNED_NUMBER, ValueType>>);
+static_assert(std::is_same_v<NumberType,         std::variant_alternative_t<NUMBER, ValueType>>);
+static_assert(std::is_same_v<CharType,           std::variant_alternative_t<CHAR, ValueType>>);
+static_assert(std::is_same_v<StringType,         std::variant_alternative_t<STRING, ValueType>>);
+static_assert(std::is_same_v<FloatType,          std::variant_alternative_t<FLOAT, ValueType>>);
+static_assert(std::is_same_v<BoolType,           std::variant_alternative_t<BOOL, ValueType>>);
+static_assert(std::is_same_v<VoidType,           std::variant_alternative_t<VOID, ValueType>>);
 
 class Value {
 public:
-    std::optional<UnsignedNumberType> getUnsignedNumber();
-    std::optional<NumberType> getNumber();
-    std::optional<CharType> getChar();
-    std::optional<StringType> getString();
-    std::optional<FloatType> getFloat();
-    std::optional<BoolType> getBool();
+    const ValueType& getValue() const;
+    std::optional<UnsignedNumberType> getUnsignedNumber() const;
+    std::optional<NumberType> getNumber() const;
+    std::optional<CharType> getChar() const;
+    std::optional<StringType> getString() const;
+    std::optional<FloatType> getFloat() const;
+    std::optional<BoolType> getBool() const;
+    bool isVoid() const;
 
 private:
-    ValueType val;
+    ValueType val = VoidType();
 };
 
 

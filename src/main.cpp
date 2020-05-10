@@ -1,9 +1,9 @@
 #include <iostream>
 #include <memory>
 
-#include "../include/FileSource.h"
-#include "../include/StandardSource.h"
-#include "../include/Scanner.h"
+#include "FileSource.h"
+#include "StandardSource.h"
+#include "Scanner.h"
 
 int main(int argc, char *argv[]) {
     std::unique_ptr<Source> source;

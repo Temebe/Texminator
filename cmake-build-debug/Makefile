@@ -123,33 +123,6 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
-include/parser/Function.o: include/parser/Function.cpp.o
-
-.PHONY : include/parser/Function.o
-
-# target to build an object file
-include/parser/Function.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/Function.cpp.o
-.PHONY : include/parser/Function.cpp.o
-
-include/parser/Function.i: include/parser/Function.cpp.i
-
-.PHONY : include/parser/Function.i
-
-# target to preprocess a source file
-include/parser/Function.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/Function.cpp.i
-.PHONY : include/parser/Function.cpp.i
-
-include/parser/Function.s: include/parser/Function.cpp.s
-
-.PHONY : include/parser/Function.s
-
-# target to generate assembly for a file
-include/parser/Function.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/Function.cpp.s
-.PHONY : include/parser/Function.cpp.s
-
 src/FileSource.o: src/FileSource.cpp.o
 
 .PHONY : src/FileSource.o
@@ -447,6 +420,33 @@ src/parser/Expression.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Expression.cpp.s
 .PHONY : src/parser/Expression.cpp.s
 
+src/parser/Function.o: src/parser/Function.cpp.o
+
+.PHONY : src/parser/Function.o
+
+# target to build an object file
+src/parser/Function.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Function.cpp.o
+.PHONY : src/parser/Function.cpp.o
+
+src/parser/Function.i: src/parser/Function.cpp.i
+
+.PHONY : src/parser/Function.i
+
+# target to preprocess a source file
+src/parser/Function.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Function.cpp.i
+.PHONY : src/parser/Function.cpp.i
+
+src/parser/Function.s: src/parser/Function.cpp.s
+
+.PHONY : src/parser/Function.s
+
+# target to generate assembly for a file
+src/parser/Function.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/Function.cpp.s
+.PHONY : src/parser/Function.cpp.s
+
 src/parser/IfStatement.o: src/parser/IfStatement.cpp.o
 
 .PHONY : src/parser/IfStatement.o
@@ -618,9 +618,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Texminator"
-	@echo "... include/parser/Function.o"
-	@echo "... include/parser/Function.i"
-	@echo "... include/parser/Function.s"
 	@echo "... src/FileSource.o"
 	@echo "... src/FileSource.i"
 	@echo "... src/FileSource.s"
@@ -654,6 +651,9 @@ help:
 	@echo "... src/parser/Expression.o"
 	@echo "... src/parser/Expression.i"
 	@echo "... src/parser/Expression.s"
+	@echo "... src/parser/Function.o"
+	@echo "... src/parser/Function.i"
+	@echo "... src/parser/Function.s"
 	@echo "... src/parser/IfStatement.o"
 	@echo "... src/parser/IfStatement.i"
 	@echo "... src/parser/IfStatement.s"

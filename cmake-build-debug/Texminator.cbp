@@ -44,6 +44,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/tromba/Projekty/Texminator/include"/>
 					<Add directory="/usr/include/c++/7"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
 					<Add directory="/usr/include/c++/7/backward"/>
@@ -67,6 +68,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/tromba/Projekty/Texminator/include"/>
 					<Add directory="/usr/include/c++/7"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
 					<Add directory="/usr/include/c++/7/backward"/>
@@ -114,16 +116,19 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Expression.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Function.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Function.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Function.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/FunctionBody.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/IfStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Parser.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/ParserException.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/ParserTraits.h">
@@ -172,6 +177,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Expression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Function.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/IfStatement.cpp">

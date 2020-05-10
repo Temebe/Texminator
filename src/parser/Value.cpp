@@ -1,6 +1,6 @@
-#include "../../include/parser/Value.h"
+#include "parser/Value.h"
 
-std::optional<UnsignedNumberType> Value::getUnsignedNumber() {
+std::optional<UnsignedNumberType> Value::getUnsignedNumber() const {
     try {
         return std::get<UnsignedNumberType>(val);
     } catch (const std::bad_variant_access&) {
@@ -8,7 +8,7 @@ std::optional<UnsignedNumberType> Value::getUnsignedNumber() {
     }
 }
 
-std::optional<NumberType> Value::getNumber() {
+std::optional<NumberType> Value::getNumber() const {
     try {
         return std::get<NumberType>(val);
     } catch (const std::bad_variant_access&) {
@@ -16,7 +16,7 @@ std::optional<NumberType> Value::getNumber() {
     }
 }
 
-std::optional<CharType> Value::getChar() {
+std::optional<CharType> Value::getChar() const {
     try {
         return std::get<CharType>(val);
     } catch (const std::bad_variant_access&) {
@@ -24,7 +24,7 @@ std::optional<CharType> Value::getChar() {
     }
 }
 
-std::optional<StringType> Value::getString() {
+std::optional<StringType> Value::getString() const {
     try {
         return std::get<StringType>(val);
     } catch (const std::bad_variant_access&) {
@@ -32,7 +32,7 @@ std::optional<StringType> Value::getString() {
     }
 }
 
-std::optional<FloatType> Value::getFloat() {
+std::optional<FloatType> Value::getFloat() const {
     try {
         return std::get<FloatType>(val);
     } catch (const std::bad_variant_access&) {
@@ -40,10 +40,19 @@ std::optional<FloatType> Value::getFloat() {
     }
 }
 
-std::optional<BoolType> Value::getBool() {
+std::optional<BoolType> Value::getBool() const {
     try {
         return std::get<BoolType>(val);
     } catch (const std::bad_variant_access&) {
         return std::optional<BoolType>();
     }
+}
+
+// TODO This is ugly, change that
+bool Value::isVoid() const {
+    return val.index() == 6;
+}
+
+const ValueType& Value::getValue() const {
+    return val;
 }
