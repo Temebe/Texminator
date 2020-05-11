@@ -4,6 +4,7 @@
 #include <parser/expressions/LiteralExpression.h>
 #include <parser/expressions/VariableExpression.h>
 #include <parser/expressions/FunctionCallExpression.h>
+#include <stack>
 #include "parser/Parser.h"
 #include "HornerHash.h"
 
@@ -117,7 +118,7 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
     }
 
     token = scanner_.consume();
-    auto expression = parseExpression(scanner_);
+    auto expression = parseSimpleExpression(scanner_);
     if (!expression) {
         setError("Expected expression here", token.line, token.pos);
         return std::unique_ptr<Statement>();
@@ -146,20 +147,20 @@ void Parser::printErrorMsg() const {
     }
 }
 
-std::unique_ptr<Expression> Parser::parseExpression(Scanner &scanner_) {
+std::unique_ptr<Expression> Parser::parseSimpleExpression(Scanner &scanner_) {
     std::unique_ptr<Expression> leftExpression;
     Token token = scanner_.getCurrentToken();
     switch (token.type) {
-        case leftRoundBracket:
-            scanner_.consume();
-            leftExpression = parseExpression(scanner_);
-            token = scanner_.getCurrentToken();
-            if (scanner_.getCurrentToken().type != rightRoundBracket) {
-                setError("Expected closure of bracket", token.line, token.pos);
-                return std::unique_ptr<Expression>();
-            }
-            scanner_.consume();
-            break;
+//        case leftRoundBracket:
+//            scanner_.consume();
+//            leftExpression = parseSimpleExpression(scanner_);
+//            token = scanner_.getCurrentToken();
+//            if (scanner_.getCurrentToken().type != rightRoundBracket) {
+//                setError("Expected closure of bracket", token.line, token.pos);
+//                return std::unique_ptr<Expression>();
+//            }
+//            scanner_.consume();
+//            break;
 
         case numericLiteral:
         case floatLiteral:
@@ -169,6 +170,14 @@ std::unique_ptr<Expression> Parser::parseExpression(Scanner &scanner_) {
 
         case identifier:
             leftExpression = parseVariableOrFunctionExpression(scanner_);
+            break;
+
+        case keyword:
+            if (token.value == "true") {
+                leftExpression = std::make_unique<LiteralExpression>(true);
+            } else if (token.value == "false") {
+                leftExpression = std::make_unique<LiteralExpression>(false);
+            }
             break;
 
         default:
@@ -201,16 +210,68 @@ std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &s
         return std::make_unique<VariableExpression>(name);
     }
 
-    std::list<std::unique_ptr<Expression>> args;
-    // Move token from left bracket and consume expressions as lons as there is no right bracket
-    while (scanner_.consume().type != rightRoundBracket && scanner_.getCurrentToken().type != fileEnd) {
-        args.push_back(parseExpression(scanner_));
-    }
-    if (scanner_.getCurrentToken().type == rightRoundBracket) {
-        scanner_.consume();
-        return std::make_unique<FunctionCallExpression>(name, args);
-    }
+//    std::list<std::unique_ptr<Expression>> args;
+//    // Move token from left bracket and consume expressions as lons as there is no right bracket
+//    while (scanner_.consume().type != rightRoundBracket && scanner_.getCurrentToken().type != fileEnd) {
+//        args.push_back(parseSimpleExpression(scanner_));
+//    }
+//    if (scanner_.getCurrentToken().type == rightRoundBracket) {
+//        scanner_.consume();
+//        return std::make_unique<FunctionCallExpression>(name, args);
+//    }
 
     setError("Expected list of arguments ", firstToken.line, firstToken.pos);
+    return std::unique_ptr<Expression>();
+}
+
+// TODO Change this while to something readable
+std::unique_ptr<Expression> Parser::parseCompoundExpression(Scanner &scanner_, TokenType stop) {
+    int leftBrackets = 0;
+    // Since brackets may be used in expressions to separate one from another we need to distinguish
+    // priority brackets from stopping brackets
+    if (stop == rightRoundBracket) {
+        leftBrackets += 1;
+    }
+
+    auto token = scanner_.getCurrentToken();
+    std::stack<TokenType> opStack;
+    while (token.type != unknown && token.type != fileEnd &&
+            ((token.type != stop && stop != rightRoundBracket) || (leftBrackets == 0 && stop == rightRoundBracket))) {
+
+        switch (token.type) {
+            case leftRoundBracket:
+                opStack.push(token.type);
+                leftBrackets += 1;
+                break;
+
+            case rightRoundBracket:
+                opStack.push(token.type);
+                leftBrackets -= 1;
+                break;
+
+            case notOperator:
+            case mulOperator:
+            case divOperator:
+            case modOperator:
+            case plus:
+            case subOperator:
+            case ltOperator:
+            case leOperator:
+            case gtOperator:
+            case geOperator:
+            case eqOperator:
+            case neOperator:
+            case andOperator:
+            case orOperator:
+                opStack.push(token.type);
+                break;
+
+            default:
+
+                break;
+
+
+        }
+    }
     return std::unique_ptr<Expression>();
 }

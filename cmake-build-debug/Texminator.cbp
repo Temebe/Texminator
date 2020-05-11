@@ -131,13 +131,28 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Value.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/AndExpression.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/ArithmeticExpressions.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/BracketExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/ComparisonExpressions.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/CompoundExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/CompoundExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/Expression.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/ExpressionStack.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/ExpressionStack.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/FunctionCallExpression.h">
@@ -146,10 +161,10 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/LiteralExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/NotExpression.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/LogicalExpressions.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/OrExpression.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/LogicalExpressions.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/VariableExpression.h">
@@ -222,6 +237,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/AndExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/ArithmeticExpressions.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/BracketExpression.cpp">

@@ -123,6 +123,87 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
+include/parser/expressions/CompoundExpression.o: include/parser/expressions/CompoundExpression.cpp.o
+
+.PHONY : include/parser/expressions/CompoundExpression.o
+
+# target to build an object file
+include/parser/expressions/CompoundExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/CompoundExpression.cpp.o
+.PHONY : include/parser/expressions/CompoundExpression.cpp.o
+
+include/parser/expressions/CompoundExpression.i: include/parser/expressions/CompoundExpression.cpp.i
+
+.PHONY : include/parser/expressions/CompoundExpression.i
+
+# target to preprocess a source file
+include/parser/expressions/CompoundExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/CompoundExpression.cpp.i
+.PHONY : include/parser/expressions/CompoundExpression.cpp.i
+
+include/parser/expressions/CompoundExpression.s: include/parser/expressions/CompoundExpression.cpp.s
+
+.PHONY : include/parser/expressions/CompoundExpression.s
+
+# target to generate assembly for a file
+include/parser/expressions/CompoundExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/CompoundExpression.cpp.s
+.PHONY : include/parser/expressions/CompoundExpression.cpp.s
+
+include/parser/expressions/ExpressionStack.o: include/parser/expressions/ExpressionStack.cpp.o
+
+.PHONY : include/parser/expressions/ExpressionStack.o
+
+# target to build an object file
+include/parser/expressions/ExpressionStack.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/ExpressionStack.cpp.o
+.PHONY : include/parser/expressions/ExpressionStack.cpp.o
+
+include/parser/expressions/ExpressionStack.i: include/parser/expressions/ExpressionStack.cpp.i
+
+.PHONY : include/parser/expressions/ExpressionStack.i
+
+# target to preprocess a source file
+include/parser/expressions/ExpressionStack.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/ExpressionStack.cpp.i
+.PHONY : include/parser/expressions/ExpressionStack.cpp.i
+
+include/parser/expressions/ExpressionStack.s: include/parser/expressions/ExpressionStack.cpp.s
+
+.PHONY : include/parser/expressions/ExpressionStack.s
+
+# target to generate assembly for a file
+include/parser/expressions/ExpressionStack.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/ExpressionStack.cpp.s
+.PHONY : include/parser/expressions/ExpressionStack.cpp.s
+
+include/parser/expressions/LogicalExpressions.o: include/parser/expressions/LogicalExpressions.cpp.o
+
+.PHONY : include/parser/expressions/LogicalExpressions.o
+
+# target to build an object file
+include/parser/expressions/LogicalExpressions.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/LogicalExpressions.cpp.o
+.PHONY : include/parser/expressions/LogicalExpressions.cpp.o
+
+include/parser/expressions/LogicalExpressions.i: include/parser/expressions/LogicalExpressions.cpp.i
+
+.PHONY : include/parser/expressions/LogicalExpressions.i
+
+# target to preprocess a source file
+include/parser/expressions/LogicalExpressions.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/LogicalExpressions.cpp.i
+.PHONY : include/parser/expressions/LogicalExpressions.cpp.i
+
+include/parser/expressions/LogicalExpressions.s: include/parser/expressions/LogicalExpressions.cpp.s
+
+.PHONY : include/parser/expressions/LogicalExpressions.s
+
+# target to generate assembly for a file
+include/parser/expressions/LogicalExpressions.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/LogicalExpressions.cpp.s
+.PHONY : include/parser/expressions/LogicalExpressions.cpp.s
+
 src/FileSource.o: src/FileSource.cpp.o
 
 .PHONY : src/FileSource.o
@@ -446,6 +527,33 @@ src/parser/expressions/AndExpression.s: src/parser/expressions/AndExpression.cpp
 src/parser/expressions/AndExpression.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/AndExpression.cpp.s
 .PHONY : src/parser/expressions/AndExpression.cpp.s
+
+src/parser/expressions/ArithmeticExpressions.o: src/parser/expressions/ArithmeticExpressions.cpp.o
+
+.PHONY : src/parser/expressions/ArithmeticExpressions.o
+
+# target to build an object file
+src/parser/expressions/ArithmeticExpressions.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ArithmeticExpressions.cpp.o
+.PHONY : src/parser/expressions/ArithmeticExpressions.cpp.o
+
+src/parser/expressions/ArithmeticExpressions.i: src/parser/expressions/ArithmeticExpressions.cpp.i
+
+.PHONY : src/parser/expressions/ArithmeticExpressions.i
+
+# target to preprocess a source file
+src/parser/expressions/ArithmeticExpressions.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ArithmeticExpressions.cpp.i
+.PHONY : src/parser/expressions/ArithmeticExpressions.cpp.i
+
+src/parser/expressions/ArithmeticExpressions.s: src/parser/expressions/ArithmeticExpressions.cpp.s
+
+.PHONY : src/parser/expressions/ArithmeticExpressions.s
+
+# target to generate assembly for a file
+src/parser/expressions/ArithmeticExpressions.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ArithmeticExpressions.cpp.s
+.PHONY : src/parser/expressions/ArithmeticExpressions.cpp.s
 
 src/parser/expressions/BracketExpression.o: src/parser/expressions/BracketExpression.cpp.o
 
@@ -942,6 +1050,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Texminator"
+	@echo "... include/parser/expressions/CompoundExpression.o"
+	@echo "... include/parser/expressions/CompoundExpression.i"
+	@echo "... include/parser/expressions/CompoundExpression.s"
+	@echo "... include/parser/expressions/ExpressionStack.o"
+	@echo "... include/parser/expressions/ExpressionStack.i"
+	@echo "... include/parser/expressions/ExpressionStack.s"
+	@echo "... include/parser/expressions/LogicalExpressions.o"
+	@echo "... include/parser/expressions/LogicalExpressions.i"
+	@echo "... include/parser/expressions/LogicalExpressions.s"
 	@echo "... src/FileSource.o"
 	@echo "... src/FileSource.i"
 	@echo "... src/FileSource.s"
@@ -978,6 +1095,9 @@ help:
 	@echo "... src/parser/expressions/AndExpression.o"
 	@echo "... src/parser/expressions/AndExpression.i"
 	@echo "... src/parser/expressions/AndExpression.s"
+	@echo "... src/parser/expressions/ArithmeticExpressions.o"
+	@echo "... src/parser/expressions/ArithmeticExpressions.i"
+	@echo "... src/parser/expressions/ArithmeticExpressions.s"
 	@echo "... src/parser/expressions/BracketExpression.o"
 	@echo "... src/parser/expressions/BracketExpression.i"
 	@echo "... src/parser/expressions/BracketExpression.s"

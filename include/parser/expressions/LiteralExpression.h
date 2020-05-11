@@ -7,6 +7,7 @@
 
 class LiteralExpression : public Expression {
 public:
+    explicit LiteralExpression(bool val_);
     explicit LiteralExpression(const Token& token_);
     Value evaluate(Environment &environment) override;
 
