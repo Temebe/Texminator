@@ -2,6 +2,8 @@
 #include <iostream>
 #include <parser/statements/VariableDeclarationStatement.h>
 #include <parser/expressions/LiteralExpression.h>
+#include <parser/expressions/VariableExpression.h>
+#include <parser/expressions/FunctionCallExpression.h>
 #include "parser/Parser.h"
 #include "HornerHash.h"
 
@@ -151,6 +153,12 @@ std::unique_ptr<Expression> Parser::parseExpression(Scanner &scanner_) {
         case leftRoundBracket:
             scanner_.consume();
             leftExpression = parseExpression(scanner_);
+            token = scanner_.getCurrentToken();
+            if (scanner_.getCurrentToken().type != rightRoundBracket) {
+                setError("Expected closure of bracket", token.line, token.pos);
+                return std::unique_ptr<Expression>();
+            }
+            scanner_.consume();
             break;
 
         case numericLiteral:
@@ -160,6 +168,10 @@ std::unique_ptr<Expression> Parser::parseExpression(Scanner &scanner_) {
             break;
 
         case identifier:
+            leftExpression = parseVariableOrFunctionExpression(scanner_);
+            break;
+
+        default:
             break;
 
     }
@@ -175,6 +187,30 @@ std::unique_ptr<Expression> Parser::parseExpression(Scanner &scanner_) {
     return std::unique_ptr<Expression>();
 }
 
-std::unique_ptr<Expression> Parser::parseIdentifierOrFunctionExpression(Scanner &scanner_) {
+std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &scanner_) {
+    auto token = scanner_.getCurrentToken();
+    const auto firstToken = scanner_.getCurrentToken();
+
+    if (token.type != identifier) {
+        setError("Expected identifier", token.line, token.pos);
+        return std::unique_ptr<Expression>();
+    }
+    std::string name = token.value;
+
+    if (scanner_.peek().type != leftRoundBracket) {
+        return std::make_unique<VariableExpression>(name);
+    }
+
+    std::list<std::unique_ptr<Expression>> args;
+    // Move token from left bracket and consume expressions as lons as there is no right bracket
+    while (scanner_.consume().type != rightRoundBracket && scanner_.getCurrentToken().type != fileEnd) {
+        args.push_back(parseExpression(scanner_));
+    }
+    if (scanner_.getCurrentToken().type == rightRoundBracket) {
+        scanner_.consume();
+        return std::make_unique<FunctionCallExpression>(name, args);
+    }
+
+    setError("Expected list of arguments ", firstToken.line, firstToken.pos);
     return std::unique_ptr<Expression>();
 }

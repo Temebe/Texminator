@@ -2,8 +2,15 @@
 #define TEXMINATOR_VARIABLEEXPRESSION_H
 
 
-class VariableExpression {
+#include "Expression.h"
 
+class VariableExpression : public Expression {
+public:
+    explicit VariableExpression(std::string name_);
+    Value evaluate(Environment &environment) override;
+
+private:
+    std::string name;
 };
 
 
