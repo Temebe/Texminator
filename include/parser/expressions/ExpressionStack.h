@@ -21,7 +21,7 @@ public:
 
 private:
     static int getPriority(TokenType token_);
-    std::unique_ptr<Expression> createExpression(TokenType type_);
+    static std::unique_ptr<Expression> createExpression(TokenType type_);
     void handleOperatorExpression(std::unique_ptr<TwoFactorExpression> exp_,
                                   std::stack<std::unique_ptr<Expression>>& stack_);
 
