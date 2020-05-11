@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     }
 
     Scanner scanner(std::move(source));
-    Token token = scanner.nextToken();
+    Token token = scanner.getCurrentToken();
     unsigned int line = 0;
 
     while (token.type != unknown && token.type != fileEnd) {
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
             ++line;
         }
         std::cout << token.toString() << "(" << token.line << ":" << token.pos << ") ";
-        token = scanner.nextToken();
+        token = scanner.consume();
     }
 
     if (token.type == unknown) {

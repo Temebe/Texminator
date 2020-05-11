@@ -4,7 +4,7 @@
  * @brief Scanner converts input into basic tokens
  *
  * Scanner uses source (which may be a file or stdin, depending on implementation), reads from it and from given
- * characters creates tokens. Tokens are made only when nextToken() method is used which also means that Source object
+ * characters creates tokens. Tokens are made only when generateNewToken() method is used which also means that Source object
  * stays the same until someone uses this method.
  */
 
@@ -21,9 +21,13 @@
 class Scanner {
 public:
     Scanner(std::unique_ptr<Source> source_);
-    Token nextToken();
+    void createToken();
+    const Token& consume();
+    const Token& getCurrentToken();
+    const Token& peek();
 
 private:
+    Token generateNewToken();
     static bool isKeyword(const std::string &word_);
 
     /**
@@ -49,6 +53,8 @@ private:
 
     std::unique_ptr<Source> source;
     std::list<std::function<std::optional<Token>(Scanner&)>> createTokenFunctions;
+    Token currentToken;
+    Token nextToken;
 };
 
 

@@ -1,6 +1,7 @@
 #include <parser/statements/Statement.h>
 #include <iostream>
 #include <parser/statements/VariableDeclarationStatement.h>
+#include <parser/expressions/LiteralExpression.h>
 #include "parser/Parser.h"
 #include "HornerHash.h"
 
@@ -9,17 +10,17 @@ void Parser::parse(Scanner &scanner_) {
     environment.createNewScope(local);
     std::unique_ptr<Statement> statement;
 
-    for (Token token = scanner_.nextToken();
+    for (Token token = scanner_.getCurrentToken();
          token.type != unknown && token.type != fileEnd;
-         token = scanner_.nextToken()) {
+         token = scanner_.consume()) {
 
         switch (token.type) {
             case identifier:
-                statement = parseAfterIdentifier(scanner_, token);
+                statement = parseAfterIdentifier(scanner_);
                 break;
 
             case keyword:
-                statement = parseAfterKeyword(scanner_, token);
+                statement = parseAfterKeyword(scanner_);
                 break;
 
             default:
@@ -38,40 +39,41 @@ void Parser::parse(Scanner &scanner_) {
 }
 
 // TODO Maybe connect somehow keywords from scanner to these
-std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_, const Token &token_) {
-    switch (hornerHash(token_.value.c_str())) {
+std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
+    auto token = scanner_.getCurrentToken();
+    switch (hornerHash(token.value.c_str())) {
         case constHornerHash("bool"):
-            if (token_.value == "bool") {
+            if (token.value == "bool") {
                 parseVariableDeclaration(scanner_, ValueEnum::BOOL);
             }
             break;
 
         case constHornerHash("char"):
-            if (token_.value == "char") {
+            if (token.value == "char") {
                 parseVariableDeclaration(scanner_, ValueEnum::CHAR);
             }
             break;
 
         case constHornerHash("float"):
-            if (token_.value == "float") {
+            if (token.value == "float") {
                 parseVariableDeclaration(scanner_, ValueEnum::FLOAT);
             }
             break;
 
         case constHornerHash("unsigned"):
-            if (token_.value == "unsigned") {
+            if (token.value == "unsigned") {
                 parseVariableDeclaration(scanner_, ValueEnum::UNSIGNED_NUMBER);
             }
             break;
 
         case constHornerHash("number"):
-            if (token_.value == "number") {
+            if (token.value == "number") {
                 parseVariableDeclaration(scanner_, ValueEnum::NUMBER);
             }
             break;
 
         case constHornerHash("string"):
-            if (token_.value == "string") {
+            if (token.value == "string") {
                 parseVariableDeclaration(scanner_, ValueEnum::BOOL);
             }
             break;
@@ -82,7 +84,7 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_, const To
     }
 }
 
-std::unique_ptr<Statement> Parser::parseAfterIdentifier(Scanner &scanner_, const Token &token_) {
+std::unique_ptr<Statement> Parser::parseAfterIdentifier(Scanner &scanner_) {
 
 }
 
@@ -91,10 +93,10 @@ void Parser::initializeFirstScope() {
 }
 
 std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, ValueEnum type) {
-    Token token = scanner_.nextToken();
+    Token token = scanner_.consume();
     // If there is word "number" after "unsigned" just skip it
     if (type == UNSIGNED_NUMBER && token.type == keyword && token.value == "number") {
-        token = scanner_.nextToken();
+        token = scanner_.consume();
     }
     if (token.type != identifier) {
         setError("Expected identifier", token.line, token.pos);
@@ -102,7 +104,7 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
     }
 
     auto statement = std::make_unique<VariableDeclarationStatement>(token.value, type);
-    token = scanner_.nextToken();
+    token = scanner_.consume();
     if (token.type == semicolon) {
         return statement;
     }
@@ -112,8 +114,8 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
         return std::unique_ptr<Statement>();
     }
 
-    token = scanner_.nextToken();
-    auto expression = parseExpression(scanner_, token);
+    token = scanner_.consume();
+    auto expression = parseExpression(scanner_);
     if (!expression) {
         setError("Expected expression here", token.line, token.pos);
         return std::unique_ptr<Statement>();
@@ -142,12 +144,37 @@ void Parser::printErrorMsg() const {
     }
 }
 
-std::unique_ptr<Expression> Parser::parseExpression(Scanner &scanner_, const Token& firstToken_) {
-    switch (firstToken_.type) {
+std::unique_ptr<Expression> Parser::parseExpression(Scanner &scanner_) {
+    std::unique_ptr<Expression> leftExpression;
+    Token token = scanner_.getCurrentToken();
+    switch (token.type) {
         case leftRoundBracket:
-            auto expression = parseExpression(scanner_, scanner_.nextToken());
+            scanner_.consume();
+            leftExpression = parseExpression(scanner_);
+            break;
+
+        case numericLiteral:
+        case floatLiteral:
+        case stringLiteral:
+            leftExpression = std::make_unique<LiteralExpression>(token);
+            break;
+
+        case identifier:
+            break;
 
     }
 
+    if (!leftExpression) {
+        return leftExpression;
+    }
+    token = scanner_.consume();
+    if (token.type == semicolon || token.type == leftCurlyBracket) {
+        return leftExpression;
+    }
+
+    return std::unique_ptr<Expression>();
+}
+
+std::unique_ptr<Expression> Parser::parseIdentifierOrFunctionExpression(Scanner &scanner_) {
     return std::unique_ptr<Expression>();
 }

@@ -86,22 +86,10 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/AndExpression.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/AndExpression.h">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/FileSource.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/HornerHash.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/OrExpression.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/OrExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/Scanner.h">
@@ -116,64 +104,13 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/Token.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/AssignmentStatement.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/BlockStatement.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/BracketExpression.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/BracketExpression.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/BreakStatement.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/ContinueStatement.h">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Environment.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Expression.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Function.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/FunctionBody.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/FunctionCallExpression.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/FunctionCallExpression.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/FunctionDeclarationStatement.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/IfStatement.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/LiteralExpression.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/LiteralExpression.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/MatchStatement.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/NotExpression.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/NotExpression.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/OpenStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/ParseError.h">
@@ -188,25 +125,67 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/ParserTraits.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/ReturnStatement.h">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Scope.h">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Statement.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/Value.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/VariableDeclarationStatement.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/AndExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/VariableExpression.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/BracketExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/VariableExpression.h">
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/Expression.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/FunctionCallExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/LiteralExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/NotExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/OrExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/VariableExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/AssignmentStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/BlockStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/BreakStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/ContinueStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/FunctionDeclarationStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/IfStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/MatchStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/OpenStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/ReturnStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/Statement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/VariableDeclarationStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/FileSource.cpp">
@@ -227,55 +206,76 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/src/main.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/AssignmentStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/BlockStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/BreakStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/ContinueStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Environment.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Expression.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Function.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/FunctionDeclarationStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/IfStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/MatchStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/OpenStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Parser.cpp">
-			<Option target="Texminator"/>
-		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/ReturnStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Scope.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Statement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/Value.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/VariableDeclarationStatement.cpp">
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/AndExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/BracketExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/Expression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/FunctionCallExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/LiteralExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/NotExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/OrExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/VariableExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/AssignmentStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/BlockStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/BreakStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/ContinueStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/FunctionDeclarationStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/IfStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/MatchStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/OpenStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/ReturnStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/Statement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/VariableDeclarationStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/CMakeLists.txt">

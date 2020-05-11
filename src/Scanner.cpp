@@ -16,9 +16,30 @@ Scanner::Scanner(std::unique_ptr<Source> source) {
     createTokenFunctions.emplace_back(&Scanner::createStringLiteralToken);
     createTokenFunctions.emplace_back(&Scanner::createIdentifierOrKeywordToken);
     createTokenFunctions.emplace_back(&Scanner::createCommentToken);
+
+    currentToken = generateNewToken();
+    nextToken = generateNewToken();
 }
 
-Token Scanner::nextToken() {
+void Scanner::createToken() {
+    currentToken = nextToken;
+    nextToken = generateNewToken();
+}
+
+const Token &Scanner::consume() {
+    createToken();
+    return currentToken;
+}
+
+const Token &Scanner::getCurrentToken() {
+    return currentToken;
+}
+
+const Token &Scanner::peek() {
+    return nextToken;
+}
+
+Token Scanner::generateNewToken() {
     std::optional<Token> newToken;
     char currentChar = source->getChar();
 
