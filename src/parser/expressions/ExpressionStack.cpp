@@ -82,7 +82,7 @@ int ExpressionStack::getPriority(const TokenType token_) {
 }
 
 void ExpressionStack::addExpression(std::unique_ptr<Expression> expression_) {
-    expressionsList.push_back(expression_);
+    expressionsList.push_back(std::move(expression_));
 }
 
 std::unique_ptr<Expression> ExpressionStack::createExpression(TokenType type_) {
