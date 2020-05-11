@@ -1,4 +1,4 @@
-#include "parser/VariableDeclarationStatement.h"
+#include "parser/statements/VariableDeclarationStatement.h"
 
 VariableDeclarationStatement::VariableDeclarationStatement(const std::string& name_, const ValueEnum type_)
     : name(name_),

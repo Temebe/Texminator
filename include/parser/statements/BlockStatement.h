@@ -4,8 +4,8 @@
 #include <list>
 
 #include "Statement.h"
-#include "Environment.h"
-#include "FunctionBody.h"
+#include "parser/Environment.h"
+#include "parser/FunctionBody.h"
 
 class BlockStatement : public Statement, public FunctionBody {
 public:

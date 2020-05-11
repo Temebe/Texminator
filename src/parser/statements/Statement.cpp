@@ -1,4 +1,4 @@
-#include "../../include/parser/Statement.h"
+#include "parser/statements/Statement.h"
 
 ExecStatus Statement::getExecStatus() {
     return execStatus;

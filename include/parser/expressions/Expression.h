@@ -1,8 +1,8 @@
 #ifndef TEXMINATOR_EXPRESSION_H
 #define TEXMINATOR_EXPRESSION_H
 
-#include "Environment.h"
-#include "Value.h"
+#include "parser/Environment.h"
+#include "parser/Value.h"
 
 class Expression {
 public:

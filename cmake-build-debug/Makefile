@@ -123,6 +123,195 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
+include/AndExpression.o: include/AndExpression.cpp.o
+
+.PHONY : include/AndExpression.o
+
+# target to build an object file
+include/AndExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/AndExpression.cpp.o
+.PHONY : include/AndExpression.cpp.o
+
+include/AndExpression.i: include/AndExpression.cpp.i
+
+.PHONY : include/AndExpression.i
+
+# target to preprocess a source file
+include/AndExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/AndExpression.cpp.i
+.PHONY : include/AndExpression.cpp.i
+
+include/AndExpression.s: include/AndExpression.cpp.s
+
+.PHONY : include/AndExpression.s
+
+# target to generate assembly for a file
+include/AndExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/AndExpression.cpp.s
+.PHONY : include/AndExpression.cpp.s
+
+include/OrExpression.o: include/OrExpression.cpp.o
+
+.PHONY : include/OrExpression.o
+
+# target to build an object file
+include/OrExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/OrExpression.cpp.o
+.PHONY : include/OrExpression.cpp.o
+
+include/OrExpression.i: include/OrExpression.cpp.i
+
+.PHONY : include/OrExpression.i
+
+# target to preprocess a source file
+include/OrExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/OrExpression.cpp.i
+.PHONY : include/OrExpression.cpp.i
+
+include/OrExpression.s: include/OrExpression.cpp.s
+
+.PHONY : include/OrExpression.s
+
+# target to generate assembly for a file
+include/OrExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/OrExpression.cpp.s
+.PHONY : include/OrExpression.cpp.s
+
+include/parser/BracketExpression.o: include/parser/BracketExpression.cpp.o
+
+.PHONY : include/parser/BracketExpression.o
+
+# target to build an object file
+include/parser/BracketExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/BracketExpression.cpp.o
+.PHONY : include/parser/BracketExpression.cpp.o
+
+include/parser/BracketExpression.i: include/parser/BracketExpression.cpp.i
+
+.PHONY : include/parser/BracketExpression.i
+
+# target to preprocess a source file
+include/parser/BracketExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/BracketExpression.cpp.i
+.PHONY : include/parser/BracketExpression.cpp.i
+
+include/parser/BracketExpression.s: include/parser/BracketExpression.cpp.s
+
+.PHONY : include/parser/BracketExpression.s
+
+# target to generate assembly for a file
+include/parser/BracketExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/BracketExpression.cpp.s
+.PHONY : include/parser/BracketExpression.cpp.s
+
+include/parser/FunctionCallExpression.o: include/parser/FunctionCallExpression.cpp.o
+
+.PHONY : include/parser/FunctionCallExpression.o
+
+# target to build an object file
+include/parser/FunctionCallExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/FunctionCallExpression.cpp.o
+.PHONY : include/parser/FunctionCallExpression.cpp.o
+
+include/parser/FunctionCallExpression.i: include/parser/FunctionCallExpression.cpp.i
+
+.PHONY : include/parser/FunctionCallExpression.i
+
+# target to preprocess a source file
+include/parser/FunctionCallExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/FunctionCallExpression.cpp.i
+.PHONY : include/parser/FunctionCallExpression.cpp.i
+
+include/parser/FunctionCallExpression.s: include/parser/FunctionCallExpression.cpp.s
+
+.PHONY : include/parser/FunctionCallExpression.s
+
+# target to generate assembly for a file
+include/parser/FunctionCallExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/FunctionCallExpression.cpp.s
+.PHONY : include/parser/FunctionCallExpression.cpp.s
+
+include/parser/LiteralExpression.o: include/parser/LiteralExpression.cpp.o
+
+.PHONY : include/parser/LiteralExpression.o
+
+# target to build an object file
+include/parser/LiteralExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/LiteralExpression.cpp.o
+.PHONY : include/parser/LiteralExpression.cpp.o
+
+include/parser/LiteralExpression.i: include/parser/LiteralExpression.cpp.i
+
+.PHONY : include/parser/LiteralExpression.i
+
+# target to preprocess a source file
+include/parser/LiteralExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/LiteralExpression.cpp.i
+.PHONY : include/parser/LiteralExpression.cpp.i
+
+include/parser/LiteralExpression.s: include/parser/LiteralExpression.cpp.s
+
+.PHONY : include/parser/LiteralExpression.s
+
+# target to generate assembly for a file
+include/parser/LiteralExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/LiteralExpression.cpp.s
+.PHONY : include/parser/LiteralExpression.cpp.s
+
+include/parser/NotExpression.o: include/parser/NotExpression.cpp.o
+
+.PHONY : include/parser/NotExpression.o
+
+# target to build an object file
+include/parser/NotExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/NotExpression.cpp.o
+.PHONY : include/parser/NotExpression.cpp.o
+
+include/parser/NotExpression.i: include/parser/NotExpression.cpp.i
+
+.PHONY : include/parser/NotExpression.i
+
+# target to preprocess a source file
+include/parser/NotExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/NotExpression.cpp.i
+.PHONY : include/parser/NotExpression.cpp.i
+
+include/parser/NotExpression.s: include/parser/NotExpression.cpp.s
+
+.PHONY : include/parser/NotExpression.s
+
+# target to generate assembly for a file
+include/parser/NotExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/NotExpression.cpp.s
+.PHONY : include/parser/NotExpression.cpp.s
+
+include/parser/VariableExpression.o: include/parser/VariableExpression.cpp.o
+
+.PHONY : include/parser/VariableExpression.o
+
+# target to build an object file
+include/parser/VariableExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/VariableExpression.cpp.o
+.PHONY : include/parser/VariableExpression.cpp.o
+
+include/parser/VariableExpression.i: include/parser/VariableExpression.cpp.i
+
+.PHONY : include/parser/VariableExpression.i
+
+# target to preprocess a source file
+include/parser/VariableExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/VariableExpression.cpp.i
+.PHONY : include/parser/VariableExpression.cpp.i
+
+include/parser/VariableExpression.s: include/parser/VariableExpression.cpp.s
+
+.PHONY : include/parser/VariableExpression.s
+
+# target to generate assembly for a file
+include/parser/VariableExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/VariableExpression.cpp.s
+.PHONY : include/parser/VariableExpression.cpp.s
+
 src/FileSource.o: src/FileSource.cpp.o
 
 .PHONY : src/FileSource.o
@@ -753,6 +942,27 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Texminator"
+	@echo "... include/AndExpression.o"
+	@echo "... include/AndExpression.i"
+	@echo "... include/AndExpression.s"
+	@echo "... include/OrExpression.o"
+	@echo "... include/OrExpression.i"
+	@echo "... include/OrExpression.s"
+	@echo "... include/parser/BracketExpression.o"
+	@echo "... include/parser/BracketExpression.i"
+	@echo "... include/parser/BracketExpression.s"
+	@echo "... include/parser/FunctionCallExpression.o"
+	@echo "... include/parser/FunctionCallExpression.i"
+	@echo "... include/parser/FunctionCallExpression.s"
+	@echo "... include/parser/LiteralExpression.o"
+	@echo "... include/parser/LiteralExpression.i"
+	@echo "... include/parser/LiteralExpression.s"
+	@echo "... include/parser/NotExpression.o"
+	@echo "... include/parser/NotExpression.i"
+	@echo "... include/parser/NotExpression.s"
+	@echo "... include/parser/VariableExpression.o"
+	@echo "... include/parser/VariableExpression.i"
+	@echo "... include/parser/VariableExpression.s"
 	@echo "... src/FileSource.o"
 	@echo "... src/FileSource.i"
 	@echo "... src/FileSource.s"

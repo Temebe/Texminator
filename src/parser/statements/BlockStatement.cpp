@@ -1,4 +1,4 @@
-#include "parser/BlockStatement.h"
+#include "parser/statements/BlockStatement.h"
 
 void BlockStatement::execute(Environment &environment) {
     environment.createNewScope(ScopeType::local);

@@ -1,4 +1,4 @@
-#include "../../include/parser/ContinueStatement.h"
+#include "parser/statements/ContinueStatement.h"
 
 void ContinueStatement::execute(Environment &environment) {
 

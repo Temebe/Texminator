@@ -2,7 +2,7 @@
 #define TEXMINATOR_VARIABLEDECLARATIONSTATEMENT_H
 
 #include "Statement.h"
-#include "Expression.h"
+#include "parser/expressions/Expression.h"
 
 class VariableDeclarationStatement : public Statement {
 public:

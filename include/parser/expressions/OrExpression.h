@@ -1,0 +1,10 @@
+#ifndef TEXMINATOR_OREXPRESSION_H
+#define TEXMINATOR_OREXPRESSION_H
+
+
+class OrExpression {
+
+};
+
+
+#endif //TEXMINATOR_OREXPRESSION_H

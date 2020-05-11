@@ -24,7 +24,7 @@ private:
 
     std::unique_ptr<Statement> parseVariableDeclaration(Scanner &scanner_, const ValueEnum type);
 
-    std::unique_ptr<Expression> parseExpression(Scanner &scanner_);
+    std::unique_ptr<Expression> parseExpression(Scanner &scanner_, const Token& firstToken_);
 
     void setError(const std::string &err, const unsigned int line_, const unsigned int pos_);
     void printErrorMsg() const;

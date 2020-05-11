@@ -1,6 +1,6 @@
-#include <parser/Statement.h>
+#include <parser/statements/Statement.h>
 #include <iostream>
-#include <parser/VariableDeclarationStatement.h>
+#include <parser/statements/VariableDeclarationStatement.h>
 #include "parser/Parser.h"
 #include "HornerHash.h"
 
@@ -97,7 +97,7 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
         token = scanner_.nextToken();
     }
     if (token.type != identifier) {
-        setError("Expected identifier!", token.line, token.pos);
+        setError("Expected identifier", token.line, token.pos);
         return std::unique_ptr<Statement>();
     }
 
@@ -107,7 +107,13 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
         return statement;
     }
 
-    auto expression = parseExpression(scanner_);
+    if (token.type != assignOperator) {
+        setError("Expected assignment operator", token.line, token.pos);
+        return std::unique_ptr<Statement>();
+    }
+
+    token = scanner_.nextToken();
+    auto expression = parseExpression(scanner_, token);
     if (!expression) {
         setError("Expected expression here", token.line, token.pos);
         return std::unique_ptr<Statement>();
@@ -131,11 +137,17 @@ void Parser::printErrorMsg() const {
 
     std::cerr << std::endl;
     for (const ParseError& error : errors) {
-        std::cerr << "Line " + error.line << ", pos " + error.pos << ":" << std::endl;
+        std::cerr << "Line " + std::to_string(error.line) << ", pos " + std::to_string(error.pos) << ":" << std::endl;
         std::cerr << error.err << std::endl << std::endl;
     }
 }
 
-std::unique_ptr<Expression> Parser::parseExpression(Scanner &scanner_) {
+std::unique_ptr<Expression> Parser::parseExpression(Scanner &scanner_, const Token& firstToken_) {
+    switch (firstToken_.type) {
+        case leftRoundBracket:
+            auto expression = parseExpression(scanner_, scanner_.nextToken());
+
+    }
+
     return std::unique_ptr<Expression>();
 }

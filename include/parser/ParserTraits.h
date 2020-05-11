@@ -1,9 +1,9 @@
 #ifndef TEXMINATOR_PARSERTRAITS_H
 #define TEXMINATOR_PARSERTRAITS_H
 
-#include "ReturnStatement.h"
-#include "BreakStatement.h"
-#include "ContinueStatement.h"
+#include "parser/statements/ReturnStatement.h"
+#include "parser/statements/BreakStatement.h"
+#include "parser/statements/ContinueStatement.h"
 
 template <typename T>
 struct isJumpStatement {

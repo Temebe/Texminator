@@ -1,0 +1,10 @@
+#ifndef TEXMINATOR_NOTEXPRESSION_H
+#define TEXMINATOR_NOTEXPRESSION_H
+
+
+class NotExpression {
+
+};
+
+
+#endif //TEXMINATOR_NOTEXPRESSION_H

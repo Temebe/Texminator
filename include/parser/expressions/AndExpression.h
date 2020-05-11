@@ -1,0 +1,10 @@
+#ifndef TEXMINATOR_ANDEXPRESSION_H
+#define TEXMINATOR_ANDEXPRESSION_H
+
+
+class AndExpression {
+
+};
+
+
+#endif //TEXMINATOR_ANDEXPRESSION_H
