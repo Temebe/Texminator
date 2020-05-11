@@ -6,6 +6,7 @@
 #include <parser/expressions/FunctionCallExpression.h>
 #include <stack>
 #include <parser/expressions/ExpressionStack.h>
+#include <parser/statements/OpenStatement.h>
 #include "parser/Parser.h"
 #include "HornerHash.h"
 
@@ -48,39 +49,38 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
     switch (hornerHash(token.value.c_str())) {
         case constHornerHash("bool"):
             if (token.value == "bool") {
-                parseVariableDeclaration(scanner_, ValueEnum::BOOL);
+                return parseVariableDeclaration(scanner_, ValueEnum::BOOL);
             }
-            break;
 
         case constHornerHash("char"):
             if (token.value == "char") {
-                parseVariableDeclaration(scanner_, ValueEnum::CHAR);
+                return parseVariableDeclaration(scanner_, ValueEnum::CHAR);
             }
-            break;
 
         case constHornerHash("float"):
             if (token.value == "float") {
-                parseVariableDeclaration(scanner_, ValueEnum::FLOAT);
+                return parseVariableDeclaration(scanner_, ValueEnum::FLOAT);
             }
-            break;
 
         case constHornerHash("unsigned"):
             if (token.value == "unsigned") {
-                parseVariableDeclaration(scanner_, ValueEnum::UNSIGNED_NUMBER);
+                return parseVariableDeclaration(scanner_, ValueEnum::UNSIGNED_NUMBER);
             }
-            break;
 
         case constHornerHash("number"):
             if (token.value == "number") {
-                parseVariableDeclaration(scanner_, ValueEnum::NUMBER);
+                return parseVariableDeclaration(scanner_, ValueEnum::NUMBER);
             }
-            break;
 
         case constHornerHash("string"):
             if (token.value == "string") {
-                parseVariableDeclaration(scanner_, ValueEnum::BOOL);
+                return parseVariableDeclaration(scanner_, ValueEnum::BOOL);
             }
-            break;
+
+        case constHornerHash("open"):
+            if (token.value == "open") {
+                return parseOpenStatement(scanner_);
+            }
 
 
         default:
@@ -129,6 +129,46 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
     return statement;
 }
 
+std::unique_ptr<Statement> Parser::parseOpenStatement(Scanner &scanner_) {
+    auto token = scanner_.consume();
+    OpenMode mode = readwrite;
+    std::string alias;
+    std::unique_ptr<Expression> nameExp;
+
+    if (token.type == keyword && token.value == "to") {
+        token = scanner_.consume();
+
+        if (token.type == keyword && token.value == "read") {
+            mode = read;
+        } else if (token.type == keyword && token.value == "write") {
+            mode = write;
+        } else {
+            setError("Expected mode specifier after \"to\" keyword", token.line, token.pos);
+            return std::unique_ptr<Statement>();
+        }
+
+        token = scanner_.consume();
+    }
+
+    if (!(nameExp = parseSimpleExpression(scanner_))) {
+        setError("Expected expression with file name", token.line, token.pos);
+        return std::unique_ptr<Statement>();
+    }
+
+    token = scanner_.getCurrentToken();
+    if (token.type == keyword && token.value == "as") {
+        token = scanner_.consume();
+        if (token.type != identifier) {
+            setError("Expected identifier after \"as\" keyword", token.line, token.pos);
+            return std::unique_ptr<Statement>();
+        }
+        alias = token.value;
+        scanner_.consume();
+    }
+
+    return std::make_unique<OpenStatement>(std::move(nameExp), alias, mode);
+}
+
 void Parser::setError(const std::string &err_, const unsigned int line_, const unsigned int pos_) {
     ParseError error;
     error.err = err_;
@@ -156,6 +196,7 @@ std::unique_ptr<Expression> Parser::parseSimpleExpression(Scanner &scanner_) {
         case floatLiteral:
         case stringLiteral:
             leftExpression = std::make_unique<LiteralExpression>(token);
+            scanner_.consume();
             break;
 
         case identifier:
@@ -168,6 +209,7 @@ std::unique_ptr<Expression> Parser::parseSimpleExpression(Scanner &scanner_) {
             } else if (token.value == "false") {
                 leftExpression = std::make_unique<LiteralExpression>(false);
             }
+            scanner_.consume();
             break;
 
         default:
@@ -175,7 +217,6 @@ std::unique_ptr<Expression> Parser::parseSimpleExpression(Scanner &scanner_) {
 
     }
 
-    scanner_.consume();
     return leftExpression;
 }
 
@@ -188,19 +229,28 @@ std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &s
         return std::unique_ptr<Expression>();
     }
     std::string name = token.value;
+    token = scanner_.consume();
 
-    if (scanner_.peek().type != leftRoundBracket) {
+    if (token.type != leftRoundBracket) {
         return std::make_unique<VariableExpression>(name);
     }
 
+    scanner_.consume(); // skip first bracket indicating parameters
     std::list<std::unique_ptr<Expression>> args;
     // Move token from left bracket and consume expressions as long as there is no right bracket
-    while (scanner_.consume().type != rightRoundBracket && scanner_.getCurrentToken().type != fileEnd) {
-        args.push_back(parseCompoundExpression(scanner_, comma));
+    while (token.type != rightRoundBracket && token.type != fileEnd) {
+        auto compExp = parseCompoundExpression(scanner_, true);
+        token = scanner_.getCurrentToken();
+        if (compExp) {
+            args.push_back(std::move(compExp));
+        } else {
+            break;
+        }
     }
+
     if (scanner_.getCurrentToken().type == rightRoundBracket) {
         scanner_.consume();
-        return std::make_unique<FunctionCallExpression>(name, args);
+        return std::make_unique<FunctionCallExpression>(name, std::move(args));
     }
 
     setError("Expected list of arguments ", firstToken.line, firstToken.pos);
@@ -219,7 +269,7 @@ std::unique_ptr<Expression> Parser::parseCompoundExpression(Scanner &scanner_, c
     ExpressionStack expStack;
     auto token = scanner_.getCurrentToken();
     while (token.type != unknown && token.type != fileEnd) {
-        if (token.type == rightRoundBracket && stopOnRoundBracket_ && leftBrackets == 1) {
+        if (stopOnRoundBracket_ && token.type == rightRoundBracket && leftBrackets == 1) {
             break;
         }
 
@@ -227,11 +277,13 @@ std::unique_ptr<Expression> Parser::parseCompoundExpression(Scanner &scanner_, c
             case leftRoundBracket:
                 expStack.pushOperator(token.type);
                 leftBrackets += 1;
+                token = scanner_.consume();
                 break;
 
             case rightRoundBracket:
                 expStack.pushOperator(token.type);
                 leftBrackets -= 1;
+                token = scanner_.consume();
                 break;
 
             case notOperator:
@@ -249,6 +301,7 @@ std::unique_ptr<Expression> Parser::parseCompoundExpression(Scanner &scanner_, c
             case andOperator:
             case orOperator:
                 expStack.pushOperator(token.type);
+                token = scanner_.consume();
                 break;
 
             case numericLiteral:
@@ -256,7 +309,12 @@ std::unique_ptr<Expression> Parser::parseCompoundExpression(Scanner &scanner_, c
             case stringLiteral:
             case identifier:
             case keyword:
-                expStack.addExpression(parseSimpleExpression(scanner_));
+                // if addExpression returns false that means that parsing of a simple expression failed, therefore
+                // it is assumed that compound expression is over
+                if (!expStack.addExpression(parseSimpleExpression(scanner_))) {
+                    return expStack.calculateExpression();
+                }
+                token = scanner_.getCurrentToken();
                 break;
 
             // If encountered token which cannot be parsed to an expression then calculate an expression

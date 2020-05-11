@@ -9,6 +9,7 @@ enum ExecStatus {
 
 class Statement {
 public:
+    virtual ~Statement() = default;
     virtual void execute(Environment& environment) = 0;
     ExecStatus getExecStatus();
 

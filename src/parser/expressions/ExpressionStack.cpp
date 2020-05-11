@@ -81,10 +81,12 @@ int ExpressionStack::getPriority(const TokenType token_) {
     }
 }
 
-void ExpressionStack::addExpression(std::unique_ptr<Expression> expression_) {
+bool ExpressionStack::addExpression(std::unique_ptr<Expression> expression_) {
     if (expression_) {
         expressionsList.push_back(std::move(expression_));
+        return true;
     }
+    return false;
 }
 
 std::unique_ptr<Expression> ExpressionStack::createExpression(TokenType type_) {
@@ -153,6 +155,7 @@ std::unique_ptr<Expression> ExpressionStack::calculateExpression() {
 
     if (stack.size() != 1) {
         // TODO handle errors in reverse polish notation implementation
+        return std::unique_ptr<Expression>();
     }
 
     return std::move(stack.top());

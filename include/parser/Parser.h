@@ -1,9 +1,12 @@
 #ifndef TEXMINATOR_PARSER_H
 #define TEXMINATOR_PARSER_H
 
+#include <string>
 #include <memory>
 #include <set>
 
+#include "parser/statements/Statement.h"
+#include "parser/expressions/Expression.h"
 #include "Scanner.h"
 #include "Environment.h"
 #include "ParseError.h"
@@ -24,6 +27,7 @@ private:
     std::unique_ptr<Statement> parseAfterIdentifier(Scanner &scanner_);
 
     std::unique_ptr<Statement> parseVariableDeclaration(Scanner &scanner_, ValueEnum type);
+    std::unique_ptr<Statement> parseOpenStatement(Scanner &scanner_);
 
     std::unique_ptr<Expression> parseSimpleExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseCompoundExpression(Scanner &scanner_,  bool stopOnRoundBracket_ = false);

@@ -15,6 +15,7 @@
 
 class Source {
 public:
+    virtual  ~Source() = default;
     char getChar();
     char peek();
     virtual void goNext() = 0;

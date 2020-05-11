@@ -4,6 +4,7 @@
 #include "FileSource.h"
 #include "StandardSource.h"
 #include "Scanner.h"
+#include "parser/Parser.h"
 
 int main(int argc, char *argv[]) {
     std::unique_ptr<Source> source;
@@ -21,20 +22,23 @@ int main(int argc, char *argv[]) {
     }
 
     Scanner scanner(std::move(source));
-    Token token = scanner.getCurrentToken();
-    unsigned int line = 0;
+    Parser parser;
+    parser.parse(scanner);
 
-    while (token.type != unknown && token.type != fileEnd) {
-        while (token.line != line) {
-            std::cout << std::endl;
-            ++line;
-        }
-        std::cout << token.toString() << "(" << token.line << ":" << token.pos << ") ";
-        token = scanner.consume();
-    }
-
-    if (token.type == unknown) {
-        std::cout << "Texminator encountered token it does not understand!" << std::endl;
-    }
+//    Token token = scanner.getCurrentToken();
+//    unsigned int line = 0;
+//
+//    while (token.type != unknown && token.type != fileEnd) {
+//        while (token.line != line) {
+//            std::cout << std::endl;
+//            ++line;
+//        }
+//        std::cout << token.toString() << "(" << token.line << ":" << token.pos << ") ";
+//        token = scanner.consume();
+//    }
+//
+//    if (token.type == unknown) {
+//        std::cout << "Texminator encountered token it does not understand!" << std::endl;
+//    }
     return 0;
 }
