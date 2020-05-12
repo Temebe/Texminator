@@ -123,33 +123,6 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
-include/parser/expressions/FormattedStringExpression.o: include/parser/expressions/FormattedStringExpression.cpp.o
-
-.PHONY : include/parser/expressions/FormattedStringExpression.o
-
-# target to build an object file
-include/parser/expressions/FormattedStringExpression.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/FormattedStringExpression.cpp.o
-.PHONY : include/parser/expressions/FormattedStringExpression.cpp.o
-
-include/parser/expressions/FormattedStringExpression.i: include/parser/expressions/FormattedStringExpression.cpp.i
-
-.PHONY : include/parser/expressions/FormattedStringExpression.i
-
-# target to preprocess a source file
-include/parser/expressions/FormattedStringExpression.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/FormattedStringExpression.cpp.i
-.PHONY : include/parser/expressions/FormattedStringExpression.cpp.i
-
-include/parser/expressions/FormattedStringExpression.s: include/parser/expressions/FormattedStringExpression.cpp.s
-
-.PHONY : include/parser/expressions/FormattedStringExpression.s
-
-# target to generate assembly for a file
-include/parser/expressions/FormattedStringExpression.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/FormattedStringExpression.cpp.s
-.PHONY : include/parser/expressions/FormattedStringExpression.cpp.s
-
 src/FileSource.o: src/FileSource.cpp.o
 
 .PHONY : src/FileSource.o
@@ -555,6 +528,33 @@ src/parser/expressions/ExpressionStack.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ExpressionStack.cpp.s
 .PHONY : src/parser/expressions/ExpressionStack.cpp.s
 
+src/parser/expressions/FormattedStringExpression.o: src/parser/expressions/FormattedStringExpression.cpp.o
+
+.PHONY : src/parser/expressions/FormattedStringExpression.o
+
+# target to build an object file
+src/parser/expressions/FormattedStringExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/FormattedStringExpression.cpp.o
+.PHONY : src/parser/expressions/FormattedStringExpression.cpp.o
+
+src/parser/expressions/FormattedStringExpression.i: src/parser/expressions/FormattedStringExpression.cpp.i
+
+.PHONY : src/parser/expressions/FormattedStringExpression.i
+
+# target to preprocess a source file
+src/parser/expressions/FormattedStringExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/FormattedStringExpression.cpp.i
+.PHONY : src/parser/expressions/FormattedStringExpression.cpp.i
+
+src/parser/expressions/FormattedStringExpression.s: src/parser/expressions/FormattedStringExpression.cpp.s
+
+.PHONY : src/parser/expressions/FormattedStringExpression.s
+
+# target to generate assembly for a file
+src/parser/expressions/FormattedStringExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/FormattedStringExpression.cpp.s
+.PHONY : src/parser/expressions/FormattedStringExpression.cpp.s
+
 src/parser/expressions/FunctionCallExpression.o: src/parser/expressions/FunctionCallExpression.cpp.o
 
 .PHONY : src/parser/expressions/FunctionCallExpression.o
@@ -581,6 +581,60 @@ src/parser/expressions/FunctionCallExpression.s: src/parser/expressions/Function
 src/parser/expressions/FunctionCallExpression.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/FunctionCallExpression.cpp.s
 .PHONY : src/parser/expressions/FunctionCallExpression.cpp.s
+
+src/parser/expressions/IncrementCharExpression.o: src/parser/expressions/IncrementCharExpression.cpp.o
+
+.PHONY : src/parser/expressions/IncrementCharExpression.o
+
+# target to build an object file
+src/parser/expressions/IncrementCharExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/IncrementCharExpression.cpp.o
+.PHONY : src/parser/expressions/IncrementCharExpression.cpp.o
+
+src/parser/expressions/IncrementCharExpression.i: src/parser/expressions/IncrementCharExpression.cpp.i
+
+.PHONY : src/parser/expressions/IncrementCharExpression.i
+
+# target to preprocess a source file
+src/parser/expressions/IncrementCharExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/IncrementCharExpression.cpp.i
+.PHONY : src/parser/expressions/IncrementCharExpression.cpp.i
+
+src/parser/expressions/IncrementCharExpression.s: src/parser/expressions/IncrementCharExpression.cpp.s
+
+.PHONY : src/parser/expressions/IncrementCharExpression.s
+
+# target to generate assembly for a file
+src/parser/expressions/IncrementCharExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/IncrementCharExpression.cpp.s
+.PHONY : src/parser/expressions/IncrementCharExpression.cpp.s
+
+src/parser/expressions/IncrementLineExpression.o: src/parser/expressions/IncrementLineExpression.cpp.o
+
+.PHONY : src/parser/expressions/IncrementLineExpression.o
+
+# target to build an object file
+src/parser/expressions/IncrementLineExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/IncrementLineExpression.cpp.o
+.PHONY : src/parser/expressions/IncrementLineExpression.cpp.o
+
+src/parser/expressions/IncrementLineExpression.i: src/parser/expressions/IncrementLineExpression.cpp.i
+
+.PHONY : src/parser/expressions/IncrementLineExpression.i
+
+# target to preprocess a source file
+src/parser/expressions/IncrementLineExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/IncrementLineExpression.cpp.i
+.PHONY : src/parser/expressions/IncrementLineExpression.cpp.i
+
+src/parser/expressions/IncrementLineExpression.s: src/parser/expressions/IncrementLineExpression.cpp.s
+
+.PHONY : src/parser/expressions/IncrementLineExpression.s
+
+# target to generate assembly for a file
+src/parser/expressions/IncrementLineExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/IncrementLineExpression.cpp.s
+.PHONY : src/parser/expressions/IncrementLineExpression.cpp.s
 
 src/parser/expressions/LiteralExpression.o: src/parser/expressions/LiteralExpression.cpp.o
 
@@ -635,6 +689,60 @@ src/parser/expressions/LogicalExpressions.s: src/parser/expressions/LogicalExpre
 src/parser/expressions/LogicalExpressions.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/LogicalExpressions.cpp.s
 .PHONY : src/parser/expressions/LogicalExpressions.cpp.s
+
+src/parser/expressions/ReadCharExpression.o: src/parser/expressions/ReadCharExpression.cpp.o
+
+.PHONY : src/parser/expressions/ReadCharExpression.o
+
+# target to build an object file
+src/parser/expressions/ReadCharExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ReadCharExpression.cpp.o
+.PHONY : src/parser/expressions/ReadCharExpression.cpp.o
+
+src/parser/expressions/ReadCharExpression.i: src/parser/expressions/ReadCharExpression.cpp.i
+
+.PHONY : src/parser/expressions/ReadCharExpression.i
+
+# target to preprocess a source file
+src/parser/expressions/ReadCharExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ReadCharExpression.cpp.i
+.PHONY : src/parser/expressions/ReadCharExpression.cpp.i
+
+src/parser/expressions/ReadCharExpression.s: src/parser/expressions/ReadCharExpression.cpp.s
+
+.PHONY : src/parser/expressions/ReadCharExpression.s
+
+# target to generate assembly for a file
+src/parser/expressions/ReadCharExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ReadCharExpression.cpp.s
+.PHONY : src/parser/expressions/ReadCharExpression.cpp.s
+
+src/parser/expressions/ReadLineExpression.o: src/parser/expressions/ReadLineExpression.cpp.o
+
+.PHONY : src/parser/expressions/ReadLineExpression.o
+
+# target to build an object file
+src/parser/expressions/ReadLineExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ReadLineExpression.cpp.o
+.PHONY : src/parser/expressions/ReadLineExpression.cpp.o
+
+src/parser/expressions/ReadLineExpression.i: src/parser/expressions/ReadLineExpression.cpp.i
+
+.PHONY : src/parser/expressions/ReadLineExpression.i
+
+# target to preprocess a source file
+src/parser/expressions/ReadLineExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ReadLineExpression.cpp.i
+.PHONY : src/parser/expressions/ReadLineExpression.cpp.i
+
+src/parser/expressions/ReadLineExpression.s: src/parser/expressions/ReadLineExpression.cpp.s
+
+.PHONY : src/parser/expressions/ReadLineExpression.s
+
+# target to generate assembly for a file
+src/parser/expressions/ReadLineExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/ReadLineExpression.cpp.s
+.PHONY : src/parser/expressions/ReadLineExpression.cpp.s
 
 src/parser/expressions/VariableExpression.o: src/parser/expressions/VariableExpression.cpp.o
 
@@ -852,6 +960,33 @@ src/parser/statements/FunctionDeclarationStatement.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/FunctionDeclarationStatement.cpp.s
 .PHONY : src/parser/statements/FunctionDeclarationStatement.cpp.s
 
+src/parser/statements/IfMatchesStatement.o: src/parser/statements/IfMatchesStatement.cpp.o
+
+.PHONY : src/parser/statements/IfMatchesStatement.o
+
+# target to build an object file
+src/parser/statements/IfMatchesStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/IfMatchesStatement.cpp.o
+.PHONY : src/parser/statements/IfMatchesStatement.cpp.o
+
+src/parser/statements/IfMatchesStatement.i: src/parser/statements/IfMatchesStatement.cpp.i
+
+.PHONY : src/parser/statements/IfMatchesStatement.i
+
+# target to preprocess a source file
+src/parser/statements/IfMatchesStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/IfMatchesStatement.cpp.i
+.PHONY : src/parser/statements/IfMatchesStatement.cpp.i
+
+src/parser/statements/IfMatchesStatement.s: src/parser/statements/IfMatchesStatement.cpp.s
+
+.PHONY : src/parser/statements/IfMatchesStatement.s
+
+# target to generate assembly for a file
+src/parser/statements/IfMatchesStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/IfMatchesStatement.cpp.s
+.PHONY : src/parser/statements/IfMatchesStatement.cpp.s
+
 src/parser/statements/IfStatement.o: src/parser/statements/IfStatement.cpp.o
 
 .PHONY : src/parser/statements/IfStatement.o
@@ -1050,9 +1185,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Texminator"
-	@echo "... include/parser/expressions/FormattedStringExpression.o"
-	@echo "... include/parser/expressions/FormattedStringExpression.i"
-	@echo "... include/parser/expressions/FormattedStringExpression.s"
 	@echo "... src/FileSource.o"
 	@echo "... src/FileSource.i"
 	@echo "... src/FileSource.s"
@@ -1098,15 +1230,30 @@ help:
 	@echo "... src/parser/expressions/ExpressionStack.o"
 	@echo "... src/parser/expressions/ExpressionStack.i"
 	@echo "... src/parser/expressions/ExpressionStack.s"
+	@echo "... src/parser/expressions/FormattedStringExpression.o"
+	@echo "... src/parser/expressions/FormattedStringExpression.i"
+	@echo "... src/parser/expressions/FormattedStringExpression.s"
 	@echo "... src/parser/expressions/FunctionCallExpression.o"
 	@echo "... src/parser/expressions/FunctionCallExpression.i"
 	@echo "... src/parser/expressions/FunctionCallExpression.s"
+	@echo "... src/parser/expressions/IncrementCharExpression.o"
+	@echo "... src/parser/expressions/IncrementCharExpression.i"
+	@echo "... src/parser/expressions/IncrementCharExpression.s"
+	@echo "... src/parser/expressions/IncrementLineExpression.o"
+	@echo "... src/parser/expressions/IncrementLineExpression.i"
+	@echo "... src/parser/expressions/IncrementLineExpression.s"
 	@echo "... src/parser/expressions/LiteralExpression.o"
 	@echo "... src/parser/expressions/LiteralExpression.i"
 	@echo "... src/parser/expressions/LiteralExpression.s"
 	@echo "... src/parser/expressions/LogicalExpressions.o"
 	@echo "... src/parser/expressions/LogicalExpressions.i"
 	@echo "... src/parser/expressions/LogicalExpressions.s"
+	@echo "... src/parser/expressions/ReadCharExpression.o"
+	@echo "... src/parser/expressions/ReadCharExpression.i"
+	@echo "... src/parser/expressions/ReadCharExpression.s"
+	@echo "... src/parser/expressions/ReadLineExpression.o"
+	@echo "... src/parser/expressions/ReadLineExpression.i"
+	@echo "... src/parser/expressions/ReadLineExpression.s"
 	@echo "... src/parser/expressions/VariableExpression.o"
 	@echo "... src/parser/expressions/VariableExpression.i"
 	@echo "... src/parser/expressions/VariableExpression.s"
@@ -1131,6 +1278,9 @@ help:
 	@echo "... src/parser/statements/FunctionDeclarationStatement.o"
 	@echo "... src/parser/statements/FunctionDeclarationStatement.i"
 	@echo "... src/parser/statements/FunctionDeclarationStatement.s"
+	@echo "... src/parser/statements/IfMatchesStatement.o"
+	@echo "... src/parser/statements/IfMatchesStatement.i"
+	@echo "... src/parser/statements/IfMatchesStatement.s"
 	@echo "... src/parser/statements/IfStatement.o"
 	@echo "... src/parser/statements/IfStatement.i"
 	@echo "... src/parser/statements/IfStatement.s"

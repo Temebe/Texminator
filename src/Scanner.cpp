@@ -80,14 +80,14 @@ Token Scanner::generateNewToken() {
 // TODO newline as variable or keyword?
 bool Scanner::isKeyword(const std::string &word_) {
     static const std::unordered_set<std::string> keywordSet = {
-            "any",      "as",     "bool",     "char",
-            "close",    "line",   "else",     "false",
-            "float",    "for",    "fun",      "if",
-            "in",       "match",  "matchend", "none",
-            "number",   "open",   "read",     "ret",
-            "return",   "string", "to",       "true",
-            "unsigned", "use",    "void",     "while",
-            "write"
+            "any",   "as",       "bool",     "char",
+            "close", "line",     "else",     "false",
+            "float", "for",      "fun",      "if",
+            "in",    "match",    "matchend", "matches",
+            "none",  "number",   "open",     "read",
+            "ret",   "return",   "string",   "to",
+            "true",  "unsigned", "use",      "void",
+            "while", "write"
     };
 
     return keywordSet.find(word_) != keywordSet.end();
@@ -332,7 +332,7 @@ std::optional<Token> Scanner::createFileOperatorToken() {
                 token.type = readLineRightOperator;
                 source->goNext();
             } else {
-                token.type = readLineRightOperator;
+                token.type = readCharRightOperator;
             }
             return std::optional<Token>(token);
 

@@ -1,4 +1,5 @@
 #include <stack>
+#include <parser/expressions/IncrementLineExpression.h>
 #include "parser/expressions/ExpressionStack.h"
 #include "parser/expressions/ComparisonExpressions.h"
 #include "parser/expressions/ArithmeticExpressions.h"
@@ -44,36 +45,38 @@ TokenType ExpressionStack::popOperator() {
 
 int ExpressionStack::getPriority(const TokenType token_) {
     switch (token_) {
-        case leftRoundBracket:
-        case rightRoundBracket:
-            return 8;
+        case nextLineOperator:
+            return 9;
 
         case notOperator:
-            return 7;
+            return 8;
 
         case mulOperator:
         case divOperator:
         case modOperator:
-            return 6;
+            return 7;
 
         case plus:
         case subOperator:
-            return 5;
+            return 6;
 
         case ltOperator:
         case leOperator:
         case gtOperator:
         case geOperator:
-            return 4;
+            return 5;
 
         case eqOperator:
         case neOperator:
-            return 3;
+            return 4;
 
         case andOperator:
-            return 2;
+            return 3;
 
         case orOperator:
+            return 2;
+
+        case leftRoundBracket:
             return 1;
 
         default:
@@ -119,6 +122,8 @@ std::unique_ptr<Expression> ExpressionStack::createExpression(TokenType type_) {
             return std::make_unique<OrExpression>();
         case notOperator:
             return std::make_unique<NotExpression>();
+        case nextLineOperator:
+            return std::make_unique<IncrementLineExpression>();
         default:
             return std::unique_ptr<Expression>();
     }
@@ -148,6 +153,9 @@ std::unique_ptr<Expression> ExpressionStack::calculateExpression() {
             stack.pop();
             twoFactorExp->setLeftExpression(std::move(leftExpression));
             twoFactorExp->setRightExpression(std::move(rightExpression));
+        } else if (auto oneFactorExp = dynamic_cast<OneFactorExpression*>(exp.get())) {
+            oneFactorExp->setFactorExpression(std::move(stack.top()));
+            stack.pop();
         }
 
         stack.push(std::move(exp));

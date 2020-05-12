@@ -1,4 +1,4 @@
-#include "FormattedStringExpression.h"
+#include "parser/expressions/FormattedStringExpression.h"
 
 FormattedStringExpression::FormattedStringExpression(std::unique_ptr<Expression> string_,
                                                      std::list<std::unique_ptr<Expression>> arguments_)

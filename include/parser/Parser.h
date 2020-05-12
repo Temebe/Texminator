@@ -34,6 +34,7 @@ private:
     std::unique_ptr<Statement> parseAliasDeclaration(Scanner &scanner_);
     std::unique_ptr<Statement> parseOpenStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseIfStatement(Scanner &scanner_);
+    std::unique_ptr<Statement> parseIfMatchesStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseForStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseMatchStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseWriteStatement(Scanner &scanner_, const std::string& identifier);
@@ -43,6 +44,7 @@ private:
     std::unique_ptr<Expression> parseSimpleExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseFormattedStringExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseCompoundExpression(Scanner &scanner_,  bool stopOnRoundBracket_ = false);
+    std::unique_ptr<Expression> parseReadExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseVariableOrFunctionExpression(Scanner &scanner_);
 
     void setError(const std::string &err, unsigned int line_, unsigned int pos_);

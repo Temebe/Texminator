@@ -146,19 +146,28 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/ExpressionStack.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/FormattedStringExpression.cpp">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/FormattedStringExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/FunctionCallExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/IncrementCharExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/IncrementLineExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/LiteralExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/LogicalExpressions.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/ReadCharExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/ReadLineExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/VariableExpression.h">
@@ -183,6 +192,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/FunctionDeclarationStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/IfMatchesStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/IfStatement.h">
@@ -251,13 +263,28 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/ExpressionStack.cpp">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/FormattedStringExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/FunctionCallExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/IncrementCharExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/IncrementLineExpression.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/LiteralExpression.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/LogicalExpressions.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/ReadCharExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/ReadLineExpression.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/VariableExpression.cpp">
@@ -282,6 +309,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/FunctionDeclarationStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/IfMatchesStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/IfStatement.cpp">

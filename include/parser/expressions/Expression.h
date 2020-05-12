@@ -15,9 +15,17 @@ public:
     void setLeftExpression(std::unique_ptr<Expression> exp_);
     void setRightExpression(std::unique_ptr<Expression> exp_);
 
-private:
+protected:
     std::unique_ptr<Expression> leftExpression;
     std::unique_ptr<Expression> rightExpression;
+};
+
+class OneFactorExpression {
+public:
+    void setFactorExpression(std::unique_ptr<Expression> exp_);
+
+protected:
+    std::unique_ptr<Expression> factorExpression;
 };
 
 #endif //TEXMINATOR_EXPRESSION_H

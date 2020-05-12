@@ -15,6 +15,9 @@
 #include <parser/statements/WriteStatement.h>
 #include <parser/statements/ExpressionStatement.h>
 #include <parser/expressions/FormattedStringExpression.h>
+#include <parser/statements/IfMatchesStatement.h>
+#include <parser/expressions/ReadLineExpression.h>
+#include <parser/expressions/ReadCharExpression.h>
 #include "parser/Parser.h"
 #include "HornerHash.h"
 
@@ -109,6 +112,9 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
 
         case constHornerHash("if"):
             if (token.value == "if") {
+                if (scanner_.peek().type == identifier) {
+                    return parseIfMatchesStatement(scanner_);
+                }
                 return parseIfStatement(scanner_);
             }
 
@@ -218,7 +224,7 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
     }
 
     token = scanner_.consume();
-    auto expression = parseSimpleExpression(scanner_);
+    auto expression = parseCompoundExpression(scanner_);
     if (!expression) {
         setError("Expected expression here", token.line, token.pos);
         return std::unique_ptr<Statement>();
@@ -357,6 +363,49 @@ std::unique_ptr<Statement> Parser::parseIfStatement(Scanner &scanner_) {
 
     return std::make_unique<IfStatement>(std::move(conditionExpression), std::move(ifTrueStatement),
                                          std::move(ifFalseStatement));
+}
+
+std::unique_ptr<Statement> Parser::parseIfMatchesStatement(Scanner &scanner_) {
+    auto token = scanner_.consume();
+    std::string variableName;
+    std::unique_ptr<Statement> trueStatement, falseStatement;
+    std::unique_ptr<Expression> stringToMatch;
+
+    if (token.type != identifier) {
+        setError("Expected identifier", token.line, token.pos);
+        return std::unique_ptr<Statement>();
+    }
+
+    variableName = token.value;
+    token = scanner_.consume();
+    if (!(token.type == keyword && token.value == "matches")) {
+        setError("Expected matches keyword", token.line, token.pos);
+        return std::unique_ptr<Statement>();
+    }
+
+    token = scanner_.consume();
+    stringToMatch = parseSimpleExpression(scanner_);
+    if (!stringToMatch) {
+        setError("Could not parse regex expression", token.line, token.pos);
+        return std::unique_ptr<Statement>();
+    }
+
+    trueStatement = parseStatement(scanner_);
+    if (!trueStatement) {
+        setError("Could not parse if body", scanner_.getCurrentToken().line, scanner_.getCurrentToken().pos);
+        return std::unique_ptr<Statement>();
+    }
+
+    token = scanner_.getCurrentToken();
+    if (token.type == keyword && token.value == "else") {
+        falseStatement = parseStatement(scanner_);
+        if (!falseStatement) {
+            setError("Could not parse else body", token.line, token.pos);
+            return std::unique_ptr<Statement>();
+        }
+    }
+    return std::make_unique<IfMatchesStatement>(std::move(trueStatement), std::move(falseStatement),
+                                                std::move(variableName), std::move(stringToMatch));
 }
 
 std::unique_ptr<Statement> Parser::parseForStatement(Scanner &scanner_) {
@@ -559,6 +608,10 @@ std::unique_ptr<Expression> Parser::parseSimpleExpression(Scanner &scanner_) {
             scanner_.consume();
             break;
 
+        case readCharLeftOperator:
+        case readLineLeftOperator:
+            return parseReadExpression(scanner_);
+
         default:
             break;
 
@@ -599,6 +652,7 @@ std::unique_ptr<Expression> Parser::parseFormattedStringExpression(Scanner &scan
             return std::unique_ptr<Expression>();
         }
         arguments.push_back(std::move(argument));
+        token = scanner_.getCurrentToken();
 
         if (token.type != comma) {
             break;
@@ -625,7 +679,7 @@ std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &s
         return std::make_unique<VariableExpression>(name);
     }
 
-    scanner_.consume(); // skip first bracket indicating parameters
+    token = scanner_.consume(); // skip first bracket indicating parameters
     std::list<std::unique_ptr<Expression>> args;
     // Move token from left bracket and consume expressions as long as there is no right bracket
     while (token.type != rightRoundBracket && token.type != fileEnd) {
@@ -635,6 +689,10 @@ std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &s
             args.push_back(std::move(compExp));
         } else {
             break;
+        }
+
+        if (token.type == comma) {
+            token = scanner_.consume();
         }
     }
 
@@ -690,6 +748,7 @@ std::unique_ptr<Expression> Parser::parseCompoundExpression(Scanner &scanner_, c
             case neOperator:
             case andOperator:
             case orOperator:
+            case nextLineOperator:
                 expStack.pushOperator(token.type);
                 token = scanner_.consume();
                 break;
@@ -715,4 +774,32 @@ std::unique_ptr<Expression> Parser::parseCompoundExpression(Scanner &scanner_, c
     }
 
     return expStack.calculateExpression();
+}
+
+std::unique_ptr<Expression> Parser::parseReadExpression(Scanner &scanner_) {
+    Token token = scanner_.getCurrentToken();
+    if (token.type != readLineLeftOperator && token.type != readCharLeftOperator) {
+        return std::unique_ptr<Expression>();
+    }
+
+    TokenType rightType = token.type == readLineLeftOperator ? readLineRightOperator : readCharRightOperator;
+    token = scanner_.consume();
+    auto expression = parseCompoundExpression(scanner_);
+    if (!expression) {
+        setError("Could not parse expression to read", token.line, token.pos);
+        return std::unique_ptr<Expression>();
+    }
+
+    token = scanner_.getCurrentToken();
+    if (token.type != rightType) {
+        setError("Closing bracket of read expression not found", token.line, token.pos);
+        return std::unique_ptr<Expression>();
+    }
+
+    scanner_.consume(); // skip closing character
+    if (rightType == readLineRightOperator) {
+        return std::make_unique<ReadLineExpression>(std::move(expression));
+    } else {
+        return std::make_unique<ReadCharExpression>(std::move(expression));
+    }
 }

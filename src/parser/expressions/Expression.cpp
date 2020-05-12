@@ -9,3 +9,7 @@ void TwoFactorExpression::setRightExpression(std::unique_ptr<Expression> exp_) {
 }
 
 Expression::~Expression() = default;
+
+void OneFactorExpression::setFactorExpression(std::unique_ptr<Expression> exp_) {
+    factorExpression = std::move(exp_);
+}
