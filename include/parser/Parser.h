@@ -23,11 +23,17 @@ private:
      * later used in code without implementing it manually.
      */
     void initializeFirstScope();
+
+    // TODO Lookup table?
+    std::unique_ptr<Statement> parseStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseAfterKeyword(Scanner &scanner_);
     std::unique_ptr<Statement> parseAfterIdentifier(Scanner &scanner_);
 
+    std::unique_ptr<Statement> parseBlockStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseVariableDeclaration(Scanner &scanner_, ValueEnum type);
+    std::unique_ptr<Statement> parseAliasDeclaration(Scanner &scanner_);
     std::unique_ptr<Statement> parseOpenStatement(Scanner &scanner_);
+    std::unique_ptr<Statement> parseIfStatement(Scanner &scanner_);
 
     std::unique_ptr<Expression> parseSimpleExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseCompoundExpression(Scanner &scanner_,  bool stopOnRoundBracket_ = false);

@@ -9,6 +9,7 @@
 
 class BlockStatement : public Statement, public FunctionBody {
 public:
+    explicit BlockStatement(std::list<std::unique_ptr<Statement>> statements_);
     void execute(Environment &environment) override;
 
 private:

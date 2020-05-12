@@ -1,5 +1,8 @@
 #include "parser/statements/BlockStatement.h"
 
+BlockStatement::BlockStatement(std::list<std::unique_ptr<Statement>> statements_)
+    : statements(std::move(statements_)) {}
+
 void BlockStatement::execute(Environment &environment) {
     environment.createNewScope(ScopeType::local);
     for (const auto &statement : statements) {
@@ -12,3 +15,5 @@ void BlockStatement::execute(Environment &environment) {
     }
     environment.destroyCurrentScope();
 }
+
+

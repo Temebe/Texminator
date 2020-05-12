@@ -158,6 +158,9 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/VariableExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/AliasDeclarationStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/AssignmentStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
@@ -246,6 +249,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/expressions/VariableExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/AliasDeclarationStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/AssignmentStatement.cpp">

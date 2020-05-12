@@ -636,6 +636,33 @@ src/parser/expressions/VariableExpression.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/expressions/VariableExpression.cpp.s
 .PHONY : src/parser/expressions/VariableExpression.cpp.s
 
+src/parser/statements/AliasDeclarationStatement.o: src/parser/statements/AliasDeclarationStatement.cpp.o
+
+.PHONY : src/parser/statements/AliasDeclarationStatement.o
+
+# target to build an object file
+src/parser/statements/AliasDeclarationStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/AliasDeclarationStatement.cpp.o
+.PHONY : src/parser/statements/AliasDeclarationStatement.cpp.o
+
+src/parser/statements/AliasDeclarationStatement.i: src/parser/statements/AliasDeclarationStatement.cpp.i
+
+.PHONY : src/parser/statements/AliasDeclarationStatement.i
+
+# target to preprocess a source file
+src/parser/statements/AliasDeclarationStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/AliasDeclarationStatement.cpp.i
+.PHONY : src/parser/statements/AliasDeclarationStatement.cpp.i
+
+src/parser/statements/AliasDeclarationStatement.s: src/parser/statements/AliasDeclarationStatement.cpp.s
+
+.PHONY : src/parser/statements/AliasDeclarationStatement.s
+
+# target to generate assembly for a file
+src/parser/statements/AliasDeclarationStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/AliasDeclarationStatement.cpp.s
+.PHONY : src/parser/statements/AliasDeclarationStatement.cpp.s
+
 src/parser/statements/AssignmentStatement.o: src/parser/statements/AssignmentStatement.cpp.o
 
 .PHONY : src/parser/statements/AssignmentStatement.o
@@ -999,6 +1026,9 @@ help:
 	@echo "... src/parser/expressions/VariableExpression.o"
 	@echo "... src/parser/expressions/VariableExpression.i"
 	@echo "... src/parser/expressions/VariableExpression.s"
+	@echo "... src/parser/statements/AliasDeclarationStatement.o"
+	@echo "... src/parser/statements/AliasDeclarationStatement.i"
+	@echo "... src/parser/statements/AliasDeclarationStatement.s"
 	@echo "... src/parser/statements/AssignmentStatement.o"
 	@echo "... src/parser/statements/AssignmentStatement.i"
 	@echo "... src/parser/statements/AssignmentStatement.s"
