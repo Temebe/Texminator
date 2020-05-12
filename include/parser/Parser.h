@@ -30,7 +30,8 @@ private:
     std::unique_ptr<Statement> parseAfterIdentifier(Scanner &scanner_);
 
     std::unique_ptr<Statement> parseBlockStatement(Scanner &scanner_);
-    std::unique_ptr<Statement> parseVariableDeclaration(Scanner &scanner_, ValueEnum type);
+    std::unique_ptr<Statement> parseVariableDeclaration(Scanner &scanner_, ValueEnum type = VOID);
+    std::unique_ptr<Statement> parseFunctionDeclarationStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseAliasDeclaration(Scanner &scanner_);
     std::unique_ptr<Statement> parseOpenStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseIfStatement(Scanner &scanner_);
@@ -40,6 +41,8 @@ private:
     std::unique_ptr<Statement> parseWriteStatement(Scanner &scanner_, const std::string& identifier);
     std::unique_ptr<Statement> parseExpressionStatement(Scanner &scanner_, const std::string& identifier,
                                                         TokenType operation);
+    std::unique_ptr<Statement> parseReturnStatement(Scanner &scanner_);
+
 
     std::unique_ptr<Expression> parseSimpleExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseFormattedStringExpression(Scanner &scanner_);
