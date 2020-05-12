@@ -123,6 +123,33 @@ Texminator/fast:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/build
 .PHONY : Texminator/fast
 
+include/parser/expressions/FormattedStringExpression.o: include/parser/expressions/FormattedStringExpression.cpp.o
+
+.PHONY : include/parser/expressions/FormattedStringExpression.o
+
+# target to build an object file
+include/parser/expressions/FormattedStringExpression.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/FormattedStringExpression.cpp.o
+.PHONY : include/parser/expressions/FormattedStringExpression.cpp.o
+
+include/parser/expressions/FormattedStringExpression.i: include/parser/expressions/FormattedStringExpression.cpp.i
+
+.PHONY : include/parser/expressions/FormattedStringExpression.i
+
+# target to preprocess a source file
+include/parser/expressions/FormattedStringExpression.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/FormattedStringExpression.cpp.i
+.PHONY : include/parser/expressions/FormattedStringExpression.cpp.i
+
+include/parser/expressions/FormattedStringExpression.s: include/parser/expressions/FormattedStringExpression.cpp.s
+
+.PHONY : include/parser/expressions/FormattedStringExpression.s
+
+# target to generate assembly for a file
+include/parser/expressions/FormattedStringExpression.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/include/parser/expressions/FormattedStringExpression.cpp.s
+.PHONY : include/parser/expressions/FormattedStringExpression.cpp.s
+
 src/FileSource.o: src/FileSource.cpp.o
 
 .PHONY : src/FileSource.o
@@ -663,33 +690,6 @@ src/parser/statements/AliasDeclarationStatement.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/AliasDeclarationStatement.cpp.s
 .PHONY : src/parser/statements/AliasDeclarationStatement.cpp.s
 
-src/parser/statements/AssignmentStatement.o: src/parser/statements/AssignmentStatement.cpp.o
-
-.PHONY : src/parser/statements/AssignmentStatement.o
-
-# target to build an object file
-src/parser/statements/AssignmentStatement.cpp.o:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/AssignmentStatement.cpp.o
-.PHONY : src/parser/statements/AssignmentStatement.cpp.o
-
-src/parser/statements/AssignmentStatement.i: src/parser/statements/AssignmentStatement.cpp.i
-
-.PHONY : src/parser/statements/AssignmentStatement.i
-
-# target to preprocess a source file
-src/parser/statements/AssignmentStatement.cpp.i:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/AssignmentStatement.cpp.i
-.PHONY : src/parser/statements/AssignmentStatement.cpp.i
-
-src/parser/statements/AssignmentStatement.s: src/parser/statements/AssignmentStatement.cpp.s
-
-.PHONY : src/parser/statements/AssignmentStatement.s
-
-# target to generate assembly for a file
-src/parser/statements/AssignmentStatement.cpp.s:
-	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/AssignmentStatement.cpp.s
-.PHONY : src/parser/statements/AssignmentStatement.cpp.s
-
 src/parser/statements/BlockStatement.o: src/parser/statements/BlockStatement.cpp.o
 
 .PHONY : src/parser/statements/BlockStatement.o
@@ -770,6 +770,60 @@ src/parser/statements/ContinueStatement.s: src/parser/statements/ContinueStateme
 src/parser/statements/ContinueStatement.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/ContinueStatement.cpp.s
 .PHONY : src/parser/statements/ContinueStatement.cpp.s
+
+src/parser/statements/ExpressionStatement.o: src/parser/statements/ExpressionStatement.cpp.o
+
+.PHONY : src/parser/statements/ExpressionStatement.o
+
+# target to build an object file
+src/parser/statements/ExpressionStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/ExpressionStatement.cpp.o
+.PHONY : src/parser/statements/ExpressionStatement.cpp.o
+
+src/parser/statements/ExpressionStatement.i: src/parser/statements/ExpressionStatement.cpp.i
+
+.PHONY : src/parser/statements/ExpressionStatement.i
+
+# target to preprocess a source file
+src/parser/statements/ExpressionStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/ExpressionStatement.cpp.i
+.PHONY : src/parser/statements/ExpressionStatement.cpp.i
+
+src/parser/statements/ExpressionStatement.s: src/parser/statements/ExpressionStatement.cpp.s
+
+.PHONY : src/parser/statements/ExpressionStatement.s
+
+# target to generate assembly for a file
+src/parser/statements/ExpressionStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/ExpressionStatement.cpp.s
+.PHONY : src/parser/statements/ExpressionStatement.cpp.s
+
+src/parser/statements/ForStatement.o: src/parser/statements/ForStatement.cpp.o
+
+.PHONY : src/parser/statements/ForStatement.o
+
+# target to build an object file
+src/parser/statements/ForStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/ForStatement.cpp.o
+.PHONY : src/parser/statements/ForStatement.cpp.o
+
+src/parser/statements/ForStatement.i: src/parser/statements/ForStatement.cpp.i
+
+.PHONY : src/parser/statements/ForStatement.i
+
+# target to preprocess a source file
+src/parser/statements/ForStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/ForStatement.cpp.i
+.PHONY : src/parser/statements/ForStatement.cpp.i
+
+src/parser/statements/ForStatement.s: src/parser/statements/ForStatement.cpp.s
+
+.PHONY : src/parser/statements/ForStatement.s
+
+# target to generate assembly for a file
+src/parser/statements/ForStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/ForStatement.cpp.s
+.PHONY : src/parser/statements/ForStatement.cpp.s
 
 src/parser/statements/FunctionDeclarationStatement.o: src/parser/statements/FunctionDeclarationStatement.cpp.o
 
@@ -960,6 +1014,33 @@ src/parser/statements/VariableDeclarationStatement.cpp.s:
 	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/VariableDeclarationStatement.cpp.s
 .PHONY : src/parser/statements/VariableDeclarationStatement.cpp.s
 
+src/parser/statements/WriteStatement.o: src/parser/statements/WriteStatement.cpp.o
+
+.PHONY : src/parser/statements/WriteStatement.o
+
+# target to build an object file
+src/parser/statements/WriteStatement.cpp.o:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/WriteStatement.cpp.o
+.PHONY : src/parser/statements/WriteStatement.cpp.o
+
+src/parser/statements/WriteStatement.i: src/parser/statements/WriteStatement.cpp.i
+
+.PHONY : src/parser/statements/WriteStatement.i
+
+# target to preprocess a source file
+src/parser/statements/WriteStatement.cpp.i:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/WriteStatement.cpp.i
+.PHONY : src/parser/statements/WriteStatement.cpp.i
+
+src/parser/statements/WriteStatement.s: src/parser/statements/WriteStatement.cpp.s
+
+.PHONY : src/parser/statements/WriteStatement.s
+
+# target to generate assembly for a file
+src/parser/statements/WriteStatement.cpp.s:
+	$(MAKE) -f CMakeFiles/Texminator.dir/build.make CMakeFiles/Texminator.dir/src/parser/statements/WriteStatement.cpp.s
+.PHONY : src/parser/statements/WriteStatement.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -969,6 +1050,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Texminator"
+	@echo "... include/parser/expressions/FormattedStringExpression.o"
+	@echo "... include/parser/expressions/FormattedStringExpression.i"
+	@echo "... include/parser/expressions/FormattedStringExpression.s"
 	@echo "... src/FileSource.o"
 	@echo "... src/FileSource.i"
 	@echo "... src/FileSource.s"
@@ -1029,9 +1113,6 @@ help:
 	@echo "... src/parser/statements/AliasDeclarationStatement.o"
 	@echo "... src/parser/statements/AliasDeclarationStatement.i"
 	@echo "... src/parser/statements/AliasDeclarationStatement.s"
-	@echo "... src/parser/statements/AssignmentStatement.o"
-	@echo "... src/parser/statements/AssignmentStatement.i"
-	@echo "... src/parser/statements/AssignmentStatement.s"
 	@echo "... src/parser/statements/BlockStatement.o"
 	@echo "... src/parser/statements/BlockStatement.i"
 	@echo "... src/parser/statements/BlockStatement.s"
@@ -1041,6 +1122,12 @@ help:
 	@echo "... src/parser/statements/ContinueStatement.o"
 	@echo "... src/parser/statements/ContinueStatement.i"
 	@echo "... src/parser/statements/ContinueStatement.s"
+	@echo "... src/parser/statements/ExpressionStatement.o"
+	@echo "... src/parser/statements/ExpressionStatement.i"
+	@echo "... src/parser/statements/ExpressionStatement.s"
+	@echo "... src/parser/statements/ForStatement.o"
+	@echo "... src/parser/statements/ForStatement.i"
+	@echo "... src/parser/statements/ForStatement.s"
 	@echo "... src/parser/statements/FunctionDeclarationStatement.o"
 	@echo "... src/parser/statements/FunctionDeclarationStatement.i"
 	@echo "... src/parser/statements/FunctionDeclarationStatement.s"
@@ -1062,6 +1149,9 @@ help:
 	@echo "... src/parser/statements/VariableDeclarationStatement.o"
 	@echo "... src/parser/statements/VariableDeclarationStatement.i"
 	@echo "... src/parser/statements/VariableDeclarationStatement.s"
+	@echo "... src/parser/statements/WriteStatement.o"
+	@echo "... src/parser/statements/WriteStatement.i"
+	@echo "... src/parser/statements/WriteStatement.s"
 .PHONY : help
 
 

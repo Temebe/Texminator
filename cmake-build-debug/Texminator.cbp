@@ -146,6 +146,12 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/ExpressionStack.h">
 			<Option target="Texminator"/>
 		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/FormattedStringExpression.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/FormattedStringExpression.h">
+			<Option target="Texminator"/>
+		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/expressions/FunctionCallExpression.h">
 			<Option target="Texminator"/>
 		</Unit>
@@ -161,9 +167,6 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/AliasDeclarationStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/AssignmentStatement.h">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/BlockStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
@@ -171,6 +174,12 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/ContinueStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/ExpressionStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/ForStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/FunctionDeclarationStatement.h">
@@ -192,6 +201,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/VariableDeclarationStatement.h">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/include/parser/statements/WriteStatement.h">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/FileSource.cpp">
@@ -254,9 +266,6 @@
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/AliasDeclarationStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
-		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/AssignmentStatement.cpp">
-			<Option target="Texminator"/>
-		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/BlockStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
@@ -264,6 +273,12 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/ContinueStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/ExpressionStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/ForStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/FunctionDeclarationStatement.cpp">
@@ -285,6 +300,9 @@
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/VariableDeclarationStatement.cpp">
+			<Option target="Texminator"/>
+		</Unit>
+		<Unit filename="/home/tromba/Projekty/Texminator/src/parser/statements/WriteStatement.cpp">
 			<Option target="Texminator"/>
 		</Unit>
 		<Unit filename="/home/tromba/Projekty/Texminator/CMakeLists.txt">
