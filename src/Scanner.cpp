@@ -17,13 +17,16 @@ Scanner::Scanner(std::unique_ptr<Source> source) {
     createTokenFunctions.emplace_back(&Scanner::createIdentifierOrKeywordToken);
     createTokenFunctions.emplace_back(&Scanner::createCommentToken);
 
-    currentToken = generateNewToken();
-    nextToken = generateNewToken();
+    // create two times token which will result in creating currentToken and nextToken for the first time
+    createToken();
+    createToken();
 }
 
 void Scanner::createToken() {
     currentToken = nextToken;
-    nextToken = generateNewToken();
+    do {
+        nextToken = generateNewToken();
+    } while (nextToken.type == comment);
 }
 
 const Token &Scanner::consume() {
@@ -51,9 +54,8 @@ Token Scanner::generateNewToken() {
 
     unsigned int line = source->getLineNumber();
     unsigned int pos = source->getCharPos();
-    //newToken.value = currentChar;
 
-    if (currentChar == std::char_traits<char>::eof()) { // TODO use goNext or not? Move to function or not?
+    if (currentChar == std::char_traits<char>::eof()) {
         newToken.emplace();
         newToken->type = TokenType::fileEnd;
         return newToken.value();

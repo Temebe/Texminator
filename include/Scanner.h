@@ -53,6 +53,7 @@ private:
 
     std::unique_ptr<Source> source;
     std::list<std::function<std::optional<Token>(Scanner&)>> createTokenFunctions;
+    std::list<Token> tokens;
     Token currentToken;
     Token nextToken;
 };

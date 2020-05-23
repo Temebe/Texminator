@@ -201,6 +201,7 @@ std::unique_ptr<Statement> Parser::parseBlockStatement(Scanner &scanner_) {
             return std::unique_ptr<Statement>();
         }
         token = scanner_.getCurrentToken();
+        statements.push_back(std::move(statement));
     }
 
     if(token.type != rightCurlyBracket) {
@@ -654,7 +655,7 @@ std::unique_ptr<Statement> Parser::parseExpressionStatement(Scanner &scanner_, c
 
     if (!expression) {
         setError("Could not parse expression properly", token.line, token.pos);
-        return std::unique_ptr<Statement>();
+        return {};
     }
 
     token = scanner_.getCurrentToken();
@@ -776,7 +777,6 @@ std::unique_ptr<Expression> Parser::parseFormattedStringExpression(Scanner &scan
         }
         arguments.push_back(std::move(argument));
         token = scanner_.getCurrentToken();
-
         if (token.type != comma) {
             break;
         }
@@ -789,11 +789,10 @@ std::unique_ptr<Expression> Parser::parseFormattedStringExpression(Scanner &scan
 
 std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &scanner_) {
     auto token = scanner_.getCurrentToken();
-    const auto firstToken = scanner_.getCurrentToken();
 
     if (token.type != identifier) {
         setError("Expected identifier", token.line, token.pos);
-        return std::unique_ptr<Expression>();
+        return {};
     }
     std::string name = token.value;
     token = scanner_.consume();
@@ -803,7 +802,9 @@ std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &s
     }
 
     token = scanner_.consume(); // skip first bracket indicating parameters
+    const unsigned int argLine = token.line, argPos = token.pos;
     std::list<std::unique_ptr<Expression>> args;
+
     // Move token from left bracket and consume expressions as long as there is no right bracket
     while (token.type != rightRoundBracket && token.type != fileEnd) {
         auto compExp = parseCompoundExpression(scanner_, true);
@@ -824,8 +825,8 @@ std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &s
         return std::make_unique<FunctionCallExpression>(name, std::move(args));
     }
 
-    setError("Expected list of arguments ", firstToken.line, firstToken.pos);
-    return std::unique_ptr<Expression>();
+    setError("Expected list of arguments ", argLine, argPos);
+    return {};
 }
 
 // TODO Change this while to something readable
