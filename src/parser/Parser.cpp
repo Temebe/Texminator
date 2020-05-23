@@ -49,10 +49,6 @@ std::unique_ptr<Statement> Parser::parseStatement(Scanner& scanner_) {
     Token token = scanner_.getCurrentToken();
     std::unique_ptr<Statement> statement;
 
-    while (token.type == comment) {
-        token = scanner_.consume();
-    }
-
     switch (token.type) {
         case identifier:
             statement = parseAfterIdentifier(scanner_);
@@ -191,9 +187,6 @@ std::unique_ptr<Statement> Parser::parseBlockStatement(Scanner &scanner_) {
 
 
     while (token.type != rightCurlyBracket && token.type != fileEnd && token.type != unknown) {
-        while (token.type == comment) {
-            token = scanner_.consume();
-        }
 
         auto statement = parseStatement(scanner_);
         if (!statement) {
