@@ -921,3 +921,25 @@ std::unique_ptr<Expression> Parser::parseReadExpression(Scanner &scanner_) {
     }
 }
 
+bool Parser::consumeIf(Scanner &scanner_, const std::list<TokenType> &tokens_) {
+    if (!checkIf(scanner_, tokens_)) {
+        return false;
+    }
+
+    scanner_.consume(tokens_.size());
+    return true;
+}
+
+bool Parser::checkIf(Scanner &scanner_, const std::list<TokenType> &tokens_) {
+    int checked = 0;
+    for (auto it = tokens_.begin(); it != tokens_.end(); ++it, ++checked) {
+        if (*it != scanner_.getCurrentToken().type) {
+            scanner_.goBack(checked);
+            return false;
+        }
+        scanner_.getNextToken();
+    }
+
+    scanner_.goBack(checked);
+    return true;
+}

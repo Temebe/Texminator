@@ -20,26 +20,57 @@ Scanner::Scanner(std::unique_ptr<Source> source) {
     // create two times token which will result in creating currentToken and nextToken for the first time
     createToken();
     createToken();
+    tokenIterator = tokens.begin();
 }
 
 void Scanner::createToken() {
-    currentToken = nextToken;
+    Token newToken;
     do {
-        nextToken = generateNewToken();
-    } while (nextToken.type == comment);
+        newToken = generateNewToken();
+    } while (newToken.type == comment);
+    tokens.emplace_back(newToken);
 }
 
-const Token &Scanner::consume() {
-    createToken();
-    return currentToken;
+const Token &Scanner::consume(const int amount_) {
+    if (amount_ <= 0) {
+        return *tokenIterator;
+    }
+
+    auto firstIt = tokenIterator;
+    std::advance(firstIt, -(amount_ - 1));
+    tokens.erase(firstIt, tokenIterator++);
+
+    if (tokenIterator == tokens.end()) {
+        createToken();
+        tokenIterator = --tokens.end();
+    }
+
+    return *tokenIterator;
 }
 
 const Token &Scanner::getCurrentToken() {
-    return currentToken;
+    return *tokenIterator;
+}
+
+const Token &Scanner::getNextToken() {
+    if (++tokenIterator == tokens.end()) {
+        createToken();
+        tokenIterator = --tokens.end();
+    }
+
+    return *tokenIterator;
 }
 
 const Token &Scanner::peek() {
-    return nextToken;
+    auto it = tokenIterator;
+    return *(++it);
+}
+
+void Scanner::goBack(const int amount_) {
+    if (amount_ <= 0) {
+        return;
+    }
+    tokenIterator.operator--(amount_);
 }
 
 Token Scanner::generateNewToken() {
