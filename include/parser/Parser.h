@@ -50,8 +50,8 @@ private:
     std::unique_ptr<Expression> parseReadExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseVariableOrFunctionExpression(Scanner &scanner_);
 
-    static bool consumeIf(Scanner &scanner_, const std::list<TokenType>& tokens_);
-    static bool checkIf(Scanner &scanner_, const std::list<TokenType>& tokens_);
+    bool consumeMatching(Scanner &scanner_, std::list<TokenType> tokens_);
+    bool checkAhead(Scanner &scanner_, std::list<TokenType> tokens_, bool includeFirst_ = true);
 
     void setError(const std::string &err, unsigned int line_, unsigned int pos_);
     void printErrorMsg() const;

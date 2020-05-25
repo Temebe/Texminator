@@ -23,10 +23,12 @@ public:
     Scanner(std::unique_ptr<Source> source_);
     void createToken();
     const Token& consume(const int amount_ = 1);
-    const Token& getCurrentToken();
+    const Token& getCurrentToken() const;
     const Token& getNextToken();
-    const Token& peek();
+    Token peek();
     void goBack(const int amount_ = 1);
+    void goForward(const int amount_ = 1);
+
 
 private:
     Token generateNewToken();

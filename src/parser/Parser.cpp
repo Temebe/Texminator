@@ -59,6 +59,7 @@ std::unique_ptr<Statement> Parser::parseStatement(Scanner& scanner_) {
             break;
 
         case leftCurlyBracket:
+            scanner_.consume(); // TODO not a great place for consume I suppose
             statement = parseBlockStatement(scanner_);
             break;
 
@@ -72,6 +73,8 @@ std::unique_ptr<Statement> Parser::parseStatement(Scanner& scanner_) {
 // TODO Maybe connect somehow keywords from scanner to these
 std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
     Token token = scanner_.getCurrentToken();
+    scanner_.getNextToken();
+
     switch (hornerHash(token.value.c_str())) {
         case constHornerHash("bool"):
             if (token.value == "bool") {
@@ -110,7 +113,7 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
 
         case constHornerHash("if"):
             if (token.value == "if") {
-                if (scanner_.peek().type == identifier) {
+                if (scanner_.getCurrentToken().type == identifier) {
                     return parseIfMatchesStatement(scanner_);
                 }
                 return parseIfStatement(scanner_);
@@ -143,37 +146,49 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
 
 
         default:
+            scanner_.goBack();
             break;
     }
     return {};
 }
 
 std::unique_ptr<Statement> Parser::parseAfterIdentifier(Scanner &scanner_) {
+    std::unique_ptr<Statement> result;
     Token token = scanner_.getCurrentToken();
     std::string identifier;
 
-    if (token.type != TokenType::identifier) {
+    if (!checkAhead(scanner_, {TokenType::identifier})) {
         return {};
     }
+
     identifier = token.value;
     token = scanner_.consume();
 
     switch (token.type) {
         case writeOperator:
-            return parseWriteStatement(scanner_, identifier);
+            scanner_.consume();
+            result = parseWriteStatement(scanner_, identifier);
+            break;
 
         case assignOperator:
         case addAssignOperator:
         case subAssignOperator:
         case divAssignOperator:
         case mulAssignOperator:
-            return parseExpressionStatement(scanner_, identifier, token.type);
+            scanner_.consume();
+            result = parseExpressionStatement(scanner_, identifier, token.type);
+            break;
 
         default:
+            setError("Expected assignment or write operator", token.line, token.pos);
             break;
     }
+//    if (result) { // consume identifier
+//        scanner_.goBack(1);
+//        scanner_.consume(1);
+//    }
 
-    return {};
+    return result;
 }
 
 void Parser::initializeFirstScope() {
@@ -182,9 +197,8 @@ void Parser::initializeFirstScope() {
 
 
 std::unique_ptr<Statement> Parser::parseBlockStatement(Scanner &scanner_) {
-    Token token = scanner_.consume();
+    Token token = scanner_.getCurrentToken();
     std::list<std::unique_ptr<Statement>> statements;
-
 
     while (token.type != rightCurlyBracket && token.type != fileEnd && token.type != unknown) {
 
@@ -197,18 +211,16 @@ std::unique_ptr<Statement> Parser::parseBlockStatement(Scanner &scanner_) {
         statements.push_back(std::move(statement));
     }
 
-    if(token.type != rightCurlyBracket) {
-        setError("Missing closure \"}\" of block statement", token.line, token.pos);
+    if (!consumeMatching(scanner_, {rightCurlyBracket})) { // consume closing bracket
         return {};
     }
 
-    scanner_.consume(); // skip closing bracket
     return std::make_unique<BlockStatement>(std::move(statements));
 }
 
 
 std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, ValueEnum type) {
-    Token token = scanner_.consume();
+    Token token = scanner_.getCurrentToken();
     // If there is word "number" after "unsigned" just skip it
     if (type == UNSIGNED_NUMBER && token.type == keyword && token.value == "number") {
         token = scanner_.consume();
@@ -249,7 +261,7 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
 
 // TODO REFACTOR REFACTOR REFACTOR REFACTOR
 std::unique_ptr<Statement> Parser::parseFunctionDeclarationStatement(Scanner &scanner_) {
-    Token token = scanner_.consume();
+    Token token = scanner_.getCurrentToken();
     std::string name;
     ValueEnum returnType = VOID;
 
@@ -341,7 +353,7 @@ std::unique_ptr<Statement> Parser::parseFunctionDeclarationStatement(Scanner &sc
 }
 
 std::unique_ptr<Statement> Parser::parseAliasDeclaration(Scanner &scanner_) {
-    auto token = scanner_.consume();
+    auto token = scanner_.getCurrentToken();
     std::string alias; // new identifier for variable
     std::string underlying; // identifier of variable that will be represented by alias
 
@@ -375,7 +387,7 @@ std::unique_ptr<Statement> Parser::parseAliasDeclaration(Scanner &scanner_) {
 }
 
 std::unique_ptr<Statement> Parser::parseOpenStatement(Scanner &scanner_) {
-    auto token = scanner_.consume();
+    auto token = scanner_.getCurrentToken();
     OpenMode mode = readwrite;
     std::string alias;
     std::unique_ptr<Expression> nameExp;
@@ -422,7 +434,7 @@ std::unique_ptr<Statement> Parser::parseOpenStatement(Scanner &scanner_) {
 
 
 std::unique_ptr<Statement> Parser::parseIfStatement(Scanner &scanner_) {
-    auto token = scanner_.consume();
+    auto token = scanner_.getCurrentToken();
     if (token.type != leftRoundBracket) {
         setError("Expected left bracket", token.line, token.pos);
         return {};
@@ -464,7 +476,7 @@ std::unique_ptr<Statement> Parser::parseIfStatement(Scanner &scanner_) {
 }
 
 std::unique_ptr<Statement> Parser::parseIfMatchesStatement(Scanner &scanner_) {
-    auto token = scanner_.consume();
+    auto token = scanner_.getCurrentToken();
     std::string variableName;
     std::unique_ptr<Statement> trueStatement, falseStatement;
     std::unique_ptr<Expression> stringToMatch;
@@ -507,7 +519,7 @@ std::unique_ptr<Statement> Parser::parseIfMatchesStatement(Scanner &scanner_) {
 }
 
 std::unique_ptr<Statement> Parser::parseForStatement(Scanner &scanner_) {
-    Token token = scanner_.consume();
+    Token token = scanner_.getCurrentToken();
     ForType type;
     std::string iteratorName, sourceName;
     std::unique_ptr<Statement> body;
@@ -559,7 +571,7 @@ std::unique_ptr<Statement> Parser::parseForStatement(Scanner &scanner_) {
 
 // TODO Can you shorten this?
 std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
-    Token token = scanner_.consume();
+    Token token = scanner_.getCurrentToken();
     std::unique_ptr<Expression> matchExp;
 
     matchExp = parseSimpleExpression(scanner_);
@@ -623,7 +635,7 @@ std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
 
 // TODO both functions share most of the code, maybe split it somehow
 std::unique_ptr<Statement> Parser::parseWriteStatement(Scanner &scanner_, const std::string& identifier_) {
-    Token token = scanner_.consume();
+    Token token = scanner_.getCurrentToken();
     std::unique_ptr<Expression> expression = parseCompoundExpression(scanner_);
 
     if (!expression) {
@@ -631,19 +643,16 @@ std::unique_ptr<Statement> Parser::parseWriteStatement(Scanner &scanner_, const 
         return {};
     }
 
-    token = scanner_.getCurrentToken();
-    if (token.type != semicolon) {
-        setError("Missing semicolon", token.line, token.pos);
+    if (!consumeMatching(scanner_, {TokenType::semicolon})) {
         return {};
     }
 
-    scanner_.consume(); // skip semicolon
     return std::make_unique<WriteStatement>(identifier_, std::move(expression));
 }
 
 std::unique_ptr<Statement> Parser::parseExpressionStatement(Scanner &scanner_, const std::string& identifier_,
                                                             const TokenType operation_) {
-    Token token = scanner_.consume();
+    Token token = scanner_.getCurrentToken();
     std::unique_ptr<Expression> expression = parseCompoundExpression(scanner_);
 
     if (!expression) {
@@ -651,31 +660,25 @@ std::unique_ptr<Statement> Parser::parseExpressionStatement(Scanner &scanner_, c
         return {};
     }
 
-    token = scanner_.getCurrentToken();
-    if (token.type != semicolon) {
-        setError("Missing semicolon", token.line, token.pos);
+    if (!consumeMatching(scanner_, {TokenType::semicolon})) {
         return {};
     }
 
-    scanner_.consume(); // skip semicolon
     return std::make_unique<ExpressionStatement>(identifier_, operation_, std::move(expression));
 }
 
 std::unique_ptr<Statement> Parser::parseReturnStatement(Scanner &scanner_) {
-    Token token = scanner_.consume();
+    auto token = scanner_.getCurrentToken();
 
     auto exp = parseCompoundExpression(scanner_);
-    token = scanner_.getCurrentToken();
     if (!exp) {
         setError("Could not parse returning expression", token.line, token.pos);
         return {};
     }
 
-    if (token.type != semicolon) {
-        setError("Expected semicolon", token.line, token.pos);
+    if (!consumeMatching(scanner_, {TokenType::semicolon})) {
         return {};
     }
-    scanner_.consume(); // skip semicolon
 
     return std::make_unique<ReturnStatement>(std::move(exp));
 }
@@ -702,6 +705,7 @@ void Parser::printErrorMsg() const {
 std::unique_ptr<Expression> Parser::parseSimpleExpression(Scanner &scanner_) {
     std::unique_ptr<Expression> leftExpression;
     Token token = scanner_.getCurrentToken();
+
     switch (token.type) {
         case stringLiteral:
             if (scanner_.peek().type == dot) {
@@ -710,7 +714,7 @@ std::unique_ptr<Expression> Parser::parseSimpleExpression(Scanner &scanner_) {
         case numericLiteral:
         case floatLiteral:
             leftExpression = std::make_unique<LiteralExpression>(token);
-            scanner_.consume();
+            scanner_.consume(); // move to next token manually
             break;
 
         case identifier:
@@ -722,7 +726,7 @@ std::unique_ptr<Expression> Parser::parseSimpleExpression(Scanner &scanner_) {
             } else if (token.value == "false") {
                 leftExpression = std::make_unique<LiteralExpression>(false);
             }
-            scanner_.consume();
+            scanner_.consume(); // move to next token manually
             break;
 
         case readCharLeftOperator:
@@ -747,20 +751,12 @@ std::unique_ptr<Expression> Parser::parseFormattedStringExpression(Scanner &scan
         return std::unique_ptr<Expression>();
     }
     stringExp = std::make_unique<LiteralExpression>(token);
+    token = scanner_.consume(); // consume parsed literal
 
-    token = scanner_.consume();
-    if (token.type != dot) {
-        setError("Expected dot", token.line, token.pos);
-        return std::unique_ptr<Expression>();
+    if (!consumeMatching(scanner_, {dot, leftRoundBracket})) {
+        return {};
     }
 
-    token = scanner_.consume();
-    if (token.type != leftRoundBracket) {
-        setError("Expected start of arguments for formatted string", token.line, token.pos);
-        return std::unique_ptr<Expression>();
-    }
-
-    token = scanner_.consume();
     std::list<std::unique_ptr<Expression>> arguments;
     while (token.type != rightRoundBracket && token.type != unknown && token.type != fileEnd) {
         std::unique_ptr<Expression> argument = parseSimpleExpression(scanner_);
@@ -790,12 +786,11 @@ std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &s
     std::string name = token.value;
     token = scanner_.consume();
 
-    if (token.type != leftRoundBracket) {
+    if (!consumeMatching(scanner_, {leftRoundBracket})) {
         return std::make_unique<VariableExpression>(name);
     }
 
-    token = scanner_.consume(); // skip first bracket indicating parameters
-    const unsigned int argLine = token.line, argPos = token.pos;
+    const unsigned int argLine = scanner_.getCurrentToken().line, argPos = scanner_.getCurrentToken().pos;
     std::list<std::unique_ptr<Expression>> args;
 
     // Move token from left bracket and consume expressions as long as there is no right bracket
@@ -813,8 +808,7 @@ std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &s
         }
     }
 
-    if (scanner_.getCurrentToken().type == rightRoundBracket) {
-        scanner_.consume();
+    if (consumeMatching(scanner_, {rightRoundBracket})) {
         return std::make_unique<FunctionCallExpression>(name, std::move(args));
     }
 
@@ -921,19 +915,27 @@ std::unique_ptr<Expression> Parser::parseReadExpression(Scanner &scanner_) {
     }
 }
 
-bool Parser::consumeIf(Scanner &scanner_, const std::list<TokenType> &tokens_) {
-    if (!checkIf(scanner_, tokens_)) {
+bool Parser::consumeMatching(Scanner &scanner_, std::list<TokenType> tokens_) {
+    if (!checkAhead(scanner_, tokens_) || tokens_.empty()) {
         return false;
     }
 
+    scanner_.goForward(static_cast<size_t>(tokens_.size() - 1));
     scanner_.consume(tokens_.size());
     return true;
 }
 
-bool Parser::checkIf(Scanner &scanner_, const std::list<TokenType> &tokens_) {
+bool Parser::checkAhead(Scanner &scanner_, std::list<TokenType> tokens_, const bool includeFirst_) {
     int checked = 0;
+    if (!includeFirst_) {
+        checked = 1; // since we start from next token, we have to go back further at the end
+        scanner_.getNextToken();
+    }
+
     for (auto it = tokens_.begin(); it != tokens_.end(); ++it, ++checked) {
-        if (*it != scanner_.getCurrentToken().type) {
+        auto currentToken = scanner_.getCurrentToken();
+        if (*it != currentToken.type) { // TODO We do not want always an errors, sometimes we just check
+            setError(std::string("Expected ") + Token::toString(*it), currentToken.line, currentToken.pos);
             scanner_.goBack(checked);
             return false;
         }

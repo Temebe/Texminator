@@ -48,7 +48,7 @@ const Token &Scanner::consume(const int amount_) {
     return *tokenIterator;
 }
 
-const Token &Scanner::getCurrentToken() {
+const Token &Scanner::getCurrentToken() const {
     return *tokenIterator;
 }
 
@@ -61,16 +61,28 @@ const Token &Scanner::getNextToken() {
     return *tokenIterator;
 }
 
-const Token &Scanner::peek() {
-    auto it = tokenIterator;
-    return *(++it);
+Token Scanner::peek() {
+    auto result = getNextToken();
+    goBack();
+    return result;
 }
 
 void Scanner::goBack(const int amount_) {
-    if (amount_ <= 0) {
-        return;
+    if (amount_ < 0) {
+        return goForward(-amount_);
     }
-    tokenIterator.operator--(amount_);
+
+    std::advance(tokenIterator, -amount_);
+}
+
+void Scanner::goForward(const int amount_) {
+    if (amount_ < 0) {
+        return goBack(-amount_);
+    }
+
+    for (auto i = amount_; i > 0; --i) {
+        getNextToken();
+    }
 }
 
 Token Scanner::generateNewToken() {
