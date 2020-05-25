@@ -14,6 +14,7 @@
 class Parser {
 public:
     void parse(Scanner& scanner_);
+    std::unique_ptr<Statement> parseStatement(Scanner &scanner_);
 
 private:
     /**
@@ -25,7 +26,6 @@ private:
     void initializeFirstScope();
 
     // TODO Lookup table?
-    std::unique_ptr<Statement> parseStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseAfterKeyword(Scanner &scanner_);
     std::unique_ptr<Statement> parseAfterIdentifier(Scanner &scanner_);
 

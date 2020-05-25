@@ -5,7 +5,7 @@
 #include "Statement.h"
 
 enum OpenMode {
-    read, write, readwrite
+    readMode, writeMode, readwrite
 };
 
 class OpenStatement : public Statement {

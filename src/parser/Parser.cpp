@@ -387,9 +387,9 @@ std::unique_ptr<Statement> Parser::parseOpenStatement(Scanner &scanner_) {
         token = scanner_.consume();
 
         if (token.type == keyword && token.value == "read") {
-            mode = read;
+            mode = readMode;
         } else if (token.type == keyword && token.value == "write") {
-            mode = write;
+            mode = writeMode;
         } else {
             setError("Expected mode specifier after \"to\" keyword", token.line, token.pos);
             return {};
