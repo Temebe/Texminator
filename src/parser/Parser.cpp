@@ -236,12 +236,10 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
         return statement;
     }
 
-    if (token.type != assignOperator) {
-        setError("Expected assignment operator", token.line, token.pos);
+    if (!consumeMatching(scanner_, {assignOperator})) {
         return {};
     }
 
-    token = scanner_.consume();
     auto expression = parseCompoundExpression(scanner_);
     if (!expression) {
         setError("Expected expression here", token.line, token.pos);
@@ -249,13 +247,9 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
     }
     statement->setAssignmentExpression(std::move(expression));
 
-    token = scanner_.getCurrentToken();
-    if (token.type != semicolon) {
-        setError("Expected semicolon here", token.line, token.pos);
-        return {}   ;
+    if (!consumeMatching(scanner_, {semicolon})) {
+        return {};
     }
-
-    scanner_.consume(); // skip semicolon
     return statement;
 }
 
@@ -375,14 +369,11 @@ std::unique_ptr<Statement> Parser::parseAliasDeclaration(Scanner &scanner_) {
         return {};
     }
     alias = token.value;
+    scanner_.consume();
 
-    token = scanner_.consume();
-    if (token.type != semicolon ) {
-        setError("Expected semicolon at the end of the statement", token.line, token.pos);
+    if (!consumeMatching(scanner_, {semicolon})) {
         return {};
     }
-
-    scanner_.consume(); // skip semicolon
     return std::make_unique<AliasDeclarationStatement>(alias, underlying);
 }
 
@@ -423,36 +414,29 @@ std::unique_ptr<Statement> Parser::parseOpenStatement(Scanner &scanner_) {
         token = scanner_.consume();
     }
 
-    if (token.type != semicolon) {
-        setError("Semicolon missing", token.line, token.pos);
+    if (!consumeMatching(scanner_, {semicolon})) {
         return {};
     }
-
-    scanner_.consume(); // skip semicolon
     return std::make_unique<OpenStatement>(std::move(nameExp), alias, mode);
 }
 
 
 std::unique_ptr<Statement> Parser::parseIfStatement(Scanner &scanner_) {
-    auto token = scanner_.getCurrentToken();
-    if (token.type != leftRoundBracket) {
-        setError("Expected left bracket", token.line, token.pos);
+    Token token;
+    if (!consumeMatching(scanner_, {leftRoundBracket})) {
         return {};
     }
 
-    token = scanner_.consume(); // skin left bracket
     auto conditionExpression = parseCompoundExpression(scanner_, true);
     if (!conditionExpression) {
         setError("Expected condition for if statement", token.line, token.pos);
         return {};
     }
-    token = scanner_.getCurrentToken();
-    if (token.type != rightRoundBracket) {
-        setError("If condition not closed", token.line, token.pos);
+
+    if (!consumeMatching(scanner_, {rightRoundBracket})) {
         return {};
     }
 
-    scanner_.consume(); // skip closing bracket
     auto ifTrueStatement = parseStatement(scanner_);
     if (!ifTrueStatement) {
         setError("Expected statement after if", token.line, token.pos);
@@ -553,13 +537,11 @@ std::unique_ptr<Statement> Parser::parseForStatement(Scanner &scanner_) {
     }
     sourceName = token.value;
 
-    token = scanner_.consume();
-    if (token.type != colon) {
-        setError("Missing colon before for's body", token.line, token.pos);
+    scanner_.consume();
+    if (!consumeMatching(scanner_, {colon})) {
         return {};
     }
 
-    token = scanner_.consume();
     body = parseStatement(scanner_);
     if (!body) {
         setError("Could not parse for's body", token.line, token.pos);
@@ -580,13 +562,11 @@ std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
         return {};
     }
 
-    token = scanner_.getCurrentToken();
-    if (token.type != colon) {
-        setError("Expected colon", token.line, token.pos);
+    if (!consumeMatching(scanner_, {colon})) {
         return {};
     }
-    token = scanner_.consume(); // skip colon
 
+    token = scanner_.getCurrentToken();
     bool anyFound = false;
     std::unique_ptr<Statement> anyStatement;
     MatchList casesList;
@@ -601,13 +581,10 @@ std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
             }
         }
 
-        token = scanner_.getCurrentToken();
-        if (token.type != colon) {
-            setError("Expected colon", token.line, token.pos);
+        if (!consumeMatching(scanner_, {colon})) {
             return {};
         }
 
-        token = scanner_.consume(); // skip colon
         auto caseBody = parseStatement(scanner_);
         if (!caseBody) {
             setError("Could not parse case body", token.line, token.pos);
@@ -623,13 +600,10 @@ std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
         token = scanner_.getCurrentToken();
     }
 
-    token = scanner_.consume();
-    if (token.type != semicolon) {
-        setError("Expected semicolon", token.line, token.pos);
+    if (!consumeMatching(scanner_, {keyword, semicolon})) {
         return {};
     }
 
-    scanner_.consume(); // skip semicolon
     return std::make_unique<MatchStatement>(std::move(matchExp), std::move(casesList), std::move(anyStatement));
 }
 
