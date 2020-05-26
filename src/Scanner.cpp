@@ -415,7 +415,6 @@ std::optional<Token> Scanner::createNumericOrFloatLiteralToken() {
 
 std::optional<Token> Scanner::createStringLiteralToken() {
     Token token;
-    token.value = source->getChar();
 
     if (source->getChar() != '\"') {
         return std::optional<Token>();
@@ -434,8 +433,6 @@ std::optional<Token> Scanner::createStringLiteralToken() {
         source->goNext();
     }
 
-    // Since we stopped right before " character, add this one too before returning
-    token.value += source->peek();
     source->goNext();
     return std::optional<Token>(token);
 }

@@ -56,3 +56,7 @@ bool Value::isVoid() const {
 const ValueType& Value::getValue() const {
     return val;
 }
+
+void Value::setVal(const ValueType val_) {
+    Value::val = val_;
+}

@@ -14,8 +14,15 @@ public:
     explicit OpenStatement(std::string  filePath_, std::string  alias_ = "", OpenMode mode_ = readwrite);
     void execute(Environment& environment) override;
 
+    [[nodiscard]] const std::string &getFilePath() const;
+    [[nodiscard]] const std::string &getAlias() const;
+    [[nodiscard]] const std::unique_ptr<Expression> &getFilePathExp() const;
+    [[nodiscard]] OpenMode getOpenMode() const;
+
 private:
     std::string filePath;
+
+private:
     std::string alias;
     std::unique_ptr<Expression> filePathExp;
     OpenMode openMode;

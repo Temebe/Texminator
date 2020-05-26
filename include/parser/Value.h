@@ -44,6 +44,8 @@ public:
     std::optional<BoolType> getBool() const;
     bool isVoid() const;
 
+    void setVal(ValueType val_);
+
 private:
     ValueType val = VoidType();
 };

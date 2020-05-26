@@ -15,3 +15,19 @@ OpenStatement::OpenStatement(std::unique_ptr<Expression> exp_, std::string alias
 void OpenStatement::execute(Environment &environment) {
 
 }
+
+const std::string &OpenStatement::getFilePath() const {
+    return filePath;
+}
+
+const std::string &OpenStatement::getAlias() const {
+    return alias;
+}
+
+const std::unique_ptr<Expression> &OpenStatement::getFilePathExp() const {
+    return filePathExp;
+}
+
+OpenMode OpenStatement::getOpenMode() const {
+    return openMode;
+}
