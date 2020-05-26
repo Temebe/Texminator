@@ -20,6 +20,8 @@
 #include <parser/expressions/ReadCharExpression.h>
 #include <parser/statements/ReturnStatement.h>
 #include <parser/statements/FunctionDeclarationStatement.h>
+#include <parser/statements/BreakStatement.h>
+#include <parser/statements/ContinueStatement.h>
 #include "parser/Parser.h"
 #include "HornerHash.h"
 
@@ -80,36 +82,43 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
             if (token.value == "bool") {
                 return parseVariableDeclaration(scanner_, ValueEnum::BOOL);
             }
+            break;
 
         case constHornerHash("char"):
             if (token.value == "char") {
                 return parseVariableDeclaration(scanner_, ValueEnum::CHAR);
             }
+            break;
 
         case constHornerHash("float"):
             if (token.value == "float") {
                 return parseVariableDeclaration(scanner_, ValueEnum::FLOAT);
             }
+            break;
 
         case constHornerHash("unsigned"):
             if (token.value == "unsigned") {
                 return parseVariableDeclaration(scanner_, ValueEnum::UNSIGNED_NUMBER);
             }
+            break;
 
         case constHornerHash("number"):
             if (token.value == "number") {
                 return parseVariableDeclaration(scanner_, ValueEnum::NUMBER);
             }
+            break;
 
         case constHornerHash("string"):
             if (token.value == "string") {
                 return parseVariableDeclaration(scanner_, ValueEnum::BOOL);
             }
+            break;
 
         case constHornerHash("open"):
             if (token.value == "open") {
                 return parseOpenStatement(scanner_);
             }
+            break;
 
         case constHornerHash("if"):
             if (token.value == "if") {
@@ -118,31 +127,49 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
                 }
                 return parseIfStatement(scanner_);
             }
+            break;
 
         case constHornerHash("use"):
             if (token.value == "use") {
                 return parseAliasDeclaration(scanner_);
             }
+            break;
 
         case constHornerHash("for"):
             if (token.value == "for") {
                 return parseForStatement(scanner_);
             }
+            break;
 
         case constHornerHash("match"):
             if (token.value == "match") {
                 return parseMatchStatement(scanner_);
             }
+            break;
 
         case constHornerHash("fun"):
             if (token.value == "fun") {
                 return parseFunctionDeclarationStatement(scanner_);
             }
+            break;
 
         case constHornerHash("return"):
             if (token.value == "return") {
                 return parseReturnStatement(scanner_);
             }
+            break;
+
+        case constHornerHash("continue"):
+            if (token.value == "continue") {
+                return parseContinueStatement(scanner_);
+            }
+            break;
+
+        case constHornerHash("break"):
+            if (token.value == "break") {
+                return parseBreakStatement(scanner_);
+            }
+            break;
 
 
         default:
@@ -644,6 +671,10 @@ std::unique_ptr<Statement> Parser::parseExpressionStatement(Scanner &scanner_, c
 std::unique_ptr<Statement> Parser::parseReturnStatement(Scanner &scanner_) {
     auto token = scanner_.getCurrentToken();
 
+    if (consumeMatching(scanner_, {TokenType::semicolon})) {
+        return std::make_unique<ReturnStatement>(nullptr);
+    }
+
     auto exp = parseCompoundExpression(scanner_);
     if (!exp) {
         setError("Could not parse returning expression", token.line, token.pos);
@@ -655,6 +686,22 @@ std::unique_ptr<Statement> Parser::parseReturnStatement(Scanner &scanner_) {
     }
 
     return std::make_unique<ReturnStatement>(std::move(exp));
+}
+
+std::unique_ptr<Statement> Parser::parseBreakStatement(Scanner &scanner_) {
+    if (!consumeMatching(scanner_, {TokenType::semicolon})) {
+        return {};
+    }
+
+    return std::make_unique<BreakStatement>();
+}
+
+std::unique_ptr<Statement> Parser::parseContinueStatement(Scanner &scanner_) {
+    if (!consumeMatching(scanner_, {TokenType::semicolon})) {
+        return {};
+    }
+
+    return std::make_unique<ContinueStatement>();
 }
 
 void Parser::setError(const std::string &err_, const unsigned int line_, const unsigned int pos_) {

@@ -42,6 +42,8 @@ private:
     std::unique_ptr<Statement> parseExpressionStatement(Scanner &scanner_, const std::string& identifier,
                                                         TokenType operation);
     std::unique_ptr<Statement> parseReturnStatement(Scanner &scanner_);
+    std::unique_ptr<Statement> parseBreakStatement(Scanner &scanner_);
+    std::unique_ptr<Statement> parseContinueStatement(Scanner &scanner_);
 
 
     std::unique_ptr<Expression> parseSimpleExpression(Scanner &scanner_);

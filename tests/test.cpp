@@ -7,6 +7,18 @@
 #include "parser/Parser.h"
 #include "StringSource.h"
 #include "parser/statements/OpenStatement.h"
+#include "parser/statements/BreakStatement.h"
+#include "parser/statements/ContinueStatement.h"
+#include "parser/statements/ReturnStatement.h"
+#include "parser/statements/AliasDeclarationStatement.h"
+#include "parser/statements/BlockStatement.h"
+#include "parser/statements/ExpressionStatement.h"
+#include "parser/statements/ForStatement.h"
+#include "parser/statements/FunctionDeclarationStatement.h"
+#include "parser/statements/IfMatchesStatement.h"
+#include "parser/statements/VariableDeclarationStatement.h"
+#include "parser/statements/WriteStatement.h"
+
 
 static inline std::ostream& operator<< (std::ostream& os, const Value& val)
 {
@@ -47,7 +59,7 @@ std::unique_ptr<T> parseStatement(const std::string& code_) {
 }
 
 
-BOOST_AUTO_TEST_CASE(test_open_statement_simplechecks) {
+BOOST_AUTO_TEST_CASE(test_simplechecks) {
     BOOST_TEST(checkStatement<OpenStatement>("open to write file.txt;"));
     BOOST_TEST(checkStatement<OpenStatement>("open to read some_file;"));
     BOOST_TEST(checkStatement<OpenStatement>("open to write \"../file.txt\";"));
@@ -64,6 +76,24 @@ BOOST_AUTO_TEST_CASE(test_open_statement_simplechecks) {
     BOOST_TEST(!checkStatement<OpenStatement>("open to write file.txt"));
     BOOST_TEST(!checkStatement<OpenStatement>("open"));
     BOOST_TEST(!checkStatement<OpenStatement>("open as to when off write file.txt;"));
+
+    BOOST_TEST(checkStatement<BreakStatement>("break;"));
+    BOOST_TEST(checkStatement<BreakStatement>(" break  ;"));
+
+    BOOST_TEST(checkStatement<ContinueStatement>("continue;"));
+    BOOST_TEST(!checkStatement<ContinueStatement>("break;"));
+    BOOST_TEST(!checkStatement<ContinueStatement>(";"));
+
+    BOOST_TEST(checkStatement<ReturnStatement>("return;"));
+    BOOST_TEST(checkStatement<ReturnStatement>("return 5;"));
+    BOOST_TEST(checkStatement<ReturnStatement>("return \"asdfgh\";"));
+    BOOST_TEST(!checkStatement<ReturnStatement>(";"));
+    BOOST_TEST(!checkStatement<ReturnStatement>("continue;"));
+
+    BOOST_TEST(checkStatement<ExpressionStatement>("arg += 3;"));
+    BOOST_TEST(checkStatement<ExpressionStatement>("var = (2*(3-(4/5)));"));
+    BOOST_TEST(checkStatement<ExpressionStatement>("h -= 4;"));
+
 }
 
 BOOST_AUTO_TEST_CASE(test_open_statement_A) {
