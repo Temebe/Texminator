@@ -1,8 +1,6 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MAIN
-#include <boost/test/unit_test.hpp>
-#include <boost/test/data/test_case.hpp>
-
+#define CATCH_CONFIG_MAIN
+#include <catch2/catch.hpp>
+#include <catch2/catch_reporter_teamcity.hpp>
 #include "Scanner.h"
 #include "parser/Parser.h"
 #include "StringSource.h"
@@ -18,21 +16,6 @@
 #include "parser/statements/IfMatchesStatement.h"
 #include "parser/statements/VariableDeclarationStatement.h"
 #include "parser/statements/WriteStatement.h"
-
-
-static inline std::ostream& operator<< (std::ostream& os, const Value& val)
-{
-    os << "val";
-    return os;
-}
-
-namespace boost::test_tools::tt_detail {
-            std::ostream& operator<<(std::ostream& os, Value const& ts)
-            {
-                return ::operator<<(os, ts);
-            }
-        }
-
 
 template<typename T>
 bool checkStatement(const std::string& code_) {
@@ -58,65 +41,68 @@ std::unique_ptr<T> parseStatement(const std::string& code_) {
     return std::move(result);
 }
 
+TEST_CASE("Simple parsing checks") {
+    REQUIRE(checkStatement<OpenStatement>("open to write file.txt;"));
+    REQUIRE(checkStatement<OpenStatement>("open to read some_file;"));
+    REQUIRE(checkStatement<OpenStatement>("open to write \"../file.txt\";"));
+    REQUIRE(checkStatement<OpenStatement>("open to read \"../fil22e.txt\";"));
+    REQUIRE(checkStatement<OpenStatement>("open to write file.txt as exe;"));
+    REQUIRE(checkStatement<OpenStatement>("open to read some_file as fil;"));
+    REQUIRE(checkStatement<OpenStatement>("open to write \"../file.txt\" as file2;"));
+    REQUIRE(checkStatement<OpenStatement>("open to read \"../fil22e.txt\" as other_file;"));
+    REQUIRE(checkStatement<OpenStatement>("open file.txt;"));
+    REQUIRE(checkStatement<OpenStatement>("open file.txt as file;"));
+    REQUIRE(checkStatement<OpenStatement>("open \"file.txt\";"));
+    REQUIRE(checkStatement<OpenStatement>("open \"file.txt as file\";"));
 
-BOOST_AUTO_TEST_CASE(test_simplechecks) {
-    BOOST_TEST(checkStatement<OpenStatement>("open to write file.txt;"));
-    BOOST_TEST(checkStatement<OpenStatement>("open to read some_file;"));
-    BOOST_TEST(checkStatement<OpenStatement>("open to write \"../file.txt\";"));
-    BOOST_TEST(checkStatement<OpenStatement>("open to read \"../fil22e.txt\";"));
-    BOOST_TEST(checkStatement<OpenStatement>("open to write file.txt as exe;"));
-    BOOST_TEST(checkStatement<OpenStatement>("open to read some_file as fil;"));
-    BOOST_TEST(checkStatement<OpenStatement>("open to write \"../file.txt\" as file2;"));
-    BOOST_TEST(checkStatement<OpenStatement>("open to read \"../fil22e.txt\" as other_file;"));
-    BOOST_TEST(checkStatement<OpenStatement>("open file.txt;"));
-    BOOST_TEST(checkStatement<OpenStatement>("open file.txt as file;"));
-    BOOST_TEST(checkStatement<OpenStatement>("open \"file.txt\";"));
-    BOOST_TEST(checkStatement<OpenStatement>("open \"file.txt as file\";"));
+    REQUIRE_FALSE(checkStatement<OpenStatement>("open to write file.txt"));
+    REQUIRE_FALSE(checkStatement<OpenStatement>("open"));
+    REQUIRE_FALSE(checkStatement<OpenStatement>("open as to when off write file.txt;"));
 
-    BOOST_TEST(!checkStatement<OpenStatement>("open to write file.txt"));
-    BOOST_TEST(!checkStatement<OpenStatement>("open"));
-    BOOST_TEST(!checkStatement<OpenStatement>("open as to when off write file.txt;"));
+    REQUIRE(checkStatement<BreakStatement>("break;"));
+    REQUIRE(checkStatement<BreakStatement>(" break  ;"));
 
-    BOOST_TEST(checkStatement<BreakStatement>("break;"));
-    BOOST_TEST(checkStatement<BreakStatement>(" break  ;"));
+    REQUIRE(checkStatement<ContinueStatement>("continue;"));
+    REQUIRE_FALSE(checkStatement<ContinueStatement>("break;"));
+    REQUIRE_FALSE(checkStatement<ContinueStatement>(";"));
 
-    BOOST_TEST(checkStatement<ContinueStatement>("continue;"));
-    BOOST_TEST(!checkStatement<ContinueStatement>("break;"));
-    BOOST_TEST(!checkStatement<ContinueStatement>(";"));
+    REQUIRE(checkStatement<ReturnStatement>("return;"));
+    REQUIRE(checkStatement<ReturnStatement>("return 5;"));
+    REQUIRE(checkStatement<ReturnStatement>("return \"asdfgh\";"));
+    REQUIRE_FALSE(checkStatement<ReturnStatement>(";"));
+    REQUIRE_FALSE(checkStatement<ReturnStatement>("continue;"));
 
-    BOOST_TEST(checkStatement<ReturnStatement>("return;"));
-    BOOST_TEST(checkStatement<ReturnStatement>("return 5;"));
-    BOOST_TEST(checkStatement<ReturnStatement>("return \"asdfgh\";"));
-    BOOST_TEST(!checkStatement<ReturnStatement>(";"));
-    BOOST_TEST(!checkStatement<ReturnStatement>("continue;"));
-
-    BOOST_TEST(checkStatement<ExpressionStatement>("arg += 3;"));
-    BOOST_TEST(checkStatement<ExpressionStatement>("var = (2*(3-(4/5)));"));
-    BOOST_TEST(checkStatement<ExpressionStatement>("h -= 4;"));
-
+    REQUIRE(checkStatement<ExpressionStatement>("arg += 3;"));
+    REQUIRE(checkStatement<ExpressionStatement>("var = (2*(3-(4/5)));"));
+    REQUIRE(checkStatement<ExpressionStatement>("h -= 4;"));
 }
 
-BOOST_AUTO_TEST_CASE(test_open_statement_A) {
+TEST_CASE("Parsing open statements") {
     Environment env;
-    std::unique_ptr<OpenStatement> statement = parseStatement<OpenStatement>("open to write \"file.txt\";");
-    BOOST_TEST(statement.get() != nullptr);
-    BOOST_TEST(statement->getOpenMode() == writeMode);
-    BOOST_TEST(statement->getAlias().empty());
+    std::unique_ptr<OpenStatement> statement;
 
-    auto path = statement->getFilePathExp()->evaluate(env).getString();
-    BOOST_TEST(path.value_or("") == "file.txt");
-}
+    SECTION("Example A") {
+        statement = parseStatement<OpenStatement>("open to write \"file.txt\";");
+        REQUIRE(statement.get() != nullptr);
+        REQUIRE(statement->getOpenMode() == writeMode);
+        REQUIRE(statement->getAlias().empty());
 
-BOOST_AUTO_TEST_CASE(test_open_statement_B) {
-    std::unique_ptr<OpenStatement> statement = parseStatement<OpenStatement>("open file2.txt;");
-    BOOST_TEST(statement.get() != nullptr);
-    BOOST_TEST(statement->getOpenMode() == readwrite);
-    BOOST_TEST(statement->getAlias().empty());
-}
+        auto path = statement->getFilePathExp()->evaluate(env).getString();
+        REQUIRE(path.value_or("") == "file.txt");
+    }
 
-BOOST_AUTO_TEST_CASE(test_open_statement_C) {
-    std::unique_ptr<OpenStatement> statement = parseStatement<OpenStatement>("open to read file.txt as sth;");
-    BOOST_TEST(statement.get() != nullptr);
-    BOOST_TEST(statement->getOpenMode() == readMode);
-    BOOST_TEST(statement->getAlias() == "sth");
+    SECTION("Example B") {
+        statement = parseStatement<OpenStatement>("open file2.txt;");
+        REQUIRE(statement.get() != nullptr);
+        REQUIRE(statement->getOpenMode() == readwrite);
+        REQUIRE(statement->getAlias().empty());
+    }
+
+    SECTION("Example C") {
+        statement = parseStatement<OpenStatement>("open to read file.txt as sth;");
+        REQUIRE(statement.get() != nullptr);
+        REQUIRE(statement->getOpenMode() == readMode);
+        REQUIRE(statement->getAlias() == "sth");
+    }
+
 }
