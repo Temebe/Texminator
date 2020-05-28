@@ -330,8 +330,6 @@ std::optional<Token> Scanner::createLogicalOperatorToken() {
 
     else if (source->getChar() == '!' && source->peek() != '=') { // NOT operator
         token.type = notOperator;
-        token.value += source->peek();
-        source->goNext();
         return std::optional<Token>(token);
     }
 

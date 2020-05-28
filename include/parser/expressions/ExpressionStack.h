@@ -4,7 +4,6 @@
 
 #include <Token.h>
 #include <deque>
-#include <list>
 #include "Expression.h"
 
 /**
@@ -23,8 +22,8 @@ private:
     static int getPriority(TokenType token_);
     static std::unique_ptr<Expression> createExpression(TokenType type_);
 
-    std::list<TokenType> operatorStack;
-    std::list<std::unique_ptr<Expression>> expressionsList;
+    std::deque<TokenType> operatorStack;
+    std::deque<std::unique_ptr<Expression>> expressionsStack;
 };
 
 

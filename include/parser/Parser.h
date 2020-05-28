@@ -15,6 +15,7 @@ class Parser {
 public:
     void parse(Scanner& scanner_);
     std::unique_ptr<Statement> parseStatement(Scanner &scanner_);
+    std::unique_ptr<Expression> parseCompoundExpression(Scanner &scanner_,  bool stopOnRoundBracket_ = false);
 
 private:
     /**
@@ -48,7 +49,6 @@ private:
 
     std::unique_ptr<Expression> parseSimpleExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseFormattedStringExpression(Scanner &scanner_);
-    std::unique_ptr<Expression> parseCompoundExpression(Scanner &scanner_,  bool stopOnRoundBracket_ = false);
     std::unique_ptr<Expression> parseReadExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseVariableOrFunctionExpression(Scanner &scanner_);
 

@@ -45,6 +45,17 @@ std::unique_ptr<T> parseStatement(const std::string& code_) {
     return std::move(result);
 }
 
+std::unique_ptr<Expression> parseCompoundExpression(const std::string &code_) {
+    Parser parser;
+    std::unique_ptr<Source> source = std::make_unique<StringSource>(code_);
+    Scanner scanner(std::move(source));
+
+    std::unique_ptr<Expression> result;
+    result = parser.parseCompoundExpression(scanner);
+
+    return std::move(result);
+}
+
 TEST_CASE("Simple parsing checks") {
     CHECK(checkStatement<OpenStatement>("open to write file.txt;"));
     CHECK(checkStatement<OpenStatement>("open to read some_file;"));
@@ -227,4 +238,72 @@ TEST_CASE("Parsing compound expressions") {
         REQUIRE(dynamic_cast<LiteralExpression*>(rightAddition->getLeftExpression().get()));
         REQUIRE(dynamic_cast<MultiplicationExpression*>(rightAddition->getRightExpression().get()));
     }
+}
+
+TEST_CASE("Compound expression and order of operations") {
+    Environment env;
+
+    SECTION("1 + 3 > 2 + 3 * 4") {
+        auto exp = parseCompoundExpression("1 + 3 > 2 + 3 * 4;");
+
+        REQUIRE(exp);
+        CHECK(std::get<BoolType>(exp->evaluate(env)) == false);
+    }
+
+    SECTION("2 + 2 * 2") {
+        auto exp = parseCompoundExpression("2 + 2 * 2;");
+
+        REQUIRE(exp);
+        CHECK(std::get<UnsignedNumberType>(exp->evaluate(env)) == 6);
+    }
+
+    SECTION("(true || false) && true") {
+        auto exp = parseCompoundExpression("(true || false) && true;");
+
+        REQUIRE(exp);
+        CHECK(std::get<BoolType>(exp->evaluate(env)) == true);
+    }
+
+    SECTION("(true || false) && false") {
+        auto exp = parseCompoundExpression("(true || false) && false;");
+
+        REQUIRE(exp);
+        CHECK(std::get<BoolType>(exp->evaluate(env)) == false);
+    }
+
+    SECTION("(false || false) && true") {
+        auto exp = parseCompoundExpression("(false || false) && true;");
+
+        REQUIRE(exp);
+        CHECK(std::get<BoolType>(exp->evaluate(env)) == false);
+    }
+
+    SECTION("!false") {
+        auto exp = parseCompoundExpression("!false;");
+
+        REQUIRE(exp);
+        CHECK(std::get<BoolType>(exp->evaluate(env)) == true);
+    }
+
+    SECTION("23 + 7243234 + 23312 * 31 != 1") {
+        auto exp = parseCompoundExpression("23 + 7243234 + 23312 * 31 != 1;");
+
+        REQUIRE(exp);
+        CHECK(std::get<BoolType>(exp->evaluate(env)) == false);
+    }
+
+    SECTION("0 == 0") {
+        auto exp = parseCompoundExpression("0 == 0;");
+
+        REQUIRE(exp);
+        CHECK(std::get<BoolType>(exp->evaluate(env)) == true);
+    }
+
+    SECTION("2 > 3") {
+        auto exp = parseCompoundExpression("2 > 3;");
+
+        REQUIRE(exp);
+        CHECK(std::get<BoolType>(exp->evaluate(env)) == false);
+    }
+
 }

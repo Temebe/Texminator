@@ -28,7 +28,7 @@ Value AdditionExpression::evaluate(Environment &environment) {
         return Value(VoidType());
     }
     Value leftValue = leftExpression->evaluate(environment);
-    Value rightValue = leftExpression->evaluate(environment);
+    Value rightValue = rightExpression->evaluate(environment);
 
     // TODO Handle wrong type additions
     // For some reason I cannot throw exceptions and I am not sure yet why is that
@@ -77,7 +77,7 @@ Value MultiplicationExpression::evaluate(Environment &environment) {
         return Value(VoidType());
     }
     Value leftValue = leftExpression->evaluate(environment);
-    Value rightValue = leftExpression->evaluate(environment);
+    Value rightValue = rightExpression->evaluate(environment);
 
     Value result = std::visit(overload {
             [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(division ? l / r : l * r); },
@@ -116,7 +116,7 @@ Value ModuloExpression::evaluate(Environment &environment) {
         return Value(VoidType());
     }
     Value leftValue = leftExpression->evaluate(environment);
-    Value rightValue = leftExpression->evaluate(environment);
+    Value rightValue = rightExpression->evaluate(environment);
 
     Value result = std::visit(overload {
             [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(l % r); },

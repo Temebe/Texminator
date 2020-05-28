@@ -76,6 +76,7 @@ int ExpressionStack::getPriority(const TokenType token_) {
         case orOperator:
             return 2;
 
+        case rightRoundBracket:
         case leftRoundBracket:
             return 1;
 
@@ -86,7 +87,7 @@ int ExpressionStack::getPriority(const TokenType token_) {
 
 bool ExpressionStack::addExpression(std::unique_ptr<Expression> expression_) {
     if (expression_) {
-        expressionsList.push_back(std::move(expression_));
+        expressionsStack.push_back(std::move(expression_));
         return true;
     }
     return false;
@@ -142,9 +143,9 @@ std::unique_ptr<Expression> ExpressionStack::calculateExpression() {
     }
 
     std::stack<std::unique_ptr<Expression>> stack;
-    while (!expressionsList.empty()) {
-        std::unique_ptr<Expression> exp = std::move(expressionsList.front());
-        expressionsList.pop_front();
+    while (!expressionsStack.empty()) {
+        std::unique_ptr<Expression> exp = std::move(expressionsStack.front());
+        expressionsStack.pop_front();
 
         if (auto twoFactorExp = dynamic_cast<TwoFactorExpression*>(exp.get())) {
             auto rightExpression = std::move(stack.top());

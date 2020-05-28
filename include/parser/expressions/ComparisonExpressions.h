@@ -3,12 +3,11 @@
 
 #include "Expression.h"
 
+
 class EqualExpression : public Expression, public TwoFactorExpression {
 public:
     explicit EqualExpression(bool negation_ = false) : negation(negation_) {};
-    Value evaluate(Environment &environment) override {
-        return Value();
-    }
+    Value evaluate(Environment &environment) override;
 
 private:
     const bool negation;
@@ -22,10 +21,7 @@ enum RelationType {
 class RelationalExpression : public Expression, public TwoFactorExpression {
 public:
     explicit RelationalExpression(RelationType type_) : relationType(type_) {};
-    Value evaluate(Environment &environment) override {
-        return Value();
-    }
-
+    Value evaluate(Environment &environment) override;
 private:
     RelationType relationType;
 };

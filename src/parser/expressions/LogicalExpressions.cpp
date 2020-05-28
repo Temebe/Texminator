@@ -8,7 +8,7 @@ Value AndExpression::evaluate(Environment &environment) {
         return Value(VoidType());
     }
     Value leftValue = leftExpression->evaluate(environment);
-    Value rightValue = leftExpression->evaluate(environment);
+    Value rightValue = rightExpression->evaluate(environment);
 
     Value result = std::visit(overload {
             [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(static_cast<BoolType>(l && r)); },
@@ -34,7 +34,7 @@ Value OrExpression::evaluate(Environment &environment) {
         return Value(VoidType());
     }
     Value leftValue = leftExpression->evaluate(environment);
-    Value rightValue = leftExpression->evaluate(environment);
+    Value rightValue = rightExpression->evaluate(environment);
 
     Value result = std::visit(overload {
             [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(static_cast<BoolType>(l || r)); },
