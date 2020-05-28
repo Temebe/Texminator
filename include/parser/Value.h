@@ -12,9 +12,9 @@ using FloatType = double;
 using BoolType = bool;
 struct VoidType {};
 using Value = std::variant<UnsignedNumberType, NumberType,
-                               CharType,           StringType,
-                               FloatType,          BoolType,
-                               VoidType>;
+                           CharType,           StringType,
+                           FloatType,          BoolType,
+                           VoidType>;
 
 enum ValueEnum {
     UNSIGNED_NUMBER, NUMBER,
