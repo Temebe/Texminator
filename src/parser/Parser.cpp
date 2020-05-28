@@ -72,105 +72,61 @@ std::unique_ptr<Statement> Parser::parseStatement(Scanner& scanner_) {
     return statement;
 }
 
-// TODO Maybe connect somehow keywords from scanner to these
+// There is a possibility that other word may have same hash as some keyword
+// It will not however be then parsed correctly and performance gain
+// greatly exceeds risk and potential consequences
 std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
     Token token = scanner_.getCurrentToken();
     scanner_.getNextToken();
 
     switch (hornerHash(token.value.c_str())) {
         case constHornerHash("bool"):
-            if (token.value == "bool") {
-                return parseVariableDeclaration(scanner_, ValueEnum::BOOL);
-            }
-            break;
+            return parseVariableDeclaration(scanner_, ValueEnum::BOOL);
 
         case constHornerHash("char"):
-            if (token.value == "char") {
-                return parseVariableDeclaration(scanner_, ValueEnum::CHAR);
-            }
-            break;
+            return parseVariableDeclaration(scanner_, ValueEnum::CHAR);
 
         case constHornerHash("float"):
-            if (token.value == "float") {
-                return parseVariableDeclaration(scanner_, ValueEnum::FLOAT);
-            }
-            break;
+            return parseVariableDeclaration(scanner_, ValueEnum::FLOAT);
 
         case constHornerHash("unsigned"):
-            if (token.value == "unsigned") {
-                return parseVariableDeclaration(scanner_, ValueEnum::UNSIGNED_NUMBER);
-            }
-            break;
+            return parseVariableDeclaration(scanner_, ValueEnum::UNSIGNED_NUMBER);
 
         case constHornerHash("number"):
-            if (token.value == "number") {
-                return parseVariableDeclaration(scanner_, ValueEnum::NUMBER);
-            }
-            break;
+            return parseVariableDeclaration(scanner_, ValueEnum::NUMBER);
 
         case constHornerHash("string"):
-            if (token.value == "string") {
-                return parseVariableDeclaration(scanner_, ValueEnum::STRING);
-            }
-            break;
+            return parseVariableDeclaration(scanner_, ValueEnum::STRING);
 
         case constHornerHash("open"):
-            if (token.value == "open") {
-                return parseOpenStatement(scanner_);
-            }
-            break;
+            return parseOpenStatement(scanner_);
 
         case constHornerHash("if"):
-            if (token.value == "if") {
-                if (scanner_.getCurrentToken().type == identifier) {
-                    return parseIfMatchesStatement(scanner_);
-                }
-                return parseIfStatement(scanner_);
+            if (scanner_.getCurrentToken().type == identifier) {
+                return parseIfMatchesStatement(scanner_);
             }
-            break;
+            return parseIfStatement(scanner_);
 
         case constHornerHash("use"):
-            if (token.value == "use") {
-                return parseAliasDeclaration(scanner_);
-            }
-            break;
+            return parseAliasDeclaration(scanner_);
 
         case constHornerHash("for"):
-            if (token.value == "for") {
-                return parseForStatement(scanner_);
-            }
-            break;
+            return parseForStatement(scanner_);
 
         case constHornerHash("match"):
-            if (token.value == "match") {
-                return parseMatchStatement(scanner_);
-            }
-            break;
+            return parseMatchStatement(scanner_);
 
         case constHornerHash("fun"):
-            if (token.value == "fun") {
-                return parseFunctionDeclarationStatement(scanner_);
-            }
-            break;
+            return parseFunctionDeclarationStatement(scanner_);
 
         case constHornerHash("return"):
-            if (token.value == "return") {
-                return parseReturnStatement(scanner_);
-            }
-            break;
+            return parseReturnStatement(scanner_);
 
         case constHornerHash("continue"):
-            if (token.value == "continue") {
-                return parseContinueStatement(scanner_);
-            }
-            break;
+            return parseContinueStatement(scanner_);
 
         case constHornerHash("break"):
-            if (token.value == "break") {
-                return parseBreakStatement(scanner_);
-            }
-            break;
-
+            return parseBreakStatement(scanner_);
 
         default:
             scanner_.goBack();
