@@ -10,6 +10,10 @@ public:
     void execute(Environment& environment) override;
     void setAssignmentExpression(std::unique_ptr<Expression> expression_);
 
+    [[nodiscard]] const std::string &getName() const;
+    [[nodiscard]] ValueEnum getType() const;
+    [[nodiscard]] const std::unique_ptr<Expression> &getAssignmentExpression() const;
+
 private:
     std::string name;
     ValueEnum type;

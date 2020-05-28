@@ -106,3 +106,69 @@ TEST_CASE("Parsing open statements") {
     }
 
 }
+
+TEST_CASE("Variable declaration statements") {
+    Environment env;
+    std::unique_ptr<VariableDeclarationStatement> statement;
+
+    SECTION("Example A") {
+        statement = parseStatement<VariableDeclarationStatement>("unsigned number x;");
+        REQUIRE(statement);
+        REQUIRE(statement->getName() == "x");
+        REQUIRE_FALSE(statement->getAssignmentExpression());
+        REQUIRE(statement->getType() == UNSIGNED_NUMBER);
+    }
+
+    SECTION("Example B") {
+        statement = parseStatement<VariableDeclarationStatement>("unsigned x;");
+        REQUIRE(statement);
+        REQUIRE(statement->getName() == "x");
+        REQUIRE_FALSE(statement->getAssignmentExpression());
+        REQUIRE(statement->getType() == UNSIGNED_NUMBER);
+    }
+
+    SECTION("Example C") {
+        statement = parseStatement<VariableDeclarationStatement>("string x = \"test\";");
+        REQUIRE(statement);
+        REQUIRE(statement->getName() == "x");
+        REQUIRE(statement->getAssignmentExpression()->evaluate(env).getString().value_or("") == "test");
+        REQUIRE(statement->getType() == STRING);
+    }
+
+    SECTION("Check bool type") {
+        statement = parseStatement<VariableDeclarationStatement>("bool x;");
+        REQUIRE(statement);
+        REQUIRE(statement->getType() == BOOL);
+    }
+
+    SECTION("Check char type") {
+        statement = parseStatement<VariableDeclarationStatement>("char x;");
+        REQUIRE(statement);
+        REQUIRE(statement->getType() == CHAR);
+    }
+
+    SECTION("Check float type") {
+        statement = parseStatement<VariableDeclarationStatement>("float x;");
+        REQUIRE(statement);
+        REQUIRE(statement->getType() == FLOAT);
+    }
+
+    SECTION("Check unsigned type") {
+        statement = parseStatement<VariableDeclarationStatement>("unsigned x;");
+        REQUIRE(statement);
+        REQUIRE(statement->getType() == UNSIGNED_NUMBER);
+    }
+
+    SECTION("Check number type") {
+        statement = parseStatement<VariableDeclarationStatement>("number x;");
+        REQUIRE(statement);
+        REQUIRE(statement->getType() == NUMBER);
+    }
+
+    SECTION("Check string type") {
+        statement = parseStatement<VariableDeclarationStatement>("string x;");
+        REQUIRE(statement);
+        REQUIRE(statement->getType() == STRING);
+    }
+
+}

@@ -110,7 +110,7 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
 
         case constHornerHash("string"):
             if (token.value == "string") {
-                return parseVariableDeclaration(scanner_, ValueEnum::BOOL);
+                return parseVariableDeclaration(scanner_, ValueEnum::STRING);
             }
             break;
 
