@@ -14,7 +14,7 @@ public:
     Value evaluate(Environment &environment) override;
 };
 
-class NotExpression : public Expression, public TwoFactorExpression {
+class NotExpression : public Expression, public OneFactorExpression {
 public:
     Value evaluate(Environment &environment) override;
 };
