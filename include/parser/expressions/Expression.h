@@ -15,6 +15,9 @@ public:
     void setLeftExpression(std::unique_ptr<Expression> exp_);
     void setRightExpression(std::unique_ptr<Expression> exp_);
 
+    [[nodiscard]] const std::unique_ptr<Expression> &getLeftExpression() const;
+    [[nodiscard]] const std::unique_ptr<Expression> &getRightExpression() const;
+
 protected:
     std::unique_ptr<Expression> leftExpression;
     std::unique_ptr<Expression> rightExpression;
@@ -23,6 +26,8 @@ protected:
 class OneFactorExpression {
 public:
     void setFactorExpression(std::unique_ptr<Expression> exp_);
+
+    [[nodiscard]] const std::unique_ptr<Expression> &getFactorExpression() const;
 
 protected:
     std::unique_ptr<Expression> factorExpression;

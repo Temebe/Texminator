@@ -16,6 +16,10 @@
 #include "parser/statements/IfMatchesStatement.h"
 #include "parser/statements/VariableDeclarationStatement.h"
 #include "parser/statements/WriteStatement.h"
+#include "parser/expressions/ComparisonExpressions.h"
+#include "parser/expressions/LiteralExpression.h"
+#include "parser/expressions/ArithmeticExpressions.h"
+#include "parser/expressions/BracketExpression.h"
 
 template<typename T>
 bool checkStatement(const std::string& code_) {
@@ -42,39 +46,39 @@ std::unique_ptr<T> parseStatement(const std::string& code_) {
 }
 
 TEST_CASE("Simple parsing checks") {
-    REQUIRE(checkStatement<OpenStatement>("open to write file.txt;"));
-    REQUIRE(checkStatement<OpenStatement>("open to read some_file;"));
-    REQUIRE(checkStatement<OpenStatement>("open to write \"../file.txt\";"));
-    REQUIRE(checkStatement<OpenStatement>("open to read \"../fil22e.txt\";"));
-    REQUIRE(checkStatement<OpenStatement>("open to write file.txt as exe;"));
-    REQUIRE(checkStatement<OpenStatement>("open to read some_file as fil;"));
-    REQUIRE(checkStatement<OpenStatement>("open to write \"../file.txt\" as file2;"));
-    REQUIRE(checkStatement<OpenStatement>("open to read \"../fil22e.txt\" as other_file;"));
-    REQUIRE(checkStatement<OpenStatement>("open file.txt;"));
-    REQUIRE(checkStatement<OpenStatement>("open file.txt as file;"));
-    REQUIRE(checkStatement<OpenStatement>("open \"file.txt\";"));
-    REQUIRE(checkStatement<OpenStatement>("open \"file.txt as file\";"));
+    CHECK(checkStatement<OpenStatement>("open to write file.txt;"));
+    CHECK(checkStatement<OpenStatement>("open to read some_file;"));
+    CHECK(checkStatement<OpenStatement>("open to write \"../file.txt\";"));
+    CHECK(checkStatement<OpenStatement>("open to read \"../fil22e.txt\";"));
+    CHECK(checkStatement<OpenStatement>("open to write file.txt as exe;"));
+    CHECK(checkStatement<OpenStatement>("open to read some_file as fil;"));
+    CHECK(checkStatement<OpenStatement>("open to write \"../file.txt\" as file2;"));
+    CHECK(checkStatement<OpenStatement>("open to read \"../fil22e.txt\" as other_file;"));
+    CHECK(checkStatement<OpenStatement>("open file.txt;"));
+    CHECK(checkStatement<OpenStatement>("open file.txt as file;"));
+    CHECK(checkStatement<OpenStatement>("open \"file.txt\";"));
+    CHECK(checkStatement<OpenStatement>("open \"file.txt as file\";"));
 
-    REQUIRE_FALSE(checkStatement<OpenStatement>("open to write file.txt"));
-    REQUIRE_FALSE(checkStatement<OpenStatement>("open"));
-    REQUIRE_FALSE(checkStatement<OpenStatement>("open as to when off write file.txt;"));
+    CHECK_FALSE(checkStatement<OpenStatement>("open to write file.txt"));
+    CHECK_FALSE(checkStatement<OpenStatement>("open"));
+    CHECK_FALSE(checkStatement<OpenStatement>("open as to when off write file.txt;"));
 
-    REQUIRE(checkStatement<BreakStatement>("break;"));
-    REQUIRE(checkStatement<BreakStatement>(" break  ;"));
+    CHECK(checkStatement<BreakStatement>("break;"));
+    CHECK(checkStatement<BreakStatement>(" break  ;"));
 
-    REQUIRE(checkStatement<ContinueStatement>("continue;"));
-    REQUIRE_FALSE(checkStatement<ContinueStatement>("break;"));
-    REQUIRE_FALSE(checkStatement<ContinueStatement>(";"));
+    CHECK(checkStatement<ContinueStatement>("continue;"));
+    CHECK_FALSE(checkStatement<ContinueStatement>("break;"));
+    CHECK_FALSE(checkStatement<ContinueStatement>(";"));
 
-    REQUIRE(checkStatement<ReturnStatement>("return;"));
-    REQUIRE(checkStatement<ReturnStatement>("return 5;"));
-    REQUIRE(checkStatement<ReturnStatement>("return \"asdfgh\";"));
-    REQUIRE_FALSE(checkStatement<ReturnStatement>(";"));
-    REQUIRE_FALSE(checkStatement<ReturnStatement>("continue;"));
+    CHECK(checkStatement<ReturnStatement>("return;"));
+    CHECK(checkStatement<ReturnStatement>("return 5;"));
+    CHECK(checkStatement<ReturnStatement>("return \"asdfgh\";"));
+    CHECK_FALSE(checkStatement<ReturnStatement>(";"));
+    CHECK_FALSE(checkStatement<ReturnStatement>("continue;"));
 
-    REQUIRE(checkStatement<ExpressionStatement>("arg += 3;"));
-    REQUIRE(checkStatement<ExpressionStatement>("var = (2*(3-(4/5)));"));
-    REQUIRE(checkStatement<ExpressionStatement>("h -= 4;"));
+    CHECK(checkStatement<ExpressionStatement>("arg += 3;"));
+    CHECK(checkStatement<ExpressionStatement>("var = (2*(3-(4/5)));"));
+    CHECK(checkStatement<ExpressionStatement>("h -= 4;"));
 }
 
 TEST_CASE("Parsing open statements") {
@@ -171,4 +175,30 @@ TEST_CASE("Variable declaration statements") {
         REQUIRE(statement->getType() == STRING);
     }
 
+}
+
+TEST_CASE("Parsing compound expressions") {
+
+    SECTION("Example A") {
+        auto statement = parseStatement<VariableDeclarationStatement>("bool x = 1 + 3 > 2 + 3 * 4;");
+
+        REQUIRE(statement != nullptr);
+        REQUIRE(statement->getAssignmentExpression());
+        const auto& exp = statement->getAssignmentExpression();
+
+        const auto *relation = dynamic_cast<RelationalExpression*>(exp.get());
+        REQUIRE(relation != nullptr);
+        REQUIRE(relation->getLeftExpression());
+        REQUIRE(relation->getRightExpression());
+
+        const auto *leftAddition = dynamic_cast<AdditionExpression*>(relation->getLeftExpression().get());
+        REQUIRE(leftAddition != nullptr);
+        REQUIRE(dynamic_cast<LiteralExpression*>(leftAddition->getLeftExpression().get()));
+        REQUIRE(dynamic_cast<LiteralExpression*>(leftAddition->getRightExpression().get()));
+
+        const auto *rightAddition = dynamic_cast<AdditionExpression*>(relation->getRightExpression().get());
+        REQUIRE(rightAddition != nullptr);
+        REQUIRE(dynamic_cast<LiteralExpression*>(rightAddition->getLeftExpression().get()));
+        REQUIRE(dynamic_cast<MultiplicationExpression*>(rightAddition->getRightExpression().get()));
+    }
 }
