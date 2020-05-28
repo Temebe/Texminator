@@ -88,25 +88,26 @@ TEST_CASE("Parsing open statements") {
     SECTION("Example A") {
         statement = parseStatement<OpenStatement>("open to write \"file.txt\";");
         REQUIRE(statement.get() != nullptr);
-        REQUIRE(statement->getOpenMode() == writeMode);
-        REQUIRE(statement->getAlias().empty());
+        CHECK(statement->getOpenMode() == writeMode);
+        CHECK(statement->getAlias().empty());
 
-        auto path = statement->getFilePathExp()->evaluate(env).getString();
-        REQUIRE(path.value_or("") == "file.txt");
+        auto path = statement->getFilePathExp()->evaluate(env);
+        REQUIRE(std::holds_alternative<StringType>(path));
+        REQUIRE(std::get<StringType>(path) == "file.txt");
     }
 
     SECTION("Example B") {
         statement = parseStatement<OpenStatement>("open file2.txt;");
         REQUIRE(statement.get() != nullptr);
-        REQUIRE(statement->getOpenMode() == readwrite);
-        REQUIRE(statement->getAlias().empty());
+        CHECK(statement->getOpenMode() == readwrite);
+        CHECK(statement->getAlias().empty());
     }
 
     SECTION("Example C") {
         statement = parseStatement<OpenStatement>("open to read file.txt as sth;");
         REQUIRE(statement.get() != nullptr);
-        REQUIRE(statement->getOpenMode() == readMode);
-        REQUIRE(statement->getAlias() == "sth");
+        CHECK(statement->getOpenMode() == readMode);
+        CHECK(statement->getAlias() == "sth");
     }
 
 }
@@ -118,61 +119,86 @@ TEST_CASE("Variable declaration statements") {
     SECTION("Example A") {
         statement = parseStatement<VariableDeclarationStatement>("unsigned number x;");
         REQUIRE(statement);
-        REQUIRE(statement->getName() == "x");
-        REQUIRE_FALSE(statement->getAssignmentExpression());
-        REQUIRE(statement->getType() == UNSIGNED_NUMBER);
+        CHECK(statement->getName() == "x");
+        CHECK_FALSE(statement->getAssignmentExpression());
+        CHECK(statement->getType() == UNSIGNED_NUMBER);
     }
 
     SECTION("Example B") {
         statement = parseStatement<VariableDeclarationStatement>("unsigned x;");
         REQUIRE(statement);
-        REQUIRE(statement->getName() == "x");
-        REQUIRE_FALSE(statement->getAssignmentExpression());
-        REQUIRE(statement->getType() == UNSIGNED_NUMBER);
+        CHECK(statement->getName() == "x");
+        CHECK_FALSE(statement->getAssignmentExpression());
+        CHECK(statement->getType() == UNSIGNED_NUMBER);
     }
 
     SECTION("Example C") {
         statement = parseStatement<VariableDeclarationStatement>("string x = \"test\";");
         REQUIRE(statement);
-        REQUIRE(statement->getName() == "x");
-        REQUIRE(statement->getAssignmentExpression()->evaluate(env).getString().value_or("") == "test");
-        REQUIRE(statement->getType() == STRING);
+        CHECK(statement->getName() == "x");
+        REQUIRE(statement->getAssignmentExpression());
+        auto val = statement->getAssignmentExpression()->evaluate(env);
+
+        CHECK(std::get<StringType>(val) == "test");
+        CHECK(statement->getType() == STRING);
     }
 
     SECTION("Check bool type") {
-        statement = parseStatement<VariableDeclarationStatement>("bool x;");
+        statement = parseStatement<VariableDeclarationStatement>("bool x = true;");
         REQUIRE(statement);
-        REQUIRE(statement->getType() == BOOL);
+        REQUIRE(statement->getAssignmentExpression());
+        auto val = statement->getAssignmentExpression()->evaluate(env);
+
+        CHECK(statement->getType() == BOOL);
+        CHECK(std::get<BoolType>(val) == true);
     }
 
     SECTION("Check char type") {
-        statement = parseStatement<VariableDeclarationStatement>("char x;");
+        statement = parseStatement<VariableDeclarationStatement>("char x = \"c\";");
         REQUIRE(statement);
-        REQUIRE(statement->getType() == CHAR);
+        REQUIRE(statement->getAssignmentExpression());
+        auto val = statement->getAssignmentExpression()->evaluate(env);
+
+        CHECK(statement->getType() == CHAR);
+        CHECK(std::get<CharType>(val) == 'c');
     }
 
     SECTION("Check float type") {
-        statement = parseStatement<VariableDeclarationStatement>("float x;");
+        statement = parseStatement<VariableDeclarationStatement>("float x = 1.5;");
         REQUIRE(statement);
-        REQUIRE(statement->getType() == FLOAT);
+        REQUIRE(statement->getAssignmentExpression());
+        auto val = statement->getAssignmentExpression()->evaluate(env);
+
+        CHECK(statement->getType() == FLOAT);
+        // 1.5 should be stored properly as an float, without an error
+        // therefore it should be safe to check by ==
+        CHECK(std::get<FloatType>(val) == 1.5);
     }
 
     SECTION("Check unsigned type") {
-        statement = parseStatement<VariableDeclarationStatement>("unsigned x;");
+        statement = parseStatement<VariableDeclarationStatement>("unsigned x = 3;");
         REQUIRE(statement);
-        REQUIRE(statement->getType() == UNSIGNED_NUMBER);
+        REQUIRE(statement->getAssignmentExpression());
+        auto val = statement->getAssignmentExpression()->evaluate(env);
+
+        CHECK(statement->getType() == UNSIGNED_NUMBER);
+        CHECK(std::get<UnsignedNumberType>(val) == 3);
     }
 
     SECTION("Check number type") {
-        statement = parseStatement<VariableDeclarationStatement>("number x;");
+        statement = parseStatement<VariableDeclarationStatement>("number x = -3;");
         REQUIRE(statement);
-        REQUIRE(statement->getType() == NUMBER);
+        REQUIRE(statement->getAssignmentExpression());
+        auto val = statement->getAssignmentExpression()->evaluate(env);
+
+        CHECK(statement->getType() == NUMBER);
+        CHECK(std::get<NumberType>(val) == -3);
     }
 
     SECTION("Check string type") {
         statement = parseStatement<VariableDeclarationStatement>("string x;");
         REQUIRE(statement);
-        REQUIRE(statement->getType() == STRING);
+        CHECK(statement->getType() == STRING);
     }
 
 }

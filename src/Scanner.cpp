@@ -193,7 +193,7 @@ std::optional<Token> Scanner::createArithmeticOperatorToken() {
 
     switch (source->getChar()) {
         case '-':
-            if (source->peek() == '>' || source->peek() == '=') {
+            if (source->peek() == '>' || source->peek() == '=' || isdigit(source->peek())) {
                 return std::optional<Token>();
             }
             token.type = subOperator;

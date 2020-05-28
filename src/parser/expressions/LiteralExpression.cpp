@@ -1,7 +1,7 @@
 #include "parser/expressions/LiteralExpression.h"
 
 LiteralExpression::LiteralExpression(bool val_) {
-    val.setVal(val_);
+    val = val_;
 }
 
 LiteralExpression::LiteralExpression(const Token &token_) {
@@ -21,21 +21,23 @@ Value LiteralExpression::evaluate(Environment &environment) {
 }
 
 void LiteralExpression::initializeString(const std::string &val_) {
-    val.setVal(val_);
+    if (val_.size() == 1) { // save it as an char if it has one letter
+        val = *val_.begin();
+        return;
+    }
+    val = val_;
 }
 
 void LiteralExpression::initializeFloat(const std::string &val_) {
-    ValueType floatNumber = static_cast<FloatType>(std::stod(val_));
-    val.setVal(floatNumber);
+    Value floatNumber = static_cast<FloatType>(std::stod(val_));
+    val = floatNumber;
 }
 
 void LiteralExpression::initializeNumber(const std::string &val_) {
-    ValueType number;
     if (*val_.begin() == '-') {
-        number = static_cast<NumberType>(std::stoll(val_));
+        val = static_cast<NumberType>(std::stoll(val_));
     } else {
-        number = static_cast<UnsignedNumberType>(std::stoull(val_));
+        val = static_cast<UnsignedNumberType>(std::stoull(val_));
     }
-    val.setVal(number);
 }
 
