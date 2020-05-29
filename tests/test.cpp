@@ -20,6 +20,7 @@
 #include "parser/expressions/LiteralExpression.h"
 #include "parser/expressions/ArithmeticExpressions.h"
 #include "parser/expressions/BracketExpression.h"
+#include "TexminatorExceptions.h"
 
 template<typename T>
 bool checkStatement(const std::string& code_) {
@@ -314,6 +315,7 @@ TEST_CASE("Variable declaration statement") {
 
     SECTION("Number type, ex A") {
         auto statement = parseStatement<VariableDeclarationStatement>("number x = 3;");
+        REQUIRE(statement);
         statement->execute(env);
 
         auto variable = env.getVariable("x");
@@ -323,6 +325,7 @@ TEST_CASE("Variable declaration statement") {
 
     SECTION("Number type, ex B") {
         auto statement = parseStatement<VariableDeclarationStatement>("number x = -53;");
+        REQUIRE(statement);
         statement->execute(env);
 
         auto variable = env.getVariable("x");
@@ -332,6 +335,7 @@ TEST_CASE("Variable declaration statement") {
 
     SECTION("Unsigned number type, ex A") {
         auto statement = parseStatement<VariableDeclarationStatement>("unsigned x = 53;");
+        REQUIRE(statement);
         statement->execute(env);
 
         auto variable = env.getVariable("x");
@@ -350,6 +354,7 @@ TEST_CASE("Variable declaration statement") {
 
     SECTION("Bool type, ex A") {
         auto statement = parseStatement<VariableDeclarationStatement>("bool x = true;");
+        REQUIRE(statement);
         statement->execute(env);
 
         auto variable = env.getVariable("x");
@@ -359,6 +364,7 @@ TEST_CASE("Variable declaration statement") {
 
     SECTION("Float type, ex A") {
         auto statement = parseStatement<VariableDeclarationStatement>("float x = 4.5;");
+        REQUIRE(statement);
         statement->execute(env);
 
         auto variable = env.getVariable("x");
@@ -368,6 +374,7 @@ TEST_CASE("Variable declaration statement") {
 
     SECTION("String type, ex A") {
         auto statement = parseStatement<VariableDeclarationStatement>("string x = \"test value\";");
+        REQUIRE(statement);
         statement->execute(env);
 
         auto variable = env.getVariable("x");
@@ -377,11 +384,13 @@ TEST_CASE("Variable declaration statement") {
 
     SECTION("String type, ex B") {
         auto statement = parseStatement<VariableDeclarationStatement>("string x = 4.5;");
+        REQUIRE(statement);
         REQUIRE_THROWS_AS(statement->execute(env), WrongTypeException);
     }
 
     SECTION("Char type, ex A") {
         auto statement = parseStatement<VariableDeclarationStatement>("char x = \"3\";");
+        REQUIRE(statement);
         statement->execute(env);
 
         auto variable = env.getVariable("x");
@@ -391,4 +400,154 @@ TEST_CASE("Variable declaration statement") {
 
     env.destroyCurrentScope();
 
+}
+
+TEST_CASE("Expression statements") {
+    Environment env;
+    env.createNewScope(local);
+
+    SECTION("+= with integer") {
+        env.addVariable("x", Value(NumberType(-3)));
+        auto statement = parseStatement<ExpressionStatement>("x += 2;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == -1);
+    }
+
+    SECTION("+= with string and char A") {
+        env.addVariable("x", Value(std::string("1234")));
+        auto statement = parseStatement<ExpressionStatement>("x += \"5\";");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<StringType>(variable.value()) == "12345");
+    }
+
+    SECTION("+= with string and char B") {
+        env.addVariable("x", Value('1'));
+        auto statement = parseStatement<ExpressionStatement>("x += \"2345\";");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<StringType>(variable.value()) == "12345");
+    }
+
+    SECTION("+= with two strings") {
+        env.addVariable("x", Value(std::string("12")));
+        auto statement = parseStatement<ExpressionStatement>("x += \"345\";");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<StringType>(variable.value()) == "12345");
+    }
+
+    SECTION("-=, example A") {
+        env.addVariable("x", Value(NumberType(-3)));
+        auto statement = parseStatement<ExpressionStatement>("x -= 5;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == -8);
+    }
+
+    SECTION("-=, example B") {
+        env.addVariable("x", Value(NumberType(-3)));
+        auto statement = parseStatement<ExpressionStatement>("x -= -5;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 2);
+    }
+
+    SECTION("-=, example C") {
+        env.addVariable("x", Value(FloatType(3.5)));
+        auto statement = parseStatement<ExpressionStatement>("x -= 2.25;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<FloatType>(variable.value()) == 1.25);
+    }
+
+    SECTION("/=, example A") {
+        env.addVariable("x", Value(NumberType(8)));
+        auto statement = parseStatement<ExpressionStatement>("x /= 2;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 4);
+    }
+
+    SECTION("/=, example B") {
+        env.addVariable("x", Value(NumberType(5)));
+        auto statement = parseStatement<ExpressionStatement>("x /= 1.25;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<FloatType>(variable.value()) == 4);
+    }
+
+    SECTION("*=, example A") {
+        env.addVariable("x", Value(NumberType(4)));
+        auto statement = parseStatement<ExpressionStatement>("x *= 2.25;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<FloatType>(variable.value()) == 9);
+    }
+
+    SECTION("*=, example B") {
+        env.addVariable("x", Value(FloatType(1.5)));
+        auto statement = parseStatement<ExpressionStatement>("x *= 2.25;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<FloatType>(variable.value()) == 3.375);
+    }
+
+    SECTION("=, example A") {
+        env.addVariable("x", Value(FloatType(1.5)));
+        auto statement = parseStatement<ExpressionStatement>("x = 2.25;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<FloatType>(variable.value()) == 2.25);
+    }
+
+    SECTION("=, example B") {
+        env.addVariable("x", Value(FloatType(1.5)));
+        auto statement = parseStatement<ExpressionStatement>("x = 5;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<UnsignedNumberType>(variable.value()) == 5);
+    }
+
+    env.destroyCurrentScope();
 }

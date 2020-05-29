@@ -48,3 +48,22 @@ const Function& Environment::getFunction(const std::string &name_, const std::li
 
     throw ParserException("Function " + name_ + " with given parameters does not exist");
 }
+
+// TODO setVariable i addVariable have some common code, try to make a finding function to reduce copied code
+void Environment::setVariable(const std::string &name_, const Value &variable_) {
+    auto currentScope = scopes.begin();
+    std::optional<Value> result;
+
+    while (currentScope != scopes.end()) {
+        if (currentScope->containsVariable(name_)) {
+            currentScope->replaceVariable(name_, variable_);
+            return;
+        }
+        result = currentScope->getVariable(name_);
+        if ((currentScope++)->getType() == ScopeType::function || result) {
+            break;
+        }
+    }
+
+    throw ParserException("Variable " + name_ + " does not exist");
+}

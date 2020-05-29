@@ -1,5 +1,7 @@
 #include "parser/expressions/LiteralExpression.h"
 
+#include <utility>
+
 LiteralExpression::LiteralExpression(bool val_) {
     val = val_;
 }
@@ -15,6 +17,8 @@ LiteralExpression::LiteralExpression(const Token &token_) {
         initializeNumber(token_.value);
     }
 }
+
+LiteralExpression::LiteralExpression(Value val_) : val(std::move(val_)) {}
 
 Value LiteralExpression::evaluate(Environment &environment) {
     return val;
@@ -40,4 +44,3 @@ void LiteralExpression::initializeNumber(const std::string &val_) {
         val = static_cast<UnsignedNumberType>(std::stoull(val_));
     }
 }
-

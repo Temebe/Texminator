@@ -16,11 +16,17 @@ Value AdditionExpression::evaluate(Environment &environment) {
 
     Value result = std::visit(overload {
         [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(subtraction ? l - r : l + r); },
-        [this](UnsignedNumberType &l, NumberType &r){ return Value(subtraction ? l - r : l + r); },
+        [this](UnsignedNumberType &l, NumberType &r) {
+            auto l_ = static_cast<NumberType>(l);
+            return Value(subtraction ? l_ - r : l_ + r);
+        },
         [this](UnsignedNumberType &l, FloatType &r){ return Value(subtraction ? l - r : l + r); },
         [this](UnsignedNumberType &l, BoolType &r){ return Value(subtraction ? l - r : l + r); },
 
-        [this](NumberType &l, UnsignedNumberType &r){ return Value(subtraction ? l - r : l + r); },
+        [this](NumberType &l, UnsignedNumberType &r){
+            auto r_ = static_cast<NumberType>(r);
+            return Value(subtraction ? l - r_ : l + r_);
+        },
         [this](NumberType &l, NumberType &r){ return Value(subtraction ? l - r : l + r); },
         [this](NumberType &l, FloatType &r){ return Value(subtraction ? l - r : l + r); },
         [this](NumberType &l, BoolType &r){ return Value(subtraction ? l - r : l + r); },
@@ -61,11 +67,16 @@ Value MultiplicationExpression::evaluate(Environment &environment) {
 
     Value result = std::visit(overload {
             [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(division ? l / r : l * r); },
-            [this](UnsignedNumberType &l, NumberType &r){ return Value(division ? l / r : l * r); },
+            [this](UnsignedNumberType &l, NumberType &r){
+                auto l_ = static_cast<NumberType>(l);
+                return Value(division ? l_ / r : l_ * r);
+            },
             [this](UnsignedNumberType &l, FloatType &r){ return Value(division ? l / r : l * r); },
             [this](UnsignedNumberType &l, BoolType &r){ return Value(division ? l / r : l * r); },
 
-            [this](NumberType &l, UnsignedNumberType &r){ return Value(division ? l / r : l * r); },
+            [this](NumberType &l, UnsignedNumberType &r){
+                auto r_ = static_cast<NumberType>(r);
+                return Value(division ? l / r_ : l * r_); },
             [this](NumberType &l, NumberType &r){ return Value(division ? l / r : l * r); },
             [this](NumberType &l, FloatType &r){ return Value(division ? l / r : l * r); },
             [this](NumberType &l, BoolType &r){ return Value(division ? l / r : l * r); },
@@ -100,9 +111,15 @@ Value ModuloExpression::evaluate(Environment &environment) {
 
     Value result = std::visit(overload {
             [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(l % r); },
-            [this](UnsignedNumberType &l, NumberType &r){ return Value(l % r); },
+            [this](UnsignedNumberType &l, NumberType &r){
+                auto l_ = static_cast<NumberType>(l);
+                return Value(l_ % r);
+            },
 
-            [this](NumberType &l, UnsignedNumberType &r){ return Value(l % r); },
+            [this](NumberType &l, UnsignedNumberType &r){
+                auto r_ = static_cast<NumberType>(r);
+                return Value(l % r_);
+            },
             [this](NumberType &l, NumberType &r){ return Value(l % r); },
 
             [this](auto &l, auto &r){ return Value(VoidType()); }

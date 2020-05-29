@@ -31,6 +31,14 @@ void Scope::addVariable(const std::string &name_, const Value &variable_) {
     variables.insert({name_, variable_});
 }
 
+void Scope::replaceVariable(const std::string &name_, const Value& variable_) {
+    if (!containsVariable(name_)) {
+        throw ParserException("Unable to add " + name_ + " variable to a scope - cannot find variable.");
+    }
+
+    variables.insert_or_assign(name_, variable_);
+}
+
 void Scope::addFunction(const std::string &name_, Function &function_) {
     functions.insert({name_, std::move(function_)});
 }

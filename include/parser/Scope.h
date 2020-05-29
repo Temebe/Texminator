@@ -22,6 +22,7 @@ public:
     const Function& getFunction(const std::string &name_, const std::list<Parameter> &parameters_) const;
     std::optional<Value> getVariable(const std::string &name_) const;
     void addVariable(const std::string &name_, const Value& variable_);
+    void replaceVariable(const std::string &name_, const Value& variable_);
     void addFunction(const std::string &name_, Function& function_);
 
 private:

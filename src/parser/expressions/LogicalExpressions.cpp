@@ -9,10 +9,14 @@ Value AndExpression::evaluate(Environment &environment) {
 
     Value result = std::visit(overload {
             [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(static_cast<BoolType>(l && r)); },
-            [this](UnsignedNumberType &l, NumberType &r){ return Value(static_cast<BoolType>(l && r)); },
+            [this](UnsignedNumberType &l, NumberType &r){
+                auto l_ = static_cast<NumberType>(l);
+                return Value(static_cast<BoolType>(l_ && r)); },
             [this](UnsignedNumberType &l, BoolType &r){ return Value(static_cast<BoolType>(l && r)); },
 
-            [this](NumberType &l, UnsignedNumberType &r){ return Value(static_cast<BoolType>(l && r)); },
+            [this](NumberType &l, UnsignedNumberType &r){
+                auto r_ = static_cast<NumberType>(r);
+                return Value(static_cast<BoolType>(l && r_)); },
             [this](NumberType &l, NumberType &r){ return Value(static_cast<BoolType>(l && r)); },
             [this](NumberType &l, BoolType &r){ return Value(static_cast<BoolType>(l && r)); },
 
@@ -35,10 +39,14 @@ Value OrExpression::evaluate(Environment &environment) {
 
     Value result = std::visit(overload {
             [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(static_cast<BoolType>(l || r)); },
-            [this](UnsignedNumberType &l, NumberType &r){ return Value(static_cast<BoolType>(l || r)); },
+            [this](UnsignedNumberType &l, NumberType &r){
+                auto l_ = static_cast<NumberType>(l);
+                return Value(static_cast<BoolType>(l_ || r)); },
             [this](UnsignedNumberType &l, BoolType &r){ return Value(static_cast<BoolType>(l || r)); },
 
-            [this](NumberType &l, UnsignedNumberType &r){ return Value(static_cast<BoolType>(l || r)); },
+            [this](NumberType &l, UnsignedNumberType &r){
+                auto r_ = static_cast<NumberType>(r);
+                return Value(static_cast<BoolType>(l || r_)); },
             [this](NumberType &l, NumberType &r){ return Value(static_cast<BoolType>(l || r)); },
             [this](NumberType &l, BoolType &r){ return Value(static_cast<BoolType>(l || r)); },
 

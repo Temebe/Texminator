@@ -1,5 +1,7 @@
 #include "parser/statements/VariableDeclarationStatement.h"
 
+#include "TexminatorExceptions.h"
+
 VariableDeclarationStatement::VariableDeclarationStatement(const std::string& name_, const ValueEnum type_)
     : name(name_),
       type(type_) {}

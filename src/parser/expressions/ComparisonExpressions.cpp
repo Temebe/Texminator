@@ -28,11 +28,17 @@ Value EqualExpression::evaluate(Environment &environment) {
 
     Value result = std::visit(overload {
             [](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(l == r); },
-            [](UnsignedNumberType &l, NumberType &r){ return Value(l == r); },
+            [](UnsignedNumberType &l, NumberType &r){
+                auto l_ = static_cast<NumberType>(l);
+                return Value(l_ == r);
+            },
             [](UnsignedNumberType &l, FloatType &r){ return Value(l == r); },
             [](UnsignedNumberType &l, BoolType &r){ return Value(l == r); },
 
-            [](NumberType &l, UnsignedNumberType &r){ return Value(l == r); },
+            [](NumberType &l, UnsignedNumberType &r){
+                auto r_ = static_cast<NumberType>(r);
+                return Value(l == r_);
+            },
             [](NumberType &l, NumberType &r){ return Value(l == r); },
             [](NumberType &l, FloatType &r){ return Value(l == r); },
             [](NumberType &l, BoolType &r){ return Value(l == r); },
@@ -71,11 +77,16 @@ Value RelationalExpression::evaluate(Environment &environment) {
 
     Value result = std::visit(overload {
             [this](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(relationalCompare(l, r, relationType)); },
-            [this](UnsignedNumberType &l, NumberType &r){ return Value(relationalCompare(l, r, relationType)); },
+            [this](UnsignedNumberType &l, NumberType &r){
+                auto l_ = static_cast<NumberType>(l);
+                return Value(relationalCompare(l_, r, relationType));
+            },
             [this](UnsignedNumberType &l, FloatType &r){ return Value(relationalCompare(l, r, relationType)); },
             [this](UnsignedNumberType &l, BoolType &r){ return Value(relationalCompare(l, r, relationType)); },
 
-            [this](NumberType &l, UnsignedNumberType &r){ return Value(relationalCompare(l, r, relationType)); },
+            [this](NumberType &l, UnsignedNumberType &r){
+                auto r_ = static_cast<NumberType>(r);
+                return Value(relationalCompare(l, r_, relationType)); },
             [this](NumberType &l, NumberType &r){ return Value(relationalCompare(l, r, relationType)); },
             [this](NumberType &l, FloatType &r){ return Value(relationalCompare(l, r, relationType)); },
             [this](NumberType &l, BoolType &r){ return Value(relationalCompare(l, r, relationType)); },
