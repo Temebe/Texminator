@@ -307,3 +307,88 @@ TEST_CASE("Compound expression and order of operations") {
     }
 
 }
+
+TEST_CASE("Variable declaration statement") {
+    Environment env;
+    env.createNewScope(local);
+
+    SECTION("Number type, ex A") {
+        auto statement = parseStatement<VariableDeclarationStatement>("number x = 3;");
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 3);
+    }
+
+    SECTION("Number type, ex B") {
+        auto statement = parseStatement<VariableDeclarationStatement>("number x = -53;");
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == -53);
+    }
+
+    SECTION("Unsigned number type, ex A") {
+        auto statement = parseStatement<VariableDeclarationStatement>("unsigned x = 53;");
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<UnsignedNumberType>(variable.value()) == 53);
+    }
+
+    SECTION("Unsigned number type, ex B") {
+        auto statement = parseStatement<VariableDeclarationStatement>("unsigned number x;");
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<UnsignedNumberType>(variable.value()) == 0);
+    }
+
+    SECTION("Bool type, ex A") {
+        auto statement = parseStatement<VariableDeclarationStatement>("bool x = true;");
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<BoolType>(variable.value()) == true);
+    }
+
+    SECTION("Float type, ex A") {
+        auto statement = parseStatement<VariableDeclarationStatement>("float x = 4.5;");
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<FloatType>(variable.value()) == 4.5);
+    }
+
+    SECTION("String type, ex A") {
+        auto statement = parseStatement<VariableDeclarationStatement>("string x = \"test value\";");
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<StringType>(variable.value()) == "test value");
+    }
+
+    SECTION("String type, ex B") {
+        auto statement = parseStatement<VariableDeclarationStatement>("string x = 4.5;");
+        REQUIRE_THROWS_AS(statement->execute(env), WrongTypeException);
+    }
+
+    SECTION("Char type, ex A") {
+        auto statement = parseStatement<VariableDeclarationStatement>("char x = \"3\";");
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<CharType>(variable.value()) == '3');
+    }
+
+    env.destroyCurrentScope();
+
+}

@@ -1,25 +1,5 @@
 #include "parser/expressions/ArithmeticExpressions.h"
 
-template<class... Ts> struct overload : Ts... { using Ts::operator()...; };
-template<class... Ts> overload(Ts...) -> overload<Ts...>;
-
-struct VoidOperationException : public std::exception {
-    [[nodiscard]] const char* what() const noexcept override {
-        return "Tried to use void as an value";
-    }
-};
-
-struct WrongTypeException : public std::exception {
-    WrongTypeException(const std::string &msg_) : msg(msg_) {}
-
-    [[nodiscard]] const char* what() const noexcept override {
-        return "Tried to use void as an value";
-    }
-
-private:
-    std::string msg;
-};
-
 /** ADDITION */
 
 Value AdditionExpression::evaluate(Environment &environment) {

@@ -1,6 +1,8 @@
 #ifndef TEXMINATOR_EXPRESSION_H
 #define TEXMINATOR_EXPRESSION_H
 
+#include <utility>
+
 #include "parser/Environment.h"
 #include "parser/Value.h"
 
@@ -32,5 +34,26 @@ public:
 protected:
     std::unique_ptr<Expression> factorExpression;
 };
+
+struct TexminatorException : public std::exception {
+    explicit TexminatorException(std::string  msg_) : msg(std::move(msg_)) {}
+
+    [[nodiscard]] const char* what() const noexcept override {
+        return msg.c_str();
+    }
+
+private:
+    std::string msg;
+};
+
+struct VoidOperationException : public TexminatorException {
+    VoidOperationException() : TexminatorException("Tried to use void as an value") {}
+};
+
+struct WrongTypeException : public TexminatorException {
+    explicit WrongTypeException(const std::string &msg_) : TexminatorException(msg_) {}
+};
+
+
 
 #endif //TEXMINATOR_EXPRESSION_H

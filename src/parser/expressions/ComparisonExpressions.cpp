@@ -1,9 +1,6 @@
 #include <functional>
 #include "parser/expressions/ComparisonExpressions.h"
 
-template<class... Ts> struct overload : Ts... { using Ts::operator()...; };
-template<class... Ts> overload(Ts...) -> overload<Ts...>;
-
 template<typename T1, typename T2>
 bool relationalCompare(const T1& l_, const T2& r_, const RelationType type_) {
     switch (type_) {

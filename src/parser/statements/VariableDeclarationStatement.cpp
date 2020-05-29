@@ -5,7 +5,14 @@ VariableDeclarationStatement::VariableDeclarationStatement(const std::string& na
       type(type_) {}
 
 void VariableDeclarationStatement::execute(Environment &environment) {
-
+    Value value = getDefaultValue(type);
+    if (assignmentExpression) {
+        value = castValue(assignmentExpression->evaluate(environment), type);
+        if (std::holds_alternative<VoidType>(value) && type != VOID) {
+            throw WrongTypeException("Tried to assign wrong expression to variable");
+        }
+    }
+    environment.addVariable(name, value);
 }
 
 void VariableDeclarationStatement::setAssignmentExpression(std::unique_ptr<Expression> expression_) {

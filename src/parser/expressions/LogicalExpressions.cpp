@@ -1,8 +1,5 @@
 #include "parser/expressions/LogicalExpressions.h"
 
-template<class... Ts> struct overload : Ts... { using Ts::operator()...; };
-template<class... Ts> overload(Ts...) -> overload<Ts...>;
-
 Value AndExpression::evaluate(Environment &environment) {
     if (!(leftExpression && rightExpression)) {
         return Value(VoidType());
