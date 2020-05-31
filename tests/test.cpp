@@ -386,7 +386,7 @@ TEST_CASE("Variable declaration statement") {
     SECTION("String type, ex B") {
         auto statement = parseStatement<VariableDeclarationStatement>("string x = 4.5;");
         REQUIRE(statement);
-        REQUIRE_THROWS_AS(statement->execute(env), WrongTypeException);
+        REQUIRE_THROWS_AS(statement->execute(env), BadCastException);
     }
 
     SECTION("Char type, ex A") {
@@ -430,8 +430,9 @@ TEST_CASE("Expression statements") {
     }
 
     SECTION("+= with string and char B") {
-        env.addVariable("x", Value('1'));
-        auto statement = parseStatement<ExpressionStatement>("x += \"2345\";");
+        env.addVariable("x", StringType(""));
+        env.addVariable("y", CharType('1'));
+        auto statement = parseStatement<ExpressionStatement>("x += y + \"2345\";");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -503,7 +504,7 @@ TEST_CASE("Expression statements") {
 
         auto variable = env.getVariable("x");
         REQUIRE(variable);
-        CHECK(std::get<FloatType>(variable.value()) == 4);
+        CHECK(std::get<NumberType>(variable.value()) == 4);
     }
 
     SECTION("*=, example A") {
@@ -514,7 +515,7 @@ TEST_CASE("Expression statements") {
 
         auto variable = env.getVariable("x");
         REQUIRE(variable);
-        CHECK(std::get<FloatType>(variable.value()) == 9);
+        CHECK(std::get<NumberType>(variable.value()) == 9);
     }
 
     SECTION("*=, example B") {
@@ -547,7 +548,7 @@ TEST_CASE("Expression statements") {
 
         auto variable = env.getVariable("x");
         REQUIRE(variable);
-        CHECK(std::get<UnsignedNumberType>(variable.value()) == 5);
+        CHECK(std::get<FloatType>(variable.value()) == 5);
     }
 
     env.destroyCurrentScope();
@@ -576,7 +577,7 @@ TEST_CASE("If statements") {
 
         auto variable = env.getVariable("x");
         REQUIRE(variable);
-        CHECK(std::get<UnsignedNumberType>(variable.value()) == 5);
+        CHECK(std::get<NumberType>(variable.value()) == 5);
     }
 
 

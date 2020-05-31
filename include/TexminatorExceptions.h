@@ -35,4 +35,8 @@ struct BadCastException : public TexminatorException {
     explicit BadCastException(const std::string &msg_) : TexminatorException(msg_) {}
 };
 
+struct BadStreamException : public TexminatorException {
+    explicit BadStreamException(const std::string &msg_) : TexminatorException(msg_) {}
+};
+
 #endif //TEXMINATOR_TEXMINATOREXCEPTIONS_H

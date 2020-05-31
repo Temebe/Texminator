@@ -3,10 +3,7 @@
 
 #include <parser/expressions/Expression.h>
 #include "Statement.h"
-
-enum OpenMode {
-    readMode, writeMode, readwrite
-};
+#include "parser/Stream.h"
 
 class OpenStatement : public Statement {
 public:

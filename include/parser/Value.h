@@ -1,9 +1,14 @@
 #ifndef TEXMINATOR_VALUE_H
 #define TEXMINATOR_VALUE_H
 
+#include "TexminatorExceptions.h"
+#include "Stream.h"
+
 #include <variant>
 #include <optional>
-#include <TexminatorExceptions.h>
+#include <memory>
+
+
 
 template<class... Ts> struct overload : Ts... { using Ts::operator()...; };
 template<class... Ts> overload(Ts...) -> overload<Ts...>;
@@ -15,16 +20,17 @@ using StringType = std::string;
 using FloatType = double;
 using BoolType = bool;
 struct VoidType {};
+using StreamType = std::shared_ptr<Stream>;
 using Value = std::variant<UnsignedNumberType, NumberType,
                            CharType,           StringType,
                            FloatType,          BoolType,
-                           VoidType>;
+                           VoidType,           StreamType>;
 
 enum ValueEnum {
     UNSIGNED_NUMBER, NUMBER,
     CHAR,            STRING,
     FLOAT,           BOOL,
-    VOID
+    VOID,            STREAM
 };
 
 static_assert(std::is_same_v<UnsignedNumberType, std::variant_alternative_t<UNSIGNED_NUMBER, Value>>);
@@ -34,6 +40,7 @@ static_assert(std::is_same_v<StringType,         std::variant_alternative_t<STRI
 static_assert(std::is_same_v<FloatType,          std::variant_alternative_t<FLOAT, Value>>);
 static_assert(std::is_same_v<BoolType,           std::variant_alternative_t<BOOL, Value>>);
 static_assert(std::is_same_v<VoidType,           std::variant_alternative_t<VOID, Value>>);
+static_assert(std::is_same_v<StreamType,         std::variant_alternative_t<STREAM, Value>>);
 
 // TODO namespace? Class?
 
@@ -59,6 +66,9 @@ static std::string valueEnumToString(const ValueEnum value_) {
 
         case VOID:
             return "void";
+
+        case STREAM:
+            return "stream";
     }
     return ("");
 }
