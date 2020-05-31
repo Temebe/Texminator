@@ -583,3 +583,59 @@ TEST_CASE("If statements") {
 
     env.destroyCurrentScope();
 }
+
+TEST_CASE("BlockStatements") {
+    Environment env;
+    env.createNewScope(local);
+
+    SECTION("Changing variable from local scope one level up") {
+        env.addVariable(("x"), Value(NumberType(0)));
+        auto statement = parseStatement<BlockStatement>(
+                "{"
+                "   x = 3;"
+                "   x += 1;"
+                "}");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 4);
+    }
+
+    SECTION("Variable created in scope below is not accessible from scope below") {
+        env.addVariable(("x"), Value(NumberType(0)));
+        auto statement = parseStatement<BlockStatement>(
+                "{"
+                "   number y = 1;"
+                "   x = 3;"
+                "}");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variableX = env.getVariable("x");
+        REQUIRE(variableX);
+        CHECK(std::get<NumberType>(variableX.value()) == 3);
+        REQUIRE_THROWS(env.getVariable("y"));
+    }
+
+    SECTION("Statements after break do not execute") {
+        env.addVariable(("x"), Value(NumberType(0)));
+        auto statement = parseStatement<BlockStatement>(
+                "{"
+                "   x = 3;"
+                "   break;"
+                "   x += 1;"
+                "}");
+        REQUIRE(statement);
+        statement->execute(env);
+        CHECK(statement->getExecStatus() == broke);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 3);
+    }
+
+    env.destroyCurrentScope();
+
+}

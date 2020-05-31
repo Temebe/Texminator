@@ -60,6 +60,7 @@ static std::string valueEnumToString(const ValueEnum value_) {
         case VOID:
             return "void";
     }
+    return ("");
 }
 
 static std::string valueToString(const Value &value_) {
@@ -196,7 +197,7 @@ static Value castValue(const Value &val_, const ValueEnum type_) {
     }, val_);
 
     // It is assumed that if cast was not meant to be to void type but result is a void, then there was a bad cast
-    if (!std::holds_alternative<VoidType>(result) && type_ != VOID) {
+    if (std::holds_alternative<VoidType>(result) && type_ != VOID) {
         throw BadCastException("Tried to cast from " + valueToString(val_) +
             " type to " + valueEnumToString(type_) + " type.");
     }

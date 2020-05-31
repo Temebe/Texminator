@@ -9,6 +9,7 @@ void Environment::createNewScope(const ScopeType type) {
     scopes.push_front(Scope(type));
 }
 
+// TODO Why do I return optional if I throw exceptiion anyway? Refactor this
 std::optional<Value> Environment::getVariable(const std::string &name_) {
     auto currentScope = scopes.begin();
     std::optional<Value> result;
