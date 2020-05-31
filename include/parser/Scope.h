@@ -16,7 +16,7 @@ enum ScopeType {
 class Scope {
 public:
     explicit Scope(ScopeType type_);
-    ScopeType getType();
+    ScopeType getType() const;
     bool containsVariable(const std::string &name_) const;
     bool containsFunction(const std::string &name_, const std::list<Parameter> &parameters_) const;
     const Function& getFunction(const std::string &name_, const std::list<Parameter> &parameters_) const;

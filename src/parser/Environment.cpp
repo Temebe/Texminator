@@ -1,5 +1,9 @@
-#include <parser/ParserException.h>
+#include "parser/ParserException.h"
 #include "parser/Environment.h"
+
+#include <algorithm>
+
+const std::string Environment::returnValueName = "#return";
 
 void Environment::createNewScope(const ScopeType type) {
     scopes.push_front(Scope(type));
@@ -49,21 +53,47 @@ const Function& Environment::getFunction(const std::string &name_, const std::li
     throw ParserException("Function " + name_ + " with given parameters does not exist");
 }
 
-// TODO setVariable i addVariable have some common code, try to make a finding function to reduce copied code
 void Environment::setVariable(const std::string &name_, const Value &variable_) {
     auto currentScope = scopes.begin();
-    std::optional<Value> result;
 
     while (currentScope != scopes.end()) {
-        if (currentScope->containsVariable(name_)) {
-            currentScope->replaceVariable(name_, variable_);
+        if (auto currentVariable = currentScope->getVariable(name_)) {
+            auto varType = static_cast<ValueEnum>(currentVariable->index());
+            currentScope->replaceVariable(name_, castValue(variable_, varType));
             return;
         }
-        result = currentScope->getVariable(name_);
-        if ((currentScope++)->getType() == ScopeType::function || result) {
+
+        if ((currentScope++)->getType() == ScopeType::function) {
             break;
         }
     }
 
     throw ParserException("Variable " + name_ + " does not exist");
+}
+
+void Environment::setReturnValue(const Value &value_) {
+    auto functionScope = std::find_if(scopes.begin(), scopes.end(),
+            [](const Scope& scope) { return scope.getType() == function; });
+
+    if (functionScope == scopes.end()) {
+        throw TexminatorException("Tried to return not from function!");
+    }
+
+    functionScope->addVariable(returnValueName, value_);
+}
+
+Value Environment::getReturnValue() {
+    auto functionScope = std::find_if(scopes.begin(), scopes.end(),
+                                      [](const Scope& scope) { return scope.getType() == function; });
+
+    if (functionScope == scopes.end()) {
+        throw TexminatorException("Tried to return not from function!");
+    }
+
+    auto returnValue = functionScope->getVariable(returnValueName);
+    if (!returnValue) {
+        throw TexminatorException("Could not find a return value");
+    }
+
+    return *returnValue;
 }

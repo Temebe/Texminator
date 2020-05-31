@@ -3,6 +3,7 @@
 
 #include <variant>
 #include <optional>
+#include <TexminatorExceptions.h>
 
 template<class... Ts> struct overload : Ts... { using Ts::operator()...; };
 template<class... Ts> overload(Ts...) -> overload<Ts...>;
@@ -35,6 +36,36 @@ static_assert(std::is_same_v<BoolType,           std::variant_alternative_t<BOOL
 static_assert(std::is_same_v<VoidType,           std::variant_alternative_t<VOID, Value>>);
 
 // TODO namespace? Class?
+
+static std::string valueEnumToString(const ValueEnum value_) {
+    switch (value_) {
+        case UNSIGNED_NUMBER:
+            return "unsigned number";
+
+        case NUMBER:
+            return "number";
+
+        case CHAR:
+            return "char";
+
+        case STRING:
+            return "string";
+
+        case FLOAT:
+            return "float";
+
+        case BOOL:
+            return "bool";
+
+        case VOID:
+            return "void";
+    }
+}
+
+static std::string valueToString(const Value &value_) {
+    auto value = static_cast<ValueEnum>(value_.index());
+    return valueEnumToString(value);
+}
 
 static Value getDefaultValue(const ValueEnum type_) {
     Value result;
@@ -163,6 +194,12 @@ static Value castValue(const Value &val_, const ValueEnum type_) {
 
             [type_, &result](const auto &v) { result.emplace<VoidType>(); },
     }, val_);
+
+    // It is assumed that if cast was not meant to be to void type but result is a void, then there was a bad cast
+    if (!std::holds_alternative<VoidType>(result) && type_ != VOID) {
+        throw BadCastException("Tried to cast from " + valueToString(val_) +
+            " type to " + valueEnumToString(type_) + " type.");
+    }
 
     return result;
 }

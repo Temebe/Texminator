@@ -7,7 +7,7 @@
 Scope::Scope(const ScopeType type_)
     : type(type_) {}
 
-ScopeType Scope::getType() {
+ScopeType Scope::getType() const {
     return type;
 }
 

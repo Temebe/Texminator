@@ -13,7 +13,7 @@ ExpressionStatement::ExpressionStatement(std::string identifier_, TokenType oper
 void ExpressionStatement::execute(Environment &environment) {
     auto currentVal = environment.getVariable(identifier);
     if (!currentVal) {
-        throw NonExistentVariable(identifier);
+        throw NonExistentVariableException(identifier);
     }
 
     auto expValue = expression->evaluate(environment);

@@ -22,9 +22,17 @@ struct WrongTypeException : public TexminatorException {
     explicit WrongTypeException(const std::string &msg_) : TexminatorException(msg_) {}
 };
 
-struct NonExistentVariable : public TexminatorException {
-    NonExistentVariable(const std::string &identifier_)
+struct NonExistentVariableException : public TexminatorException {
+    NonExistentVariableException(const std::string &identifier_)
         : TexminatorException(identifier_ + " variable does not exist") {}
+};
+
+struct EvaluationErrorException : public TexminatorException {
+    explicit EvaluationErrorException(const std::string &msg_) : TexminatorException(msg_) {}
+};
+
+struct BadCastException : public TexminatorException {
+    explicit BadCastException(const std::string &msg_) : TexminatorException(msg_) {}
 };
 
 #endif //TEXMINATOR_TEXMINATOREXCEPTIONS_H

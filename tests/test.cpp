@@ -14,6 +14,7 @@
 #include "parser/statements/ForStatement.h"
 #include "parser/statements/FunctionDeclarationStatement.h"
 #include "parser/statements/IfMatchesStatement.h"
+#include "parser/statements/IfStatement.h"
 #include "parser/statements/VariableDeclarationStatement.h"
 #include "parser/statements/WriteStatement.h"
 #include "parser/expressions/ComparisonExpressions.h"
@@ -548,6 +549,37 @@ TEST_CASE("Expression statements") {
         REQUIRE(variable);
         CHECK(std::get<UnsignedNumberType>(variable.value()) == 5);
     }
+
+    env.destroyCurrentScope();
+}
+
+TEST_CASE("If statements") {
+    Environment env;
+    env.createNewScope(local);
+
+    SECTION("Example A") {
+        env.addVariable("x", Value(NumberType(0)));
+        auto statement = parseStatement<IfStatement>("if(true) x += 1;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 1);
+    }
+
+    SECTION("Example B") {
+        env.addVariable("x", Value(NumberType(0)));
+        auto statement = parseStatement<IfStatement>("if(3 > 4) x = 3; else x = 5;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<UnsignedNumberType>(variable.value()) == 5);
+    }
+
+
 
     env.destroyCurrentScope();
 }

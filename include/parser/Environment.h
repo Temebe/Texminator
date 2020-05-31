@@ -15,9 +15,12 @@ public:
     std::optional<Value> getVariable(const std::string &name_);
     const Function& getFunction(const std::string &name_, const std::list<Parameter> &parameters_);
     void setVariable(const std::string &name_, const Value& variable_);
+    void setReturnValue(const Value& value_);
+    Value getReturnValue();
 
 private:
     std::deque<Scope> scopes;
+    static const std::string returnValueName;
 
 };
 
