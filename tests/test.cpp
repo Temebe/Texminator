@@ -304,7 +304,7 @@ TEST_CASE("Compound expression and order of operations") {
         auto exp = parseCompoundExpression("23 + 7243234 + 23312 * 31 != 1;");
 
         REQUIRE(exp);
-        CHECK(std::get<BoolType>(exp->evaluate(env)) == false);
+        CHECK(std::get<BoolType>(exp->evaluate(env)) == true);
     }
 
     SECTION("0 == 0") {

@@ -5,9 +5,8 @@
 
 #include "Statement.h"
 #include "parser/Environment.h"
-#include "parser/FunctionBody.h"
 
-class BlockStatement : public Statement, public FunctionBody {
+class BlockStatement : public Statement {
 public:
     explicit BlockStatement(std::list<std::unique_ptr<Statement>> statements_);
     void execute(Environment &environment) override;

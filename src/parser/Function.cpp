@@ -1,11 +1,14 @@
+#include "parser/statements/Statement.h"
 #include "parser/Function.h"
+
+Function::~Function() = default;
 
 // Parameters in function are compared only by their types
 bool Function::hasSameParameters(const Function &other_) const {
     return hasSameParameters(other_.parameters);
 }
 
-Function::Function(std::unique_ptr<FunctionBody> body_)
+Function::Function(std::unique_ptr<Statement> body_)
     : body(std::move(body_)) {
 
 }
