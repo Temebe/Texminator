@@ -601,7 +601,15 @@ std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
 // TODO both functions share most of the code, maybe split it somehow
 std::unique_ptr<Statement> Parser::parseWriteStatement(Scanner &scanner_, const std::string& identifier_) {
     Token token = scanner_.getCurrentToken();
-    std::unique_ptr<Expression> expression = parseCompoundExpression(scanner_);
+
+    if (token.type == keyword && token.value == "newline") { // variant writing new line to file
+        if (!consumeMatching(scanner_, {keyword, semicolon})) {
+            return {};
+        }
+        return std::make_unique<WriteStatement>(identifier_);
+    }
+
+    std::unique_ptr<Expression> expression = parseCompoundExpression(scanner_); // variant writing some expression
 
     if (!expression) {
         setError("Could not parse expression properly", token.line, token.pos);

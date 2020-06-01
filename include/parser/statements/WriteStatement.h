@@ -7,12 +7,14 @@
 
 class WriteStatement : public Statement {
 public:
+    explicit WriteStatement(std::string identifier_);
     WriteStatement(std::string identifier_, std::unique_ptr<Expression> expression_);
     void execute(Environment& environment) override;
 
 private:
     const std::string identifier;
     const std::unique_ptr<Expression> expression;
+    const bool newline = false;
 };
 
 

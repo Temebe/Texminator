@@ -50,6 +50,16 @@ std::unique_ptr<T> parseStatement(const std::string& code_) {
     return std::move(result);
 }
 
+void executeCode(const std::string& code_, Environment& env_) {
+    Parser parser;
+    std::unique_ptr<Source> source = std::make_unique<StringSource>(code_);
+    Scanner scanner(std::move(source));
+
+    while (auto statement = parser.parseStatement(scanner)) {
+        statement->execute(env_);
+    }
+}
+
 std::unique_ptr<Expression> parseCompoundExpression(const std::string &code_) {
     Parser parser;
     std::unique_ptr<Source> source = std::make_unique<StringSource>(code_);
@@ -644,8 +654,7 @@ TEST_CASE("BlockStatements") {
 
 }
 
-// TODO create example.txt in test case
-TEST_CASE("Open statement test") {
+TEST_CASE("File operations tests") {
     Environment env;
     env.createNewScope(local);
     // prepare text file
@@ -732,6 +741,24 @@ TEST_CASE("Open statement test") {
         auto stream = std::get<StreamType>(variable.value());
         CHECK(stream->readChar() == '5');
         CHECK(stream->readLine() == "678");
+    }
+
+    SECTION("Write statement, example A") {
+        executeCode(
+                "open example.txt;"
+                "example.txt -> \"beta\";", env);
+
+        auto variable = env.getVariable("example.txt");
+        REQUIRE(variable);
+        CHECK_NOTHROW(std::get<StreamType>(variable.value()));
+
+        auto stream = std::get<StreamType>(variable.value());
+        stream->close();
+
+        std::ifstream file("example.txt");
+        std::string result;
+        std::getline(file, result);
+        CHECK(result == "beta 1234");
     }
 
     env.destroyCurrentScope();
