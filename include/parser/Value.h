@@ -101,6 +101,8 @@ static Value getDefaultValue(const ValueEnum type_) {
             break;
         case VOID:
             return Value(VoidType());
+        case STREAM:
+            return Value(std::make_shared<EmptyStream>());
     }
     return result;
 }
@@ -198,6 +200,14 @@ static Value castValue(const Value &val_, const ValueEnum type_) {
                         result.emplace<FloatType>(v);
                         break;
                     case BOOL:
+                        break;
+                    default:
+                        result.emplace<VoidType>();
+                }},
+
+            [type_, &result](const StreamType &v) {
+                switch (type_) {
+                    case STREAM:
                         break;
                     default:
                         result.emplace<VoidType>();

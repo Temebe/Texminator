@@ -12,6 +12,8 @@ public:
     void destroyCurrentScope();
     void addVariable(const std::string &name_, const Value& variable_);
     void addFunction(const std::string &name_, Function& function_);
+    void addGlobalVariable(const std::string &name_, const Value& variable_);
+    void addGlobalFunction(const std::string &name_, Function &function_);
     std::optional<Value> getVariable(const std::string &name_);
     const Function& getFunction(const std::string &name_, const std::list<Parameter> &parameters_);
     void setVariable(const std::string &name_, const Value& variable_);
@@ -20,6 +22,9 @@ public:
 
 private:
     std::deque<Scope> scopes;
+    // global scope is reserved for special functions and variables
+    // therefore there is no option to add nothing to it by accident - you have to use special methods
+    Scope globalScope = Scope(local);
     static const std::string returnValueName;
 
 };

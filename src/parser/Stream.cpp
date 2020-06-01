@@ -115,7 +115,7 @@ std::string FileStream::readLine() {
     assertMode(readMode);
 
     std::string result;
-    file >> result;
+    std::getline(file, result);
     return result;
 }
 
@@ -167,3 +167,26 @@ void FileStream::assertMode(const OpenMode requiredMode_) {
             break;
     }
 }
+
+/// ##################################
+/// ########## EMPTY STREAM ##########
+/// ##################################
+
+EmptyStream::EmptyStream() : Stream(readwrite) {}
+
+void EmptyStream::close() {}
+
+char EmptyStream::readChar() {
+    return 0;
+}
+
+std::string EmptyStream::readLine() {
+    return std::string();
+}
+
+void EmptyStream::nextChar() {}
+
+void EmptyStream::nextLine() {}
+
+
+void EmptyStream::write(const std::string &toWrite_) {}

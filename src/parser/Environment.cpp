@@ -9,7 +9,7 @@ void Environment::createNewScope(const ScopeType type) {
     scopes.push_front(Scope(type));
 }
 
-// TODO Why do I return optional if I throw exceptiion anyway? Refactor this
+// TODO Why do I return optional if I throw exception anyway? Refactor this
 std::optional<Value> Environment::getVariable(const std::string &name_) {
     auto currentScope = scopes.begin();
     std::optional<Value> result;
@@ -19,6 +19,10 @@ std::optional<Value> Environment::getVariable(const std::string &name_) {
         if ((currentScope++)->getType() == ScopeType::function || result) {
             break;
         }
+    }
+
+    if (!result) {
+        result = globalScope.getVariable(name_);
     }
 
     if (result) {
@@ -39,6 +43,14 @@ void Environment::addFunction(const std::string &name_, Function &function_) {
     currentScope->addFunction(name_, function_);
 }
 
+void Environment::addGlobalVariable(const std::string &name_, const Value &variable_) {
+    globalScope.addVariable(name_, variable_);
+}
+
+void Environment::addGlobalFunction(const std::string &name_, Function &function_) {
+    globalScope.addFunction(name_, function_);
+}
+
 void Environment::destroyCurrentScope() {
     scopes.pop_front();
 }
@@ -49,6 +61,10 @@ const Function& Environment::getFunction(const std::string &name_, const std::li
         if (it->containsFunction(name_, parameters_)) {
             return it->getFunction(name_, parameters_);
         }
+    }
+
+    if (globalScope.containsFunction(name_, parameters_)) {
+        return globalScope.getFunction(name_, parameters_);
     }
 
     throw ParserException("Function " + name_ + " with given parameters does not exist");

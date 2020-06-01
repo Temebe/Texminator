@@ -9,6 +9,8 @@ public:
     explicit VariableExpression(std::string name_);
     Value evaluate(Environment &environment) override;
 
+    [[nodiscard]] const std::string &getName() const;
+
 private:
     std::string name;
 };

@@ -9,3 +9,7 @@ VariableExpression::VariableExpression(std::string name_)
 Value VariableExpression::evaluate(Environment &environment) {
     return environment.getVariable(name).value();
 }
+
+const std::string &VariableExpression::getName() const {
+    return name;
+}

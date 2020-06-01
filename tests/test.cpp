@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include <catch2/catch_reporter_teamcity.hpp>
+#include <parser/expressions/IncrementCharExpression.h>
 #include "Scanner.h"
 #include "parser/Parser.h"
 #include "StringSource.h"
@@ -10,17 +11,19 @@
 #include "parser/statements/ReturnStatement.h"
 #include "parser/statements/AliasDeclarationStatement.h"
 #include "parser/statements/BlockStatement.h"
-#include "parser/statements/ExpressionStatement.h"
+#include "parser/statements/IdentifierExpressionStatement.h"
 #include "parser/statements/ForStatement.h"
 #include "parser/statements/FunctionDeclarationStatement.h"
 #include "parser/statements/IfMatchesStatement.h"
 #include "parser/statements/IfStatement.h"
 #include "parser/statements/VariableDeclarationStatement.h"
 #include "parser/statements/WriteStatement.h"
+#include "parser/statements/ExpressionStatement.h"
 #include "parser/expressions/ComparisonExpressions.h"
 #include "parser/expressions/LiteralExpression.h"
 #include "parser/expressions/ArithmeticExpressions.h"
 #include "parser/expressions/BracketExpression.h"
+
 #include "TexminatorExceptions.h"
 
 template<typename T>
@@ -89,9 +92,9 @@ TEST_CASE("Simple parsing checks") {
     CHECK_FALSE(checkStatement<ReturnStatement>(";"));
     CHECK_FALSE(checkStatement<ReturnStatement>("continue;"));
 
-    CHECK(checkStatement<ExpressionStatement>("arg += 3;"));
-    CHECK(checkStatement<ExpressionStatement>("var = (2*(3-(4/5)));"));
-    CHECK(checkStatement<ExpressionStatement>("h -= 4;"));
+    CHECK(checkStatement<IdentifierExpressionStatement>("arg += 3;"));
+    CHECK(checkStatement<IdentifierExpressionStatement>("var = (2*(3-(4/5)));"));
+    CHECK(checkStatement<IdentifierExpressionStatement>("h -= 4;"));
 }
 
 TEST_CASE("Parsing open statements") {
@@ -409,7 +412,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("+= with integer") {
         env.addVariable("x", Value(NumberType(-3)));
-        auto statement = parseStatement<ExpressionStatement>("x += 2;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x += 2;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -420,7 +423,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("+= with string and char A") {
         env.addVariable("x", Value(std::string("1234")));
-        auto statement = parseStatement<ExpressionStatement>("x += \"5\";");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x += \"5\";");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -432,7 +435,7 @@ TEST_CASE("Expression statements") {
     SECTION("+= with string and char B") {
         env.addVariable("x", StringType(""));
         env.addVariable("y", CharType('1'));
-        auto statement = parseStatement<ExpressionStatement>("x += y + \"2345\";");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x += y + \"2345\";");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -443,7 +446,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("+= with two strings") {
         env.addVariable("x", Value(std::string("12")));
-        auto statement = parseStatement<ExpressionStatement>("x += \"345\";");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x += \"345\";");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -454,7 +457,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("-=, example A") {
         env.addVariable("x", Value(NumberType(-3)));
-        auto statement = parseStatement<ExpressionStatement>("x -= 5;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x -= 5;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -465,7 +468,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("-=, example B") {
         env.addVariable("x", Value(NumberType(-3)));
-        auto statement = parseStatement<ExpressionStatement>("x -= -5;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x -= -5;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -476,7 +479,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("-=, example C") {
         env.addVariable("x", Value(FloatType(3.5)));
-        auto statement = parseStatement<ExpressionStatement>("x -= 2.25;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x -= 2.25;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -487,7 +490,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("/=, example A") {
         env.addVariable("x", Value(NumberType(8)));
-        auto statement = parseStatement<ExpressionStatement>("x /= 2;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x /= 2;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -498,7 +501,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("/=, example B") {
         env.addVariable("x", Value(NumberType(5)));
-        auto statement = parseStatement<ExpressionStatement>("x /= 1.25;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x /= 1.25;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -509,7 +512,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("*=, example A") {
         env.addVariable("x", Value(NumberType(4)));
-        auto statement = parseStatement<ExpressionStatement>("x *= 2.25;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x *= 2.25;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -520,7 +523,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("*=, example B") {
         env.addVariable("x", Value(FloatType(1.5)));
-        auto statement = parseStatement<ExpressionStatement>("x *= 2.25;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x *= 2.25;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -531,7 +534,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("=, example A") {
         env.addVariable("x", Value(FloatType(1.5)));
-        auto statement = parseStatement<ExpressionStatement>("x = 2.25;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x = 2.25;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -542,7 +545,7 @@ TEST_CASE("Expression statements") {
 
     SECTION("=, example B") {
         env.addVariable("x", Value(FloatType(1.5)));
-        auto statement = parseStatement<ExpressionStatement>("x = 5;");
+        auto statement = parseStatement<IdentifierExpressionStatement>("x = 5;");
         REQUIRE(statement);
         statement->execute(env);
 
@@ -639,4 +642,97 @@ TEST_CASE("BlockStatements") {
 
     env.destroyCurrentScope();
 
+}
+
+// TODO create example.txt in test case
+TEST_CASE("Open statement test") {
+    Environment env;
+    env.createNewScope(local);
+    // prepare text file
+    std::ofstream exampleFile("example.txt");
+    exampleFile << "test 1234\n";
+    exampleFile << "5678";
+    exampleFile.close();
+
+    SECTION("Open and read line") {
+        auto statement = parseStatement<OpenStatement>("open example.txt;");
+        REQUIRE(statement);
+
+        statement->execute(env);
+        auto variable = env.getVariable("example.txt");
+        REQUIRE(variable);
+        CHECK_NOTHROW(std::get<StreamType>(variable.value()));
+
+        auto stream = std::get<StreamType>(variable.value());
+        CHECK(stream->readLine() == "test 1234");
+        CHECK(stream->readLine() == "5678");
+    }
+
+    SECTION("Open and read two characters") {
+        auto statement = parseStatement<OpenStatement>("open example.txt;");
+        REQUIRE(statement);
+
+        statement->execute(env);
+        auto variable = env.getVariable("example.txt");
+        REQUIRE(variable);
+        CHECK_NOTHROW(std::get<StreamType>(variable.value()));
+
+        auto stream = std::get<StreamType>(variable.value());
+        CHECK(stream->readChar() == 't');
+        CHECK(stream->readChar() == 'e');
+    }
+
+    SECTION("Open, increment character and then read") {
+        auto statement = parseStatement<OpenStatement>("open example.txt;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("example.txt");
+        REQUIRE(variable);
+        CHECK_NOTHROW(std::get<StreamType>(variable.value()));
+
+        auto expStatement = parseStatement<ExpressionStatement>("example.txt+;");
+        REQUIRE(expStatement);
+        expStatement->execute(env);
+
+        auto stream = std::get<StreamType>(variable.value());
+        CHECK(stream->readChar() == 'e');
+    }
+
+    SECTION("Open, increment line and then read line") {
+        auto statement = parseStatement<OpenStatement>("open example.txt;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("example.txt");
+        REQUIRE(variable);
+        CHECK_NOTHROW(std::get<StreamType>(variable.value()));
+
+        auto expStatement = parseStatement<ExpressionStatement>("example.txt++;");
+        REQUIRE(expStatement);
+        expStatement->execute(env);
+
+        auto stream = std::get<StreamType>(variable.value());
+        CHECK(stream->readLine() == "5678");
+    }
+
+    SECTION("Open, increment line and then read character and then read line") {
+        auto statement = parseStatement<OpenStatement>("open example.txt;");
+        REQUIRE(statement);
+        statement->execute(env);
+
+        auto variable = env.getVariable("example.txt");
+        REQUIRE(variable);
+        CHECK_NOTHROW(std::get<StreamType>(variable.value()));
+
+        auto expStatement = parseStatement<ExpressionStatement>("example.txt++;");
+        REQUIRE(expStatement);
+        expStatement->execute(env);
+
+        auto stream = std::get<StreamType>(variable.value());
+        CHECK(stream->readChar() == '5');
+        CHECK(stream->readLine() == "678");
+    }
+
+    env.destroyCurrentScope();
 }

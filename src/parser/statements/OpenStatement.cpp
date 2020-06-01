@@ -1,4 +1,5 @@
 #include "parser/statements/OpenStatement.h"
+#include "parser/expressions/VariableExpression.h"
 
 #include <utility>
 
@@ -13,7 +14,18 @@ OpenStatement::OpenStatement(std::unique_ptr<Expression> exp_, std::string alias
           openMode(mode_) {}
 
 void OpenStatement::execute(Environment &environment) {
+    if (const auto identifier = dynamic_cast<VariableExpression*>(filePathExp.get())) {
+        filePath = identifier->getName();
+    } else {
+        filePath = std::get<StringType>(castValue(filePathExp->evaluate(environment), STRING));
+    }
 
+    if (alias.empty()) {
+        alias = filePath;
+    }
+
+    Value stream = std::make_shared<FileStream>(filePath, openMode);
+    environment.addVariable(alias, stream);
 }
 
 const std::string &OpenStatement::getFilePath() const {

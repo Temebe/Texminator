@@ -13,7 +13,7 @@
 #include <parser/statements/ForStatement.h>
 #include <parser/statements/MatchStatement.h>
 #include <parser/statements/WriteStatement.h>
-#include <parser/statements/ExpressionStatement.h>
+#include <parser/statements/IdentifierExpressionStatement.h>
 #include <parser/expressions/FormattedStringExpression.h>
 #include <parser/statements/IfMatchesStatement.h>
 #include <parser/expressions/ReadLineExpression.h>
@@ -22,6 +22,9 @@
 #include <parser/statements/FunctionDeclarationStatement.h>
 #include <parser/statements/BreakStatement.h>
 #include <parser/statements/ContinueStatement.h>
+#include <parser/statements/ExpressionStatement.h>
+#include <parser/expressions/IncrementLineExpression.h>
+#include <parser/expressions/IncrementCharExpression.h>
 #include "parser/Parser.h"
 #include "HornerHash.h"
 
@@ -159,7 +162,12 @@ std::unique_ptr<Statement> Parser::parseAfterIdentifier(Scanner &scanner_) {
         case divAssignOperator:
         case mulAssignOperator:
             scanner_.consume();
-            result = parseExpressionStatement(scanner_, identifier, token.type);
+            result = parseIdentifierExpressionStatement(scanner_, identifier, token.type);
+            break;
+
+        case plus:
+        case nextLineOperator:
+            result = parseIncrementExpressionStatement(scanner_, identifier);
             break;
 
         default:
@@ -607,8 +615,8 @@ std::unique_ptr<Statement> Parser::parseWriteStatement(Scanner &scanner_, const 
     return std::make_unique<WriteStatement>(identifier_, std::move(expression));
 }
 
-std::unique_ptr<Statement> Parser::parseExpressionStatement(Scanner &scanner_, const std::string& identifier_,
-                                                            const TokenType operation_) {
+std::unique_ptr<Statement> Parser::parseIdentifierExpressionStatement(Scanner &scanner_, const std::string& identifier_,
+                                                                      const TokenType operation_) {
     Token token = scanner_.getCurrentToken();
     std::unique_ptr<Expression> expression = parseCompoundExpression(scanner_);
 
@@ -621,7 +629,34 @@ std::unique_ptr<Statement> Parser::parseExpressionStatement(Scanner &scanner_, c
         return {};
     }
 
-    return std::make_unique<ExpressionStatement>(identifier_, operation_, std::move(expression));
+    return std::make_unique<IdentifierExpressionStatement>(identifier_, operation_, std::move(expression));
+}
+
+
+std::unique_ptr<Statement> Parser::parseIncrementExpressionStatement(Scanner &scanner_, const std::string& identifier_) {
+    Token token = scanner_.getCurrentToken();
+    std::unique_ptr<Expression> expression;
+    auto streamVariable = std::make_unique<VariableExpression>(identifier_);
+
+    if (consumeMatching(scanner_, {nextLineOperator})) {
+        expression = std::make_unique<IncrementLineExpression>();
+
+    } else if (consumeMatching(scanner_, {plus})) {
+        expression = std::make_unique<IncrementCharExpression>();
+
+    } else {
+        return {};
+    }
+
+    // Set expression with identifier as an value
+    dynamic_cast<OneFactorExpression*>(expression.get())
+            ->setFactorExpression(std::move(streamVariable));
+
+    if (!consumeMatching(scanner_, {TokenType::semicolon})) {
+        return {};
+    }
+
+    return std::make_unique<ExpressionStatement>(std::move(expression));
 }
 
 std::unique_ptr<Statement> Parser::parseReturnStatement(Scanner &scanner_) {

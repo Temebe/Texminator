@@ -40,8 +40,9 @@ private:
     std::unique_ptr<Statement> parseForStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseMatchStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseWriteStatement(Scanner &scanner_, const std::string& identifier);
-    std::unique_ptr<Statement> parseExpressionStatement(Scanner &scanner_, const std::string& identifier,
-                                                        TokenType operation);
+    std::unique_ptr<Statement> parseIdentifierExpressionStatement(Scanner &scanner_, const std::string& identifier_,
+                                                                  const TokenType operation_);
+    std::unique_ptr<Statement> parseIncrementExpressionStatement(Scanner &scanner_, const std::string& identifier_);
     std::unique_ptr<Statement> parseReturnStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseBreakStatement(Scanner &scanner_);
     std::unique_ptr<Statement> parseContinueStatement(Scanner &scanner_);

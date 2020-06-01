@@ -6,11 +6,11 @@
 
 class ReadCharExpression : public Expression, public OneFactorExpression  {
 public:
-    explicit ReadCharExpression(std::unique_ptr<Expression> toIncrement_);
+    explicit ReadCharExpression(std::unique_ptr<Expression> toRead_);
     Value evaluate(Environment &environment) override;
 
 private:
-    std::unique_ptr<Expression> toIncrement;
+    std::unique_ptr<Expression> toRead;
 };
 
 

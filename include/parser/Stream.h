@@ -69,4 +69,16 @@ private:
 
 };
 
+/// This class for now has no purpose and will be used just as a default value of Stream
+class EmptyStream : public Stream {
+public:
+    EmptyStream();
+    void close() override;
+    char readChar() override;
+    std::string readLine() override;
+    void nextChar() override;
+    void nextLine() override;
+    void write(const std::string& toWrite_) override;
+};
+
 #endif //TEXMINATOR_STREAM_H
