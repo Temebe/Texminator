@@ -504,8 +504,9 @@ std::unique_ptr<Statement> Parser::parseIfMatchesStatement(Scanner &scanner_) {
 std::unique_ptr<Statement> Parser::parseForStatement(Scanner &scanner_) {
     Token token = scanner_.getCurrentToken();
     ForType type;
-    std::string iteratorName, sourceName;
+    std::string iteratorName;
     std::unique_ptr<Statement> body;
+    std::unique_ptr<Expression> sourceExp;
 
     if (token.type == keyword && token.value == "char") {
         type = perCharacter;
@@ -530,13 +531,12 @@ std::unique_ptr<Statement> Parser::parseForStatement(Scanner &scanner_) {
     }
 
     token = scanner_.consume();
-    if (token.type != identifier) {
-        setError("Expected stream's identifier", token.line, token.pos);
+    sourceExp = parseSimpleExpression(scanner_);
+    if (!sourceExp) {
+        setError("Could not parse source expression in loop statement", token.line, token.pos);
         return {};
     }
-    sourceName = token.value;
 
-    scanner_.consume();
     if (!consumeMatching(scanner_, {colon})) {
         return {};
     }
@@ -547,7 +547,7 @@ std::unique_ptr<Statement> Parser::parseForStatement(Scanner &scanner_) {
         return {};
     }
 
-    return std::make_unique<ForStatement>(iteratorName, sourceName, type, std::move(body));
+    return std::make_unique<ForStatement>(iteratorName, std::move(sourceExp), type, std::move(body));
 }
 
 // TODO Can you shorten this?

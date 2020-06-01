@@ -25,10 +25,20 @@ char StandardInput::readChar() {
     return *line.begin();
 }
 
+char StandardInput::readChar(bool &ok_) {
+    ok_ = true;
+    return readChar();
+}
+
 std::string StandardInput::readLine() {
     std::string line;
     std::cin >> line;
     return line;
+}
+
+std::string StandardInput::readLine(bool &ok_) {
+    ok_ = true;
+    return readLine();
 }
 
 void StandardInput::nextChar() {
@@ -43,6 +53,10 @@ void StandardInput::write(const std::string &toWrite_) {
     throw BadStreamException("Tried to write to standard input");
 }
 
+
+
+
+
 /// #####################################
 /// ########## STANDARD OUTPUT ##########
 /// #####################################
@@ -55,7 +69,16 @@ char StandardOutput::readChar() {
     throw BadStreamException("Tried to read from standard output");
 }
 
+char StandardOutput::readChar(bool &ok_) {
+    throw BadStreamException("Tried to read from standard output");
+}
+
 std::string StandardOutput::readLine() {
+    throw BadStreamException("Tried to read from standard output");
+}
+
+std::string StandardOutput::readLine(bool &ok_) {
+    ok_ = false;
     throw BadStreamException("Tried to read from standard output");
 }
 
@@ -70,6 +93,9 @@ void StandardOutput::nextLine() {
 void StandardOutput::write(const std::string &toWrite_) {
     std::cout << toWrite_;
 }
+
+
+
 
 /// #################################
 /// ########## FILE STREAM ##########
@@ -110,12 +136,24 @@ char FileStream::readChar() {
     return result;
 }
 
+char FileStream::readChar(bool &ok_) {
+    auto result = readChar();
+    ok_ = !!file;
+    return result;
+}
+
 std::string FileStream::readLine() {
     assertGood();
     assertMode(readMode);
 
     std::string result;
     std::getline(file, result);
+    return result;
+}
+
+std::string FileStream::readLine(bool &ok_) {
+    auto result = readLine();
+    ok_ = !!file;
     return result;
 }
 
@@ -168,6 +206,7 @@ void FileStream::assertMode(const OpenMode requiredMode_) {
     }
 }
 
+
 /// ##################################
 /// ########## EMPTY STREAM ##########
 /// ##################################
@@ -190,3 +229,13 @@ void EmptyStream::nextLine() {}
 
 
 void EmptyStream::write(const std::string &toWrite_) {}
+
+std::string EmptyStream::readLine(bool &ok_) {
+    ok_ = true;
+    return std::string();
+}
+
+char EmptyStream::readChar(bool &ok_) {
+    ok_ = true;
+    return 0;
+}

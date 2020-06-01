@@ -829,3 +829,54 @@ TEST_CASE("If matches statement") {
 
     env.destroyCurrentScope();
 }
+
+TEST_CASE("For loops") {
+    Environment env;
+    env.createNewScope(local);
+    std::ofstream exampleFile("example.txt");
+    exampleFile << "test 1234\n";
+    exampleFile << "5678\n";
+    exampleFile << "hello world";
+    exampleFile.close();
+
+    SECTION("Simple example") {
+        executeCode(
+                "open to read example.txt as data;"
+                "number x = 0;"
+                "for line data_line in data:"
+                "   x += 1;", env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 3);
+    }
+
+    SECTION("Example with break and if") {
+        executeCode(
+                "open to read example.txt as data;"
+                "number x = 0;"
+                "for line data_line in data: {"
+                "   x += 1;"
+                "   if (data_line == \"5678\") break;"
+                "}", env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 2);
+    }
+
+    SECTION("Count characters") {
+        executeCode(
+                "open to read example.txt as data;"
+                "number char_amount = 0;"
+                "for char _ in data: {"
+                "   char_amount += 1;"
+                "}", env);
+
+        auto variable = env.getVariable("char_amount");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 26);
+    }
+
+    env.destroyCurrentScope();
+}

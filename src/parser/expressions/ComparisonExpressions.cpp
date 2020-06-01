@@ -24,7 +24,7 @@ Value EqualExpression::evaluate(Environment &environment) {
         return Value(VoidType());
     }
     Value leftValue = leftExpression->evaluate(environment);
-    Value rightValue = leftExpression->evaluate(environment);
+    Value rightValue = rightExpression->evaluate(environment);
 
     Value result = std::visit(overload {
             [](UnsignedNumberType &l, UnsignedNumberType &r){ return Value(l == r); },

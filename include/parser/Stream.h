@@ -15,7 +15,9 @@ public:
 
     virtual void close() = 0;
     virtual char readChar() = 0;
+    virtual char readChar(bool &ok_) = 0;
     virtual std::string readLine() = 0;
+    virtual std::string readLine(bool &ok_) = 0;
     virtual void nextChar() = 0;
     virtual void nextLine() = 0;
     virtual void write(const std::string& toWrite_) = 0;
@@ -31,7 +33,9 @@ public:
 
     void close() override;
     char readChar() override;
+    char readChar(bool &ok_) override;
     std::string readLine() override;
+    std::string readLine(bool &ok_) override;
     void nextChar() override;
     void nextLine() override;
     void write(const std::string& toWrite_) override;
@@ -43,7 +47,9 @@ public:
 
     void close() override;
     char readChar() override;
+    char readChar(bool &ok_) override;
     std::string readLine() override;
+    std::string readLine(bool &ok_) override;
     void nextChar() override;
     void nextLine() override;
     void write(const std::string& toWrite_) override;
@@ -55,7 +61,9 @@ public:
 
     void close() override;
     char readChar() override;
+    char readChar(bool &ok_) override;
     std::string readLine() override;
+    std::string readLine(bool &ok_) override;
     void nextChar() override;
     void nextLine() override;
     void write(const std::string& toWrite_) override;
@@ -75,7 +83,9 @@ public:
     EmptyStream();
     void close() override;
     char readChar() override;
+    char readChar(bool &ok_) override;
     std::string readLine() override;
+    std::string readLine(bool &ok_) override;
     void nextChar() override;
     void nextLine() override;
     void write(const std::string& toWrite_) override;
