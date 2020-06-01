@@ -18,6 +18,8 @@ Value FormattedStringExpression::evaluate(Environment &environment) {
         if (*it != '{') {
             continue;
         }
+        auto startErase = it;
+
         if (++it != toFormat.end()) {
             if (*it != '}') {
                 continue;
@@ -25,12 +27,15 @@ Value FormattedStringExpression::evaluate(Environment &environment) {
         }
 
         // We found a {} symbol
-        auto valueToInsert = std::get<StringType>(castValue((*argIt)->evaluate(environment), STRING));
-        it = toFormat.erase(--it, ++it ); // erase {}
+        if (argIt == arguments.end()) {
+            throw TexminatorException("Formatted string ran out of arguments");
+        }
+        auto valueToInsert = std::get<StringType>(castValue((*argIt++)->evaluate(environment), STRING));
+        it = toFormat.erase(startErase, ++it ); // erase {}
         toFormat.insert(it, valueToInsert.begin(), valueToInsert.end());
-        it = it + valueToInsert.size();
+        it = it + (valueToInsert.size() - 1);
     }
-    return Value();
+    return toFormat;
 }
 
 

@@ -743,7 +743,7 @@ TEST_CASE("File operations tests") {
         CHECK(stream->readLine() == "678");
     }
 
-    SECTION("Write statement, example A") {
+    SECTION("Write statement, simple example") {
         executeCode(
                 "open example.txt;"
                 "example.txt -> \"beta\";", env);
@@ -759,6 +759,24 @@ TEST_CASE("File operations tests") {
         std::string result;
         std::getline(file, result);
         CHECK(result == "beta 1234");
+    }
+
+    SECTION("Write statement with formatted string") {
+        executeCode(
+                "open example.txt;"
+                "example.txt -> \"beta{}-{}\".(\"13345\", \"25545\");", env);
+
+        auto variable = env.getVariable("example.txt");
+        REQUIRE(variable);
+        CHECK_NOTHROW(std::get<StreamType>(variable.value()));
+
+        auto stream = std::get<StreamType>(variable.value());
+        stream->close();
+
+        std::ifstream file("example.txt");
+        std::string result;
+        std::getline(file, result);
+        CHECK(result == "beta13345-25545");
     }
 
     env.destroyCurrentScope();
