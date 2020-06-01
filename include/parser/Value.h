@@ -225,5 +225,38 @@ static Value castValue(const Value &val_, const ValueEnum type_) {
     return result;
 }
 
+static bool ableToCast(const ValueEnum a_, const ValueEnum b_) {
+    switch (a_) {
+
+        case UNSIGNED_NUMBER:
+        case NUMBER:
+        case FLOAT:
+        case BOOL:
+            switch (b_) {
+                case UNSIGNED_NUMBER:
+                case NUMBER:
+                case FLOAT:
+                case BOOL:
+                    return true;
+                default:
+                    return false;
+            }
+
+        case CHAR:
+        case STRING:
+            switch (b_) {
+                case CHAR:
+                case STRING:
+                    return true;
+                default:
+                    return false;
+            }
+
+        default:
+            return false;
+    }
+    return false;
+}
+
 
 #endif //TEXMINATOR_VALUE_H

@@ -15,7 +15,8 @@ public:
     void addGlobalVariable(const std::string &name_, const Value& variable_);
     void addGlobalFunction(const std::string &name_, Function &function_);
     std::optional<Value> getVariable(const std::string &name_);
-    const Function& getFunction(const std::string &name_, const std::list<Parameter> &parameters_);
+    Function& getFunction(const std::string &name_, const std::list<Parameter> &parameters_);
+    Function& getFunction(const std::string &name_, const std::list<Value> &parameters_);
     void setVariable(const std::string &name_, const Value& variable_);
     void setReturnValue(const Value& value_);
     Value getReturnValue();

@@ -43,27 +43,26 @@ void Scope::addFunction(const std::string &name_, Function &function_) {
     functions.insert({name_, std::move(function_)});
 }
 
-bool Scope::containsFunction(const std::string &name_, const std::list<Parameter> &parameters_) const {
-    return findFunction(name_, parameters_) == functions.cend();
+bool Scope::containsFunction(const std::string &name_, const std::list<Parameter> &parameters_) {
+    return findFunction(name_, parameters_) != functions.cend();
 }
 
-const Function& Scope::getFunction(const std::string &name_, const std::list<Parameter> &parameters_) const {
+Function& Scope::getFunction(const std::string &name_, const std::list<Parameter> &parameters_) {
     auto result = findFunction(name_, parameters_);
-    if (result == functions.cend()) {
+    if (result == functions.end()) {
         throw ParserException("Function " + name_ + " with given parameters does not exist");
     }
     return result->second;
 }
 
-FunctionMap::const_iterator Scope::findFunction(const std::string &name_, const std::list<Parameter> &parameters_) const {
-    auto [begin, end] = functions.equal_range(name_);
-    if (end != functions.end()) {
-        ++end;
-    }
+FunctionMap::iterator Scope::findFunction(const std::string &name_, const std::list<Parameter> &parameters_) {
+    auto[it, end] = functions.equal_range(name_);
 
-    // TODO implement
-    return std::find_if(begin, end,
-        [&name_, &parameters_](const auto &element_){
-            return true;
-        });
+    while (it != end && it != functions.end()) {
+        if (it->second.hasSameParameters(parameters_)) {
+            return it;
+        }
+        ++it;
+    }
+    return functions.end();
 }

@@ -18,15 +18,15 @@ public:
     explicit Scope(ScopeType type_);
     ScopeType getType() const;
     bool containsVariable(const std::string &name_) const;
-    bool containsFunction(const std::string &name_, const std::list<Parameter> &parameters_) const;
-    const Function& getFunction(const std::string &name_, const std::list<Parameter> &parameters_) const;
+    bool containsFunction(const std::string &name_, const std::list<Parameter> &parameters_);
+    Function& getFunction(const std::string &name_, const std::list<Parameter> &parameters_);
     std::optional<Value> getVariable(const std::string &name_) const;
     void addVariable(const std::string &name_, const Value& variable_);
     void replaceVariable(const std::string &name_, const Value& variable_);
     void addFunction(const std::string &name_, Function& function_);
 
 private:
-    FunctionMap::const_iterator findFunction(const std::string &name_, const std::list<Parameter> &parameters_) const;
+    FunctionMap::iterator findFunction(const std::string &name_, const std::list<Parameter> &parameters_);
 
     std::unordered_map<std::string, Value> variables;
     FunctionMap functions;

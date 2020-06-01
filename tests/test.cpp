@@ -880,3 +880,23 @@ TEST_CASE("For loops") {
 
     env.destroyCurrentScope();
 }
+
+TEST_CASE("Function tests") {
+    Environment env;
+    env.createNewScope(local);
+
+    SECTION("Example A") {
+        executeCode("fun increment(number num_) ret number {"
+                    "   num_ += 1;"
+                    "   return num_;"
+                    "}"
+                    "number x = increment(3);", env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 4);
+
+    }
+
+    env.destroyCurrentScope();
+}

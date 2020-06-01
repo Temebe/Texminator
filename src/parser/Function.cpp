@@ -16,6 +16,7 @@ Function::Function(std::unique_ptr<Statement> body_)
 Function::Function(Function &&other) noexcept {
     this->body = std::move(other.body);
     this->parameters = std::move(other.parameters);
+    this->returnType = other.returnType;
 }
 
 void Function::addParameter(const Parameter &parameter_) {
@@ -29,7 +30,7 @@ bool Function::hasSameParameters(const std::list<Parameter> &other_) const {
     auto aIt = this->parameters.begin();
     auto bIt = other_.begin();
     for (; aIt != parameters.end() && bIt != other_.end(); ++aIt, ++bIt ) {
-        if (aIt->second != bIt->second) {
+        if (!ableToCast(aIt->second, bIt->second)) {
             return false;
         }
     }
@@ -39,4 +40,24 @@ bool Function::hasSameParameters(const std::list<Parameter> &other_) const {
 
 const std::list<Parameter> &Function::getParameters() const {
     return parameters;
+}
+
+const std::unique_ptr<Statement> &Function::getBody() {
+    return body;
+}
+
+void Function::setBody(std::unique_ptr<Statement> body_) {
+    Function::body = std::move(body_);
+}
+
+void Function::setParameters(const std::list<Parameter> &parameters_) {
+    Function::parameters = parameters_;
+}
+
+ValueEnum Function::getReturnType() const {
+    return returnType;
+}
+
+void Function::setReturnType(ValueEnum returnType_) {
+    Function::returnType = returnType_;
 }

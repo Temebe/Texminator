@@ -55,7 +55,7 @@ void Environment::destroyCurrentScope() {
     scopes.pop_front();
 }
 
-const Function& Environment::getFunction(const std::string &name_, const std::list<Parameter> &parameters_) {
+Function& Environment::getFunction(const std::string &name_, const std::list<Parameter> &parameters_) {
     auto it = scopes.begin();
     for (; it != scopes.end(); ++it) {
         if (it->containsFunction(name_, parameters_)) {
@@ -68,6 +68,15 @@ const Function& Environment::getFunction(const std::string &name_, const std::li
     }
 
     throw ParserException("Function " + name_ + " with given parameters does not exist");
+}
+
+Function &Environment::getFunction(const std::string &name_, const std::list<Value>& parameters_) {
+    std::list<Parameter> parameters;
+    for (const auto& val : parameters_) {
+        parameters.emplace_back("", static_cast<ValueEnum>(val.index()));
+    }
+
+    return getFunction(name_, parameters);
 }
 
 void Environment::setVariable(const std::string &name_, const Value &variable_) {

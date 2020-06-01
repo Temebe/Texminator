@@ -19,11 +19,16 @@ public:
     [[nodiscard]] bool hasSameParameters(const std::list<Parameter> &other_) const;
     void addParameter(const Parameter& parameter_);
     [[nodiscard]] const std::list<Parameter>& getParameters() const;
+    [[nodiscard]] const std::unique_ptr<Statement> &getBody();
+    void setBody(std::unique_ptr<Statement> body_);
+    void setParameters(const std::list<Parameter> &parameters_);
+    [[nodiscard]] ValueEnum getReturnType() const;
+    void setReturnType(ValueEnum returnType_);
 
 private:
     std::unique_ptr<Statement> body;
     std::list<Parameter> parameters;
-    Parameter returnType;
+    ValueEnum returnType;
 };
 
 
