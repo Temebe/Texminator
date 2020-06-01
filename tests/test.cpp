@@ -781,3 +781,51 @@ TEST_CASE("File operations tests") {
 
     env.destroyCurrentScope();
 }
+
+TEST_CASE("If matches statement") {
+    Environment env;
+    env.createNewScope(local);
+
+    SECTION("Example A") {
+        executeCode(
+                "number x = 3;"
+                "string var = \"ac3d\";"
+                "if var matches \"ac[1-3]d\":"
+                "   x = 5;"
+                "else:"
+                "   x = 4;", env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 5);
+    }
+
+    SECTION("Example B") {
+        executeCode(
+                "number x = 3;"
+                "string var = \"ac6d\";"
+                "if var matches \"ac[1-3]d\":"
+                "   x = 5;"
+                "else:"
+                "   x = 4;", env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 4);
+    }
+
+    SECTION("Example C") {
+        executeCode(
+                "number x = 3;"
+                "if \"ac2d\" matches \"ac[1-3]d\":"
+                "   x = 5;"
+                "else:"
+                "   x = 4;", env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 5);
+    }
+
+    env.destroyCurrentScope();
+}

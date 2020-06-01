@@ -105,7 +105,7 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
             return parseOpenStatement(scanner_);
 
         case constHornerHash("if"):
-            if (scanner_.getCurrentToken().type == identifier) {
+            if (scanner_.peek().type == keyword && scanner_.peek().value == "matches") {
                 return parseIfMatchesStatement(scanner_);
             }
             return parseIfStatement(scanner_);
@@ -452,17 +452,17 @@ std::unique_ptr<Statement> Parser::parseIfStatement(Scanner &scanner_) {
 
 std::unique_ptr<Statement> Parser::parseIfMatchesStatement(Scanner &scanner_) {
     auto token = scanner_.getCurrentToken();
-    std::string variableName;
+    std::unique_ptr<Expression> variableExp;
     std::unique_ptr<Statement> trueStatement, falseStatement;
     std::unique_ptr<Expression> stringToMatch;
 
-    if (token.type != identifier) {
-        setError("Expected identifier", token.line, token.pos);
+    variableExp = parseSimpleExpression(scanner_);
+    if (!variableExp) {
+        setError("Could not parse expression to match", token.line, token.pos);
         return {};
     }
 
-    variableName = token.value;
-    token = scanner_.consume();
+    token = scanner_.getCurrentToken();
     if (!(token.type == keyword && token.value == "matches")) {
         setError("Expected matches keyword", token.line, token.pos);
         return {};
@@ -475,6 +475,10 @@ std::unique_ptr<Statement> Parser::parseIfMatchesStatement(Scanner &scanner_) {
         return {};
     }
 
+    if (!consumeMatching(scanner_, {colon})) {
+        return {};
+    }
+
     trueStatement = parseStatement(scanner_);
     if (!trueStatement) {
         setError("Could not parse if body", scanner_.getCurrentToken().line, scanner_.getCurrentToken().pos);
@@ -483,6 +487,10 @@ std::unique_ptr<Statement> Parser::parseIfMatchesStatement(Scanner &scanner_) {
 
     token = scanner_.getCurrentToken();
     if (token.type == keyword && token.value == "else") {
+        if (!consumeMatching(scanner_, {keyword, colon})) { // consume else:
+            return {};
+        }
+
         falseStatement = parseStatement(scanner_);
         if (!falseStatement) {
             setError("Could not parse else body", token.line, token.pos);
@@ -490,7 +498,7 @@ std::unique_ptr<Statement> Parser::parseIfMatchesStatement(Scanner &scanner_) {
         }
     }
     return std::make_unique<IfMatchesStatement>(std::move(trueStatement), std::move(falseStatement),
-                                                std::move(variableName), std::move(stringToMatch));
+                                                std::move(variableExp), std::move(stringToMatch));
 }
 
 std::unique_ptr<Statement> Parser::parseForStatement(Scanner &scanner_) {
