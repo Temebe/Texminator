@@ -170,6 +170,9 @@ std::unique_ptr<Statement> Parser::parseAfterIdentifier(Scanner &scanner_) {
             result = parseIncrementExpressionStatement(scanner_, identifier);
             break;
 
+        case leftRoundBracket:
+            result = parseVariableOrFunctionExpression(scanner_, identifier);
+
         default:
             setError("Expected assignment or write operator", token.line, token.pos);
             break;

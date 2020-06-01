@@ -885,7 +885,7 @@ TEST_CASE("Function tests") {
     Environment env;
     env.createNewScope(local);
 
-    SECTION("Example A") {
+    SECTION("Simple function test") {
         executeCode("fun increment(number num_) ret number {"
                     "   num_ += 1;"
                     "   return num_;"
@@ -895,6 +895,44 @@ TEST_CASE("Function tests") {
         auto variable = env.getVariable("x");
         REQUIRE(variable);
         CHECK(std::get<NumberType>(variable.value()) == 4);
+    }
+
+    SECTION("Variable declared in function does not change variable out of function") {
+        executeCode("fun test_fun() ret number {"
+                    "   number x = 3;"
+                    "   return x;"
+                    "}"
+                    "number y = test_fun();"
+                    "number x = 5;", env);
+
+        auto variableX = env.getVariable("x");
+        auto variableY = env.getVariable("y");
+        REQUIRE(variableX);
+        REQUIRE(variableY);
+        CHECK(std::get<NumberType>(variableX.value()) == 5);
+        CHECK(std::get<NumberType>(variableY.value()) == 3);
+    }
+
+    SECTION("Defining function in the middle of code") {
+        executeCode("string test_string = \"test\";"
+                    "fun append_a(string str_) ret string {"
+                    "   str_ += \"a\";"
+                    "   return str_;"
+                    "}"
+                    "test_string = append_a(test_string);", env);
+
+        auto variable = env.getVariable("test_string");
+        REQUIRE(variable);
+        CHECK(std::get<StringType>(variable.value()) == "testa");
+    }
+
+    SECTION("Calling a function without assigning return value") {
+        executeCode("fun append_a(string str_) ret string {"
+                    "   str_ += \"a\";"
+                    "   return str_;"
+                    "}"
+                    "append_a(\"cd\");", env);
+
 
     }
 
