@@ -987,3 +987,22 @@ TEST_CASE("Match statement") {
 
     env.destroyCurrentScope();
 }
+
+TEST_CASE("Testing built-in variables and functions") {
+
+    SECTION("Check arg_count") {
+        Environment env({"arg1", "arg2", "arg3"});
+        CHECK(std::get<UnsignedNumberType>(env.getVariable("arg_count").value()) == 3);
+    }
+
+    SECTION("Check arg function") {
+        Environment env({"arg1", "arg2", "arg3"});
+        env.createNewScope(local);
+        executeCode("string x = arg(1);", env);
+
+        auto variable = env.getVariable("x");
+        REQUIRE(variable);
+        CHECK(std::get<StringType>(variable.value()) == "arg2");
+        env.destroyCurrentScope();
+    }
+}

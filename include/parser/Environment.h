@@ -3,11 +3,14 @@
 
 #include <deque>
 #include <memory>
+#include <vector>
 
 #include "Scope.h"
 
 class Environment {
 public:
+    Environment();
+    explicit Environment(const std::vector<std::string> &args_);
     void createNewScope(ScopeType type);
     void destroyCurrentScope();
     void addVariable(const std::string &name_, const Value& variable_);
@@ -22,6 +25,8 @@ public:
     Value getReturnValue();
 
 private:
+    void initializeArgFunction(const std::vector<std::string> &args_);
+
     std::deque<Scope> scopes;
     // global scope is reserved for special functions and variables
     // therefore there is no option to add nothing to it by accident - you have to use special methods

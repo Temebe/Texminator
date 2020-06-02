@@ -1,12 +1,30 @@
 #include "parser/ParserException.h"
 #include "parser/Environment.h"
+#include "parser/statements/ArgFunctionStatement.h"
 
 #include <algorithm>
 
 const std::string Environment::returnValueName = "#return";
 
+
+
+Environment::Environment(const std::vector<std::string> &args_) {
+    addGlobalVariable("arg_count", castValue(args_.size(), UNSIGNED_NUMBER));
+    initializeArgFunction(args_);
+}
+
+Environment::Environment() : Environment(std::vector<std::string>()) {}
+
 void Environment::createNewScope(const ScopeType type) {
     scopes.push_front(Scope(type));
+}
+
+void Environment::initializeArgFunction(const std::vector<std::string> &args_) {
+    auto argFuncBody = std::make_unique<ArgFunctionStatement>(args_);
+    Function argFunc(std::move(argFuncBody));
+    argFunc.addParameter({ArgFunctionStatement::argNumParam, UNSIGNED_NUMBER});
+    argFunc.setReturnType(STRING);
+    addGlobalFunction("arg", argFunc);
 }
 
 // TODO Why do I return optional if I throw exception anyway? Refactor this
@@ -123,3 +141,5 @@ Value Environment::getReturnValue() {
 
     return *returnValue;
 }
+
+
