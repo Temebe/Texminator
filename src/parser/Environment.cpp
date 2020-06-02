@@ -3,6 +3,7 @@
 #include "parser/statements/ArgFunctionStatement.h"
 
 #include <algorithm>
+#include <parser/statements/GetFunctionStatement.h>
 
 const std::string Environment::returnValueName = "#return";
 
@@ -12,6 +13,7 @@ Environment::Environment(const std::vector<std::string> &args_) {
     addGlobalVariable("arg_count", castValue(args_.size(), UNSIGNED_NUMBER));
     initializeArgFunction(args_);
     initializeStandardStreams();
+    initializeGetFunction();
 }
 
 Environment::Environment() : Environment(std::vector<std::string>()) {}
@@ -31,6 +33,15 @@ void Environment::initializeArgFunction(const std::vector<std::string> &args_) {
 void Environment::initializeStandardStreams() {
     addGlobalVariable("stdin", std::make_shared<StandardInput>());
     addGlobalVariable("stdout", std::make_shared<StandardOutput>());
+}
+
+void Environment::initializeGetFunction() {
+    auto getFuncBody = std::make_unique<GetFunctionStatement>();
+    Function getFunc(std::move(getFuncBody));
+    getFunc.addParameter({GetFunctionStatement::toMatchParameterName, STRING});
+    getFunc.addParameter({GetFunctionStatement::regexParameterName, STRING});
+    getFunc.setReturnType(STRING);
+    addGlobalFunction("get", getFunc);
 }
 
 // TODO Why do I return optional if I throw exception anyway? Refactor this

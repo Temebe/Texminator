@@ -1006,4 +1006,16 @@ TEST_CASE("Testing built-in variables and functions") {
         env.destroyCurrentScope();
     }
 
+    SECTION("Simple get example") {
+        Environment env;
+        env.createNewScope(local);
+        executeCode("string x = \"ab,32,bds\";"
+                    "string result = get(x, \".*,([0-9]+),.*\");", env);
+
+        auto variable = env.getVariable("result");
+        REQUIRE(variable);
+        CHECK(std::get<StringType>(variable.value()) == "32");
+        env.destroyCurrentScope();
+    }
+
 }

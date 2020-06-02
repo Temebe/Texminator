@@ -27,6 +27,7 @@ public:
 private:
     void initializeArgFunction(const std::vector<std::string> &args_);
     void initializeStandardStreams();
+    void initializeGetFunction();
 
     std::deque<Scope> scopes;
     // global scope is reserved for special functions and variables
