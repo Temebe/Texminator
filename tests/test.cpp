@@ -1005,4 +1005,5 @@ TEST_CASE("Testing built-in variables and functions") {
         CHECK(std::get<StringType>(variable.value()) == "arg2");
         env.destroyCurrentScope();
     }
+
 }

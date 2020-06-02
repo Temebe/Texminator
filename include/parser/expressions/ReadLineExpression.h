@@ -4,7 +4,7 @@
 
 #include "Expression.h"
 
-class ReadLineExpression : public Expression, public OneFactorExpression {
+class ReadLineExpression : public Expression {
 public:
     explicit ReadLineExpression(std::unique_ptr<Expression> toRead_);
     Value evaluate(Environment &environment) override;

@@ -232,6 +232,7 @@ std::unique_ptr<Statement> Parser::parseVariableDeclaration(Scanner &scanner_, V
     auto statement = std::make_unique<VariableDeclarationStatement>(token.value, type);
     token = scanner_.consume();
     if (token.type == semicolon) {
+        scanner_.consume();
         return statement;
     }
 
@@ -916,6 +917,8 @@ std::unique_ptr<Expression> Parser::parseCompoundExpression(Scanner &scanner_, c
             case stringLiteral:
             case identifier:
             case keyword:
+            case readCharLeftOperator:
+            case readLineLeftOperator:
                 // if addExpression returns false that means that parsing of a simple expression failed, therefore
                 // it is assumed that compound expression is over
                 if (!expStack.addExpression(parseSimpleExpression(scanner_))) {

@@ -11,6 +11,7 @@ const std::string Environment::returnValueName = "#return";
 Environment::Environment(const std::vector<std::string> &args_) {
     addGlobalVariable("arg_count", castValue(args_.size(), UNSIGNED_NUMBER));
     initializeArgFunction(args_);
+    initializeStandardStreams();
 }
 
 Environment::Environment() : Environment(std::vector<std::string>()) {}
@@ -25,6 +26,11 @@ void Environment::initializeArgFunction(const std::vector<std::string> &args_) {
     argFunc.addParameter({ArgFunctionStatement::argNumParam, UNSIGNED_NUMBER});
     argFunc.setReturnType(STRING);
     addGlobalFunction("arg", argFunc);
+}
+
+void Environment::initializeStandardStreams() {
+    addGlobalVariable("stdin", std::make_shared<StandardInput>());
+    addGlobalVariable("stdout", std::make_shared<StandardOutput>());
 }
 
 // TODO Why do I return optional if I throw exception anyway? Refactor this
@@ -141,5 +147,3 @@ Value Environment::getReturnValue() {
 
     return *returnValue;
 }
-
-
