@@ -129,10 +129,11 @@ bool Scanner::isKeyword(const std::string &word_) {
             "char",     "close",   "continue", "line",
             "else",     "false",   "float",    "for",
             "fun",      "if",      "in",       "match",
-            "matchend", "matches", "none",     "number",
-            "open",     "read",    "ret",      "return",
-            "string",   "to",      "true",     "unsigned",
-            "use",      "void",    "while",    "write"
+            "matchend", "matches", "newline",  "none",
+            "number",   "open",     "read",    "ret",
+            "return",   "string",   "to",      "true",
+            "unsigned", "use",      "void",    "while",
+            "write"
     };
 
     return keywordSet.find(word_) != keywordSet.end();

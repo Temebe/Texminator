@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 enum OpenMode {
     readMode, writeMode, readwrite
@@ -75,6 +76,24 @@ private:
     std::fstream file;
     std::string fileName;
 
+};
+
+class StringStream : public Stream {
+public:
+    explicit StringStream(std::string  string_) : Stream(readwrite),
+                                                  string(std::move(string_)) { it = string.begin(); }
+    void close() override;
+    char readChar() override;
+    char readChar(bool &ok_) override;
+    std::string readLine() override;
+    std::string readLine(bool &ok_) override;
+    void nextChar() override;
+    void nextLine() override;
+    void write(const std::string& toWrite_) override;
+
+private:
+    std::string string;
+    std::string::iterator it;
 };
 
 /// This class for now has no purpose and will be used just as a default value of Stream

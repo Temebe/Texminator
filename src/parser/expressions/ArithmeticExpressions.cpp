@@ -31,10 +31,10 @@ Value AdditionExpression::evaluate(Environment &environment) {
         [this](NumberType &l, FloatType &r){ return Value(subtraction ? l - r : l + r); },
         [this](NumberType &l, BoolType &r){ return Value(subtraction ? l - r : l + r); },
 
-        [this](CharType &l, CharType &r){ return subtraction ? Value(VoidType()) : Value(std::string() + l + r); },
-        [this](CharType &l, StringType &r){ return subtraction ? Value(VoidType()) : Value(l + r); },
+        [this](CharType &l, CharType &r){ return subtraction ? Value(VoidType()) : Value(std::string(1, l) + std::string(1, r)); },
+        [this](CharType &l, StringType &r){ return subtraction ? Value(VoidType()) : Value(std::string(1, l) + r); },
 
-        [this](StringType &l, CharType &r){ return subtraction ? Value(VoidType()) : Value(l + r); },
+        [this](StringType &l, CharType &r){ return subtraction ? Value(VoidType()) : Value(l + std::string(1, r)); },
         [this](StringType &l, StringType &r){ return subtraction ? Value(VoidType()) : Value(l + r); },
 
         [this](FloatType &l, UnsignedNumberType &r){ return Value(subtraction ? l - r : l + r); },

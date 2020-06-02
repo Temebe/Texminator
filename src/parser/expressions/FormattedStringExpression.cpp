@@ -11,30 +11,26 @@ Value FormattedStringExpression::evaluate(Environment &environment) {
         throw WrongTypeException("Tried to format expression that is not string!");
     }
 
-    auto argIt = arguments.begin();
-
     auto toFormat = std::get<StringType>(castValue(stringVal, STRING));
-    for (auto it = toFormat.begin(); it != toFormat.end(); ++it) {
-        if (*it != '{') {
-            continue;
-        }
-        auto startErase = it;
-
-        if (++it != toFormat.end()) {
-            if (*it != '}') {
-                continue;
-            }
+    auto argIt = arguments.begin();
+    size_t index = 0;
+    while (index < toFormat.size()) {
+        index = toFormat.find("{}", index);
+        if (index == std::string::npos) {
+            break;
         }
 
-        // We found a {} symbol
-        if (argIt == arguments.end()) {
-            throw TexminatorException("Formatted string ran out of arguments");
+        auto valueToInsert = std::get<StringType>(formattedCast((*argIt++)->evaluate(environment)));
+        if (valueToInsert.size() == 1) {
+            valueToInsert += " "; // TODO Fix this later
         }
-        auto valueToInsert = std::get<StringType>(castValue((*argIt++)->evaluate(environment), STRING));
-        it = toFormat.erase(startErase, ++it ); // erase {}
-        toFormat.insert(it, valueToInsert.begin(), valueToInsert.end());
-        it = it + (valueToInsert.size() - 1);
+        toFormat.replace(index, valueToInsert.size(), valueToInsert);
+        index += valueToInsert.size();
     }
+    if (argIt != arguments.end()) {
+        throw TexminatorException("Formatted string was given more arguments than {} was placed");
+    }
+
     return toFormat;
 }
 

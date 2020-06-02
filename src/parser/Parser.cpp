@@ -28,9 +28,9 @@
 #include "parser/Parser.h"
 #include "HornerHash.h"
 
-void Parser::parse(Scanner &scanner_) {
-    initializeFirstScope();
-    environment.createNewScope(local);
+void Parser::parse(Scanner &scanner_, const std::vector<std::string> &args_) {
+    Environment env(args_);
+    env.createNewScope(local);
     std::unique_ptr<Statement> statement;
 
     for (Token token = scanner_.getCurrentToken();
@@ -40,14 +40,14 @@ void Parser::parse(Scanner &scanner_) {
         statement = parseStatement(scanner_);
 
         if (statement) {
-            statement->execute(environment);
+            statement->execute(env);
         } else {
             printErrorMsg();
             break;
         }
     }
 
-    environment.destroyCurrentScope();
+    env.destroyCurrentScope();
 }
 
 std::unique_ptr<Statement> Parser::parseStatement(Scanner& scanner_) {
@@ -189,11 +189,6 @@ std::unique_ptr<Statement> Parser::parseAfterIdentifier(Scanner &scanner_) {
 
     return result;
 }
-
-void Parser::initializeFirstScope() {
-
-}
-
 
 std::unique_ptr<Statement> Parser::parseBlockStatement(Scanner &scanner_) {
     Token token = scanner_.getCurrentToken();

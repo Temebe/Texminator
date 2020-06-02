@@ -1,3 +1,4 @@
+#include <cstring>
 #include "parser/Stream.h"
 #include "TexminatorExceptions.h"
 
@@ -119,7 +120,7 @@ FileStream::FileStream(const std::string &fileName_, OpenMode mode_)
     }
 
     if (!file.is_open()) {
-        throw BadStreamException("Could not open " + fileName_);
+        throw BadStreamException("Could not open " + fileName_ + ", reason: " + strerror(errno));
     }
 }
 
@@ -204,6 +205,52 @@ void FileStream::assertMode(const OpenMode requiredMode_) {
         case readwrite:
             break;
     }
+}
+
+/// ###################################
+/// ########## STRING STREAM ##########
+/// ###################################
+
+void StringStream::close() {}
+
+char StringStream::readChar() {
+    char result = *string.begin();
+    string.erase(0, 1);
+    return result;
+}
+
+char StringStream::readChar(bool &ok_) {
+    if (string.empty()) {
+        ok_ = false;
+        return ' ';
+    }
+    ok_ = true;
+    return readChar();
+}
+
+std::string StringStream::readLine() {
+    return "";
+}
+
+std::string StringStream::readLine(bool &ok_) {
+    if (string.empty()) {
+        ok_ = false;
+        return "";
+    }
+    ok_ = true;
+    return readLine();
+}
+
+void StringStream::nextChar() {
+
+}
+
+void StringStream::nextLine() {
+
+}
+
+void StringStream::write(const std::string &toWrite_) {
+
 }
 
 

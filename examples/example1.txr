@@ -3,10 +3,10 @@ open to read "losowy plik.txt" as random_numbers;
 open to write wynik.txt as result;
  
 for line data_line in data: {
-	if data_line matches "number: [:digit:]*" {
+	if data_line matches "number: [0-9]+": {
 		// Get number from line
-		number previous_number = get(data_line, "number: <[:digit:]*>");
-		result -> "number: {}, before: {}".([random_numbers++], previous_number);
+		string previous_number = get(data_line, "number: ([0-9]+)");
+		result -> "number: {}, before: {}".([[random_numbers]], previous_number);
 		result -> newline;
 	}
 }

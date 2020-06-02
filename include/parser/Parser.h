@@ -13,18 +13,11 @@
 
 class Parser {
 public:
-    void parse(Scanner& scanner_);
+    void parse(Scanner& scanner_, const std::vector<std::string> &args_ = {});
     std::unique_ptr<Statement> parseStatement(Scanner &scanner_);
     std::unique_ptr<Expression> parseCompoundExpression(Scanner &scanner_,  bool stopOnRoundBracket_ = false);
 
 private:
-    /**
-     * Initialize standard functions and variables to a local scope
-     *
-     * What this function does is loading a predefined functions like get() to a scope, which then can be
-     * later used in code without implementing it manually.
-     */
-    void initializeFirstScope();
 
     // TODO Lookup table?
     std::unique_ptr<Statement> parseAfterKeyword(Scanner &scanner_);
@@ -59,7 +52,6 @@ private:
     void setError(const std::string &err, unsigned int line_, unsigned int pos_);
     void printErrorMsg() const;
 
-    Environment environment;
     std::list<ParseError> errors;
 };
 

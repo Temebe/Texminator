@@ -150,7 +150,7 @@ static Value castValue(const Value &val_, const ValueEnum type_) {
                     case CHAR:
                         break;
                     case STRING:
-                        result.emplace<StringType>(&v);
+                        result.emplace<StringType>(1, v);
                         break;
                     default:
                         result.emplace<VoidType>();
@@ -166,6 +166,9 @@ static Value castValue(const Value &val_, const ValueEnum type_) {
                         }
                         break;
                     case STRING:
+                        break;
+                    case STREAM:
+                        result.emplace<StreamType>(std::make_shared<StringStream>(v));
                         break;
                     default:
                         result.emplace<VoidType>();
@@ -221,6 +224,23 @@ static Value castValue(const Value &val_, const ValueEnum type_) {
         throw BadCastException("Tried to cast from " + valueToString(val_) +
             " type to " + valueEnumToString(type_) + " type.");
     }
+
+    return result;
+}
+
+static Value formattedCast(const Value &val_) {
+    Value result = val_;
+    std::visit(overload{
+            [&result](const CharType &v) { result.emplace<StringType>(1, v); },
+
+            [&result](const StringType &v) { result.emplace<StringType>(v); },
+
+            [&result](const VoidType &v) { result.emplace<StringType>(); },
+
+            [&result](const StreamType &v) { result.emplace<StringType>(); },
+
+            [&result](const auto &v) {  result.emplace<StringType>(std::to_string(v)); },
+    }, val_);
 
     return result;
 }
