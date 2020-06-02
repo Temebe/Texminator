@@ -938,3 +938,52 @@ TEST_CASE("Function tests") {
 
     env.destroyCurrentScope();
 }
+
+TEST_CASE("Match statement") {
+    Environment env;
+    env.createNewScope(local);
+
+    SECTION("Match one + any") {
+        executeCode("string x = \"acad\";"
+                    "number num = 0;"
+                    "match x:"
+                    "\"bda\":"
+                    "   num = 1;"
+                    "\"acad\":"
+                    "   num = 4;"
+                    "\"cdd\":"
+                    "   num = 15;"
+                    "any:"
+                    "   num += 1;"
+                    "none:"
+                    "   num += 3;"
+                    "matchend;", env);
+
+        auto variable = env.getVariable("num");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 5);
+    }
+
+    SECTION("Match none") {
+        executeCode("string x = \"acaaasd\";"
+                    "number num = 0;"
+                    "match x:"
+                    "\"bda\":"
+                    "   num = 1;"
+                    "\"acad\":"
+                    "   num = 4;"
+                    "\"cdd\":"
+                    "   num = 15;"
+                    "any:"
+                    "   num += 1;"
+                    "none:"
+                    "   num += 3;"
+                    "matchend;", env);
+
+        auto variable = env.getVariable("num");
+        REQUIRE(variable);
+        CHECK(std::get<NumberType>(variable.value()) == 3);
+    }
+
+    env.destroyCurrentScope();
+}

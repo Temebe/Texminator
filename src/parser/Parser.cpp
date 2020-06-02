@@ -140,6 +140,7 @@ std::unique_ptr<Statement> Parser::parseAfterKeyword(Scanner &scanner_) {
 
 std::unique_ptr<Statement> Parser::parseAfterIdentifier(Scanner &scanner_) {
     std::unique_ptr<Statement> result;
+    std::unique_ptr<Expression> exp;
     Token token = scanner_.getCurrentToken();
     std::string identifier;
 
@@ -171,7 +172,11 @@ std::unique_ptr<Statement> Parser::parseAfterIdentifier(Scanner &scanner_) {
             break;
 
         case leftRoundBracket:
-            result = parseVariableOrFunctionExpression(scanner_, identifier);
+            exp = parseVariableOrFunctionExpression(scanner_, identifier);
+            if (exp) {
+                result = std::make_unique<ExpressionStatement>(std::move(exp));
+            }
+            break;
 
         default:
             setError("Expected assignment or write operator", token.line, token.pos);
@@ -553,7 +558,7 @@ std::unique_ptr<Statement> Parser::parseForStatement(Scanner &scanner_) {
     return std::make_unique<ForStatement>(iteratorName, std::move(sourceExp), type, std::move(body));
 }
 
-// TODO Can you shorten this?
+// TODO To split/shorten
 std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
     Token token = scanner_.getCurrentToken();
     std::unique_ptr<Expression> matchExp;
@@ -570,16 +575,20 @@ std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
 
     token = scanner_.getCurrentToken();
     bool anyFound = false;
+    bool noneFound = false;
     std::unique_ptr<Statement> anyStatement;
+    std::unique_ptr<Statement> noneStatement;
     MatchList casesList;
     while (!(token.type == keyword && token.value == "matchend") && token.type != fileEnd && token.type != unknown) {
         auto caseExp = parseCompoundExpression(scanner_);
         if (!caseExp) {
             if (token.type == keyword && token.value == "any") {
                 anyFound = true;
+            } else if (token.type == keyword && token.value == "none") {
+                noneFound = true;
             } else {
-                setError("Unable to parse case expression", token.line, token.pos);
-                return {};
+                    setError("Unable to parse case expression", token.line, token.pos);
+                    return {};
             }
         }
 
@@ -596,6 +605,9 @@ std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
         if (anyFound) {
             anyStatement = std::move(caseBody);
             anyFound = false;
+        } else if (noneFound) {
+            noneStatement = std::move(caseBody);
+            noneFound = false;
         } else {
             casesList.push_front({std::move(caseExp), std::move(caseBody)});
         }
@@ -606,7 +618,8 @@ std::unique_ptr<Statement> Parser::parseMatchStatement(Scanner &scanner_) {
         return {};
     }
 
-    return std::make_unique<MatchStatement>(std::move(matchExp), std::move(casesList), std::move(anyStatement));
+    return std::make_unique<MatchStatement>(std::move(matchExp), std::move(casesList),
+                                            std::move(anyStatement), std::move(noneStatement));
 }
 
 // TODO both functions share most of the code, maybe split it somehow
@@ -807,15 +820,18 @@ std::unique_ptr<Expression> Parser::parseFormattedStringExpression(Scanner &scan
     return std::make_unique<FormattedStringExpression>(std::move(stringExp), std::move(arguments));
 }
 
-std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &scanner_) {
+std::unique_ptr<Expression> Parser::parseVariableOrFunctionExpression(Scanner &scanner_, const std::string &identifier_) {
     auto token = scanner_.getCurrentToken();
+    std::string name = identifier_;
 
-    if (token.type != identifier) {
-        setError("Expected identifier", token.line, token.pos);
-        return {};
+    if (identifier_.empty()) {
+        if (token.type != identifier) {
+            setError("Expected identifier", token.line, token.pos);
+            return {};
+        }
+        name = token.value;
+        token = scanner_.consume();
     }
-    std::string name = token.value;
-    token = scanner_.consume();
 
     if (!consumeMatching(scanner_, {leftRoundBracket})) {
         return std::make_unique<VariableExpression>(name);

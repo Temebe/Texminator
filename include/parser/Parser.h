@@ -51,7 +51,7 @@ private:
     std::unique_ptr<Expression> parseSimpleExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseFormattedStringExpression(Scanner &scanner_);
     std::unique_ptr<Expression> parseReadExpression(Scanner &scanner_);
-    std::unique_ptr<Expression> parseVariableOrFunctionExpression(Scanner &scanner_);
+    std::unique_ptr<Expression> parseVariableOrFunctionExpression(Scanner &scanner_, const std::string &identifier_ = "");
 
     bool consumeMatching(Scanner &scanner_, std::list<TokenType> tokens_);
     bool checkAhead(Scanner &scanner_, std::list<TokenType> tokens_, bool includeFirst_ = true);
